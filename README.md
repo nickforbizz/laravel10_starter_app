@@ -2,7 +2,10 @@
 
 ## About Laravel Starter App
 
-
+### Auth
+- Larave Fortify is used for backed authentication
+- Laravel/ui is used to generate views on the fronted
+- Both are hooked to complete the auth of the application
 
 
 
