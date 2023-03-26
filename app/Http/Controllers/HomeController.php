@@ -25,4 +25,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+
+    /**
+     * Show the application cms.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function cms()
+    {
+        return view('cms.index');
+    }
 }
