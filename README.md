@@ -13,7 +13,7 @@
 
 
 ### CMS
-- Atlantis PRO Bootstrap Dashboard(https://themekita.com/atlantis-bootstrap-dashboard.html)
+- [Atlantis PRO Bootstrap Dashboard](https://themekita.com/atlantis-bootstrap-dashboard.html)
 
 
 ## License
