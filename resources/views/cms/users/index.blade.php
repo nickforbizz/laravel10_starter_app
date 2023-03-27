@@ -33,9 +33,9 @@
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Add Row</h4>
                         <a href="{{ route('users.create') }}" class="btn btn-primary btn-round ml-auto" >
-                            <i class="fa fa-plus"></i>
+                            <i class="flaticon-add mr-2"></i>
                             Add Row
-                        </a>
+                        </a> 
                     </div>
                 </div>
                 <div class="card-body">
