@@ -12,7 +12,7 @@
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
 			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], 
-                urls: ['../assets/css/fonts.min.css']},
+               
 			active: function() {
 				sessionStorage.fonts = true;
 			}
@@ -20,6 +20,7 @@
 	</script>
 
 	<!-- CSS Files -->
+	<link rel="stylesheet" href="{{ asset('assets/css/fonts.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
 
@@ -138,6 +139,20 @@
 
 
 	<script>
+
+
+	
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#blah').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]); // convert to base64 string
+			}
+		}
+
+
 		Circles.create({
 			id:'circles-1',
 			radius:45,
@@ -230,6 +245,8 @@
 			lineColor: '#ffa534',
 			fillColor: 'rgba(255, 165, 52, .14)'
 		});
+
+
 	</script>
 
     @stack('scripts')
