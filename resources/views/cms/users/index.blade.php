@@ -89,40 +89,17 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table id="add-row" class="display table table-striped table-hover">
+                        <table id="tb_users" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Created At</th>
                                     <th style="width: 10%">Action</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>
-                                        <div class="form-button-action">
-                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -138,12 +115,40 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-
+        $('#tb_users').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('users.index') }}",
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'fname'
+                },
+                {
+                    data: 'lname'
+                },
+                {
+                    data: 'email'
+                },					
+                {
+                    data: 'created_at',
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+            ]
+        });
+        // #tb_users
 
         // Add Row
-        $('#add-row').DataTable({
-            "pageLength": 5,
-        });
+        // $('#add-row').DataTable({
+        //     "pageLength": 5,
+        // });
 
         var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 

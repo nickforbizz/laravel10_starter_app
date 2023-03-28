@@ -41,30 +41,33 @@
                 <div class="card-body">
 
                     <!-- form -->
-                    <form id="users-create" action="{{ route('users.store') }}" method="post">
+                    <form id="users-create" action="{{ route('users.update', Auth::user() ) }}" method="put">
                         @csrf
+                        <input  type="text"  name="record_id" value="{{ $user->id ?? '-99' }}" />
                         <div class="form-group form-floating-label">
-                            <input id="names" type="text" class="form-control input-border-bottom" name="name" required="true">
-                            <label for="names" class="placeholder">Names</label>
+                            <input id="fname" type="text" class="form-control input-border-bottom" name="fname" value="{{ $user->fname ?? '' }}" required="true" />
+                            <label for="fname" class="placeholder">First Name</label>
                         </div>
 
                         <div class="form-group form-floating-label">
-                            <input id="email" type="email" class="form-control input-border-bottom" name="email" required="true">
+                            <input id="lname" type="text" class="form-control input-border-bottom" name="lname" value="{{ $user->lname ?? '' }}" required="true" />
+                            <label for="lname" class="placeholder">Last Name</label>
+                        </div>
+
+                        <div class="form-group form-floating-label">
+                            <input id="email" type="email" class="form-control input-border-bottom" name="email" value="{{ $user->email ?? '' }}" required="true" />
                             <label for="email" class="placeholder">Email</label>
                         </div>
 
                         <div class="form-group form-floating-label">
-                            <input id="password" type="password" class="form-control input-border-bottom" name="password" required="true">
-                            <label for="password" class="placeholder">Password</label>
+                            <label for="avator" class="">Avator</label>
+                            <input id="avator" type="file" class="form-control input-border-bottom" name="avator" />
+                            <img id="blah" src="#" alt="your image" height="50px"/>
                         </div>
 
-                        <div class="form-group form-floating-label">
-                            <input id="confirm_password" type="password" class="form-control input-border-bottom" name="confirm_password" required="true">
-                            <label for="password" class="placeholder">Confirm Password</label>
-                        </div>
                         <hr>
                         <div class="form-group form-floating-label">
-                            <button class="btn btn-primary btn-round ml-auto">Submit</button>
+                            <button class="btn btn-success btn-round ml-auto">Submit</button>
                         </div>
                     </form>
                     <!-- End form -->
@@ -82,7 +85,9 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-
+        $("#avator").change(function() {
+			readURL(this);
+		});
     });
 </script>
 
