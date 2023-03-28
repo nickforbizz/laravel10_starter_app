@@ -23,7 +23,7 @@ class UserController extends Controller
     public function table()
     {
         $users = User::where('active', 1)->get();
-        rturn datatables()->($users)->toJson();
+        // rturn datatables()->($users)->toJson();
     }
 
     /**
