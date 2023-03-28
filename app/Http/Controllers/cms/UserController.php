@@ -17,6 +17,15 @@ class UserController extends Controller
         return view('cms.users.index');
     }
 
+     /**
+     * Get the list of the resource.
+     */
+    public function table()
+    {
+        $users = User::where('active', 1)->get();
+        rturn datatables()->($users)->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      */
