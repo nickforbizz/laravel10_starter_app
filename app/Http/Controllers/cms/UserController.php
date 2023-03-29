@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\cms;
 
+use App\Helpers\GlobalHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -68,8 +69,26 @@ class UserController extends Controller
     {
         $record_id = (int) $request->record_id ?? -99;
         if($record_id !== -99){
-            $this->update($request, $user);
+            $user = User::findOrFail($record_id);
+            // $this->update($request, $user);
         }
+
+        $user = new User;
+
+        if($request->has('avator')){
+            $avator_filename = GlobalHelper::saveImage($request->file('avator'),'category', 'public');
+        }
+
+        $user->fname = $request->fname;
+        $user->lname = $request->lname;
+        $user->sname = $request->sname;
+        $user->name = $request->sname.' '.$request->fname.' '.$request->lname;
+        $user->email = $request->email;
+        $user->password = md5($request->password);
+        $user->avator = $avator_filename;
+        $user->save();
+
+        return redirect()->back()->with('success', 'your message,here');   
     }
 
     /**
@@ -77,7 +96,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return 'show';
     }
 
     /**
@@ -93,7 +112,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-       return "request";
+      dd( $request);
     }
 
     /**

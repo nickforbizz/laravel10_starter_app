@@ -60,7 +60,7 @@
             </form>
 
 			<!-- Navbar Header -->
-                @include('cms.includes.navbar')
+                @include('cms.helpers.partials.navbar')
 			<!-- End Navbar -->
 
 
@@ -68,7 +68,7 @@
 		</div>
 
 		<!-- Sidebar -->
-            @include('cms.includes.sidebar')
+            @include('cms.helpers.partials.sidebar')
 		<!-- End Sidebar -->
 
 		<div class="main-panel">
@@ -87,7 +87,7 @@
 
 
 			<!-- Footer -->
-                @include('cms.includes.footer')
+                @include('cms.helpers.partials.footer')
 			<!-- Footer END -->
 
 		</div>
