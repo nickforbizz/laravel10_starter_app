@@ -89,6 +89,7 @@
                     </div>
 
                     <div class="table-responsive">
+                        @include('cms.helpers.partials.feedback')
                         <table id="tb_users" class="display table table-striped table-hover">
                             <thead>
                                 <tr>

@@ -42,30 +42,42 @@
 
                     <!-- form -->
                     @include('cms.helpers.partials.feedback')
-                    <form id="users-create" action="{{ route('users.store' ) }}" method="post" enctype="multipart/form-data">
+                    <form id="users-create" 
+                            action="@if(isset($user->id))  
+                            {{ route('users.update', ['user' => $user->id]) }}
+                            @else {{ route('users.store' ) }} @endif"  
+                            method="post" 
+                            enctype="multipart/form-data">
+
                         @csrf
-                        @if(isset($user->fname))
-                        <input type="hidden" name="_method" value="put" />
+                        @if(isset($user->id))
+                        @method('PUT')
                         @endif
-                        <input  type="text"  name="record_id" value="{{ $user->id ?? '-99' }}" />
+
                         <div class="form-group form-floating-label">
-                            <input id="fname" type="text" class="form-control input-border-bottom" name="fname" value="{{ $user->fname ?? '' }}" required="true" />
+                            <input id="fname" type="text" class="form-control input-border-bottom" name="fname" value="{{ $user->fname ?? '' }}"  />
                             <label for="fname" class="placeholder">First Name</label>
+                            @error('fname') <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group form-floating-label">
                             <input id="lname" type="text" class="form-control input-border-bottom" name="lname" value="{{ $user->lname ?? '' }}" required="true" />
                             <label for="lname" class="placeholder">Last Name</label>
+                            @error('lname') <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group form-floating-label">
-                            <input id="email" type="email" class="form-control input-border-bottom" name="email" value="{{ $user->email ?? '' }}" required="true" />
+                            <input id="email" type="email" class="form-control input-border-bottom @error('email') is-invalid @enderror" name="email" value="{{ $user->email ?? '' }}" required="true" />
                             <label for="email" class="placeholder">Email</label>
+                            @error('email') <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group form-floating-label">
-                            <label for="avator" class="">Avator</label>
-                            <input id="avator" type="file" class="form-control input-border-bottom" name="avator" />
+                            <label for="profile" class=""> Profile</label>
+                            <input id="profile" type="file" class="form-control input-border-bottom" name="profile" />
                             <img id="blah" src="#" alt="your image" height="50px"/>
                         </div>
 
@@ -73,20 +85,24 @@
                         <div class="form-group form-floating-label">
                             <input id="password" type="password" class="form-control input-border-bottom" name="password" required="true" />
                             <label for="password" class="placeholder"> Password</label>
+                            @error('password') <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         
                         <div class="form-group form-floating-label">
-                            <input id="confirm_password" type="password" class="form-control input-border-bottom" name="confirm_password" required="true" />
-                            <label for="confirm_password" class="placeholder"> Password</label>
+                            <input id="password_confirmation" type="password" class="form-control input-border-bottom" name="password_confirmation" required="true" />
+                            <label for="password_confirmation" class="placeholder">Confirm Password</label>
+                            @error('password_confirmation') <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
 
 
 
-                        
-                        <hr>
-                        <div class="form-group form-floating-label">
-                            <button class="btn btn-success btn-round ml-auto">Submit</button>
+                        <div class="card">
+                            <div class="form-group form-floating-label">
+                                <button class="btn btn-success btn-round float-right">Submit</button>
+                            </div>
                         </div>
                     </form>
                     <!-- End form -->
@@ -104,7 +120,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $("#avator").change(function() {
+        $("#profile").change(function() {
 			readURL(this);
 		});
     });

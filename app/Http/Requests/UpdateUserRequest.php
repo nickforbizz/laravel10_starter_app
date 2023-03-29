@@ -25,8 +25,17 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fname' => ['required', 'string'],
-            'email' => ['required', Rule::unique('users')],
+            'fname' => 'required|min:2',
+            'password' => 'required|confirmed|min:5',
+            'email' => ['required', Rule::unique('users')->ignore($this->user)],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
         ];
     }
 }
