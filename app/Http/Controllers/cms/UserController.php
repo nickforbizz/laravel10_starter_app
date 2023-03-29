@@ -67,28 +67,22 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $record_id = (int) $request->record_id ?? -99;
-        if($record_id !== -99){
-            $user = User::findOrFail($record_id);
-            // $this->update($request, $user);
-        }
-
+        
         $user = new User;
 
-        if($request->has('avator')){
-            $avator_filename = GlobalHelper::saveImage($request->file('avator'),'category', 'public');
+        if($request->has('profile')){
+            $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
+            $request->request->add(['avator' => $avator_filename]);
+        }
+        $request->request->add(['name' =>  $this->names($request)]);
+
+        $user = User::create($request->all());
+
+        if(! empty($request->roles)) {
+            $user->assignRole($request->roles);
         }
 
-        $user->fname = $request->fname;
-        $user->lname = $request->lname;
-        $user->sname = $request->sname;
-        $user->name = $request->sname.' '.$request->fname.' '.$request->lname;
-        $user->email = $request->email;
-        $user->password = md5($request->password);
-        $user->avator = $avator_filename;
-        $user->save();
-
-        return redirect()->back()->with('success', 'your message,here');   
+        return redirect()->back()->with('success', 'Record Created Successfully');   
     }
 
     /**
@@ -104,6 +98,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        
+
         return view('cms.users.create', compact('user'));
     }
 
@@ -112,7 +108,23 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-      dd( $request);
+        if($request->has('profile')){
+            $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
+            $request->request->add(['avator' => $avator_filename]);
+        }
+        $request->request->add(['name' => $this->names($request)]);
+
+        $user->update($request->all());
+
+        if(! empty($request->roles)) {
+            $user->assignRole($request->roles);
+        }
+
+        // Redirect the user to the user's profile page
+        return redirect()
+                ->route('users.index', ['user' => $user])
+                ->with('success', 'User profile updated successfully!');
+
     }
 
     /**
@@ -121,5 +133,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+
+    private function names(Request $request)
+    {
+        return  $request->sname.' '.$request->fname.' '.$request->lname;
     }
 }

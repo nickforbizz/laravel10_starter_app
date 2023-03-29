@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -24,8 +25,19 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fname' => ['required', 'string'],
-            'email' => ['required', 'string'],
+            'fname' => 'required|min:2',
+            'password' => 'required|confirmed|min:5',
+            'email' => ['required', Rule::unique('users')],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
+        ];
+    }
+
+
 }
