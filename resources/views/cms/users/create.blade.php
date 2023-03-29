@@ -41,8 +41,12 @@
                 <div class="card-body">
 
                     <!-- form -->
-                    <form id="users-create" action="{{ route('users.update', Auth::user() ) }}" method="put">
+                    @include('cms.helpers.partials.feedback')
+                    <form id="users-create" action="{{ route('users.store' ) }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @if(isset($user->fname))
+                        <input type="hidden" name="_method" value="put" />
+                        @endif
                         <input  type="text"  name="record_id" value="{{ $user->id ?? '-99' }}" />
                         <div class="form-group form-floating-label">
                             <input id="fname" type="text" class="form-control input-border-bottom" name="fname" value="{{ $user->fname ?? '' }}" required="true" />
@@ -65,6 +69,21 @@
                             <img id="blah" src="#" alt="your image" height="50px"/>
                         </div>
 
+                        
+                        <div class="form-group form-floating-label">
+                            <input id="password" type="password" class="form-control input-border-bottom" name="password" required="true" />
+                            <label for="password" class="placeholder"> Password</label>
+                        </div>
+                        
+                        <div class="form-group form-floating-label">
+                            <input id="confirm_password" type="password" class="form-control input-border-bottom" name="confirm_password" required="true" />
+                            <label for="confirm_password" class="placeholder"> Password</label>
+                        </div>
+
+
+
+
+                        
                         <hr>
                         <div class="form-group form-floating-label">
                             <button class="btn btn-success btn-round ml-auto">Submit</button>
