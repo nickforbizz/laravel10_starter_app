@@ -70,11 +70,9 @@ class UserController extends Controller
         
         $user = new User;
 
-        if($request->has('profile')){
-            $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
-            $request->request->add(['avator' => $avator_filename]);
-        }
-        $request->request->add(['name' =>  $this->names($request)]);
+
+        $request = $this->addFieldsStoreImg($request);
+        
 
         $user = User::create($request->all());
 
@@ -108,11 +106,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        if($request->has('profile')){
-            $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
-            $request->request->add(['avator' => $avator_filename]);
-        }
-        $request->request->add(['name' => $this->names($request)]);
+        $request = $this->addFieldsStoreImg($request);
 
         $user->update($request->all());
 
@@ -136,8 +130,16 @@ class UserController extends Controller
     }
 
 
-    private function names(Request $request)
+    private function addFieldsStoreImg(Request $request)
     {
-        return  $request->sname.' '.$request->fname.' '.$request->lname;
+
+        if($request->has('profile')){
+            $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
+            $request->request->add(['avator' => $avator_filename]);
+        }
+        $fullname = $request->sname.' '.$request->fname.' '.$request->lname;
+        $request->request->add(['name' =>  $fullname]);
+
+        return  $request;
     }
 }
