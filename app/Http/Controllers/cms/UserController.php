@@ -11,6 +11,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 use DataTables;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
                                     data-toggle="tooltip" 
                                     title="" 
                                     class="btn btn-link btn-danger" 
-                                    onclick="delRecord(`' . $row->id . '`)"
+                                    onclick="delRecord(`' . $row->id . '`, `'.route('users.destroy', $row->id).'`, `#tb_users`)"
                                     data-original-title="Remove">
                                 <i class="fa fa-times"></i>
                             </button>';
@@ -106,7 +107,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $request = $this->addFieldsStoreImg($request);
+        $request = $this->addFieldsStoreImg($request, $user);
 
         $user->update($request->all());
 
@@ -126,13 +127,36 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->back()->with('success', 'Record Deleted Successfully');
+
+         // delete user's profile image if it exists
+        if ($user->avator && Storage::disk('public')->exists($user->avator)) {
+            Storage::disk('public')->delete($user->avator);
+        }
+
+        if($user->delete()){
+            return response()->json([
+                'code' => 1,
+                'msg' => 'Record deleted successfully'
+            ]);
+        }
+
+        return response()->json([
+            'code' => -1,
+            'msg' => 'Record did not delete'
+        ]);
+
+        // return redirect()->back()->with('success', 'Record Deleted Successfully');
     }
 
 
-    private function addFieldsStoreImg(Request $request)
+    private function addFieldsStoreImg(Request $request, User $user=null)
     {
+
+        if($user){
+            if ($user->avator && Storage::disk('public')->exists($user->avator)) {
+                Storage::disk('public')->delete($user->avator);
+            }
+        }
 
         if($request->has('profile')){
             $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');

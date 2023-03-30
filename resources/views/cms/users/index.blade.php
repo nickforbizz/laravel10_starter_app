@@ -114,6 +114,8 @@
 
 
 @push('scripts')
+
+
 <script>
     $(document).ready(function() {
         $('#tb_users').DataTable({
@@ -164,6 +166,9 @@
 
         });
     });
+
+
+    
 </script>
 
 @endpush
