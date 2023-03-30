@@ -24,11 +24,17 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'fname' => 'required|min:2',
             'password' => 'required|confirmed|min:5',
             'email' => ['required', Rule::unique('users')],
         ];
+        
+        if ($this->has('password')) {
+            $rules['password'] = 'required|confirmed|min:5';
+        }
+
+        return $rules;
     }
 
     public function messages()
@@ -38,6 +44,8 @@ class StoreUserRequest extends FormRequest
             'required' => 'The :attribute field is required.',
         ];
     }
+
+   
 
 
 }

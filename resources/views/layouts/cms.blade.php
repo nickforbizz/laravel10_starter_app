@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Atlantis Lite - Bootstrap 4 Admin Dashboard</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="{{ asset('assets/img/icon.ico') }}" type="image/x-icon"/>
+	<link rel="icon" href="{{ asset('assets/img/icon.ico') }}" type="image/x-icon" />
 
 	<!-- Fonts and icons -->
 	<script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
 	<script>
 		WebFont.load({
-			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], 
-               
+			google: {
+				"families": ["Lato:300,400,700,900"]
+			},
+			custom: {
+				"families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"]
+			},
 			active: function() {
 				sessionStorage.fonts = true;
 			}
@@ -27,16 +31,17 @@
 
 
 
-    @stack('styles')
+	@stack('styles')
 
 
 </head>
+
 <body>
 	<div class="wrapper">
 		<div class="main-header">
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="blue">
-				
+
 				<a href="index.html" class="logo">
 					<img src="{{ asset('assets/img/logo.svg') }}" alt="navbar brand" class="navbar-brand">
 				</a>
@@ -55,12 +60,12 @@
 			<!-- End Logo Header -->
 
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                @csrf
-            </form>
+			<form id="logout-form" action="{{ route('logout') }}" method="POST">
+				@csrf
+			</form>
 
 			<!-- Navbar Header -->
-                @include('cms.helpers.partials.navbar')
+			@include('cms.helpers.partials.navbar')
 			<!-- End Navbar -->
 
 
@@ -68,18 +73,18 @@
 		</div>
 
 		<!-- Sidebar -->
-            @include('cms.helpers.partials.sidebar')
+		@include('cms.helpers.partials.sidebar')
 		<!-- End Sidebar -->
 
 		<div class="main-panel">
 			<div class="content">
 
 
-                @yield('content')
+				@yield('content')
 
 
-            
-				
+
+
 			</div>
 			<!-- .content -->
 
@@ -87,12 +92,12 @@
 
 
 			<!-- Footer -->
-                @include('cms.helpers.partials.footer')
+			@include('cms.helpers.partials.footer')
 			<!-- Footer END -->
 
 		</div>
 		<!-- .main-panel -->
-		
+
 
 	</div>
 	<!-- .wrapper -->
@@ -132,16 +137,13 @@
 	<script src="{{ asset('assets/js/plugin/jqvmap/maps/jquery.vmap.world.js') }}"></script>
 
 	<!-- Sweet Alert -->
-	<script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
 	<!-- Atlantis JS -->
 	<script src="{{ asset('assets/js/atlantis.min.js') }}"></script>
 
 
 	<script>
-
-
-	
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
@@ -153,104 +155,69 @@
 		}
 
 
-		Circles.create({
-			id:'circles-1',
-			radius:45,
-			value:60,
-			maxValue:100,
-			width:7,
-			text: 5,
-			colors:['#f1f1f1', '#FF9E27'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-2',
-			radius:45,
-			value:70,
-			maxValue:100,
-			width:7,
-			text: 36,
-			colors:['#f1f1f1', '#2BB930'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-3',
-			radius:45,
-			value:40,
-			maxValue:100,
-			width:7,
-			text: 12,
-			colors:['#f1f1f1', '#F25961'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-
-		var mytotalIncomeChart = new Chart(totalIncomeChart, {
-			type: 'bar',
-			data: {
-				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-				datasets : [{
-					label: "Total Income",
-					backgroundColor: '#ff9e27',
-					borderColor: 'rgb(23, 125, 255)',
-					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-				}],
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					display: false,
-				},
-				scales: {
-					yAxes: [{
-						ticks: {
-							display: false //this will remove only the label
-						},
-						gridLines : {
-							drawBorder: false,
-							display : false
+		// delete the make
+		function delRecord(id, url, tb_id) {
+			Swal.fire({
+				title: "Are you sure?",
+				text: "Once deleted, you will not be able to recover this Record with ID " + id,
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+				showCancelButton: true, // added showCancelButton parameter
+			}).then(function() {
+				let payload = {
+					id, _token: '{{ csrf_token() }}'
+				};
+				$.ajax({
+					url: url,
+					data: payload,
+					method: 'delete',
+					success: function(res) {
+						console.log(res);
+						if (res.code == 1) {
+							Swal.fire({
+								icon: 'info',
+								title: 'Record Response',
+								text: res.msg,
+							}).then(() => {
+								$(tb_id).DataTable().ajax.reload();
+								$("#product_catsModal").modal('hide');
+							});
+						} else {
+							Swal.fire({
+								icon: 'warning',
+								title: 'Record Response',
+								text: res.msg,
+								footer: '<a href> <i> Need help </i>?</a>'
+							}).then(() => {
+								$(tb_id).DataTable().ajax.reload();
+								$("#product_catsModal").modal('hide');
+							});
 						}
-					}],
-					xAxes : [ {
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}]
-				},
-			}
-		});
 
-		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
-
-
+					},
+					error: function(err) {
+						console.error(err);
+						Swal.fire({
+							icon: 'warning',
+							title: 'Record Response',
+							text: res.msg,
+						});
+					}
+				});
+			}).catch(function(reason) {
+				Swal.fire({
+					icon: 'info',
+					title: 'Record Response',
+					text: 'This will not be deleted',
+				});
+			});
+		}
 	</script>
 
-    @stack('scripts')
+	@stack('scripts')
 
 
 </body>
+
 </html>

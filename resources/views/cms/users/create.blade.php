@@ -69,8 +69,13 @@
                         </div>
 
                         <div class="form-group form-floating-label">
-                            <input id="email" type="email" class="form-control input-border-bottom @error('email') is-invalid @enderror" name="email" value="{{ $user->email ?? '' }}" required="true" />
+                            @if(isset($user->id)) 
+                            <label for="email" class="">Email</label>
+                            <input id="email" type="email" class="form-control input-border-bottom @error('email') is-invalid @enderror"  value="{{ $user->email ?? '' }}" readonly disabled />
+                            @else
+                            <input id="email" type="email" class="form-control input-border-bottom @error('email') is-invalid @enderror" name="email"  value="{{ $user->email ?? '' }}" required />
                             <label for="email" class="placeholder">Email</label>
+                            @endif
                             @error('email') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -124,6 +129,9 @@
 			readURL(this);
 		});
     });
+
+
+    
 </script>
 
 @endpush
