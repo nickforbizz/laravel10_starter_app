@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/klove/{toString}', "KloveController@index");
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
-    echo 'something';
+    echo 'cache:clear';
     // return what you want
 });
 
