@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-
+use App\Models\Permission;
+use App\Models\Role;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,6 +50,8 @@ class UserController extends Controller
                 ->make(true);
         }
 
+        
+
         // render view
         return view('cms.users.index');
     }
@@ -60,7 +63,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('cms.users.create');
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('cms.users.create', compact('roles', 'permissions'));
     }
 
     /**

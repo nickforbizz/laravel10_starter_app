@@ -102,6 +102,32 @@
                         </div>
 
 
+                        <div class="form-group form-floating-label">
+                        <label class="control-label ml-2">Allocate Permissions to this user <span class="ml-5 text-danger">
+                            <input type="checkbox" id="createallcb" name="check_all[]"/> Check All</span>
+                        </label>
+                        <div class="col-md-12">
+                            @if($permissions)
+                                <div class="row">
+                                    @foreach($permissions as $permission)
+                                        <div class="col-md-4">
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" value="{{ $permission->name }}"
+                                                           class="form-check-input perm_check"
+                                                           name="permissions[]">
+                                                    <span
+                                                        class="mr-3">{{ucwords(str_replace('_', ' ', $permission->name))}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </div>  
+
+
 
 
                         <div class="card">
@@ -118,7 +144,7 @@
     </div>
 </div>
 <!-- .page-inner -->
-
+ 
 @endsection
 
 
@@ -128,6 +154,10 @@
         $("#profile").change(function() {
 			readURL(this);
 		});
+
+        $('#createallcb').change(function () {
+            $('.perm_check').prop('checked', $(this).prop('checked'));
+        });
     });
 
 
