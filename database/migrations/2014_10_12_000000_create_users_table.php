@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('avator')->default('default_avator.png');
             $table->string('active')->default(0);
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -1,57 +1,94 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * 
+ * @property int $id
+ * @property string $fname
+ * @property string|null $lname
+ * @property string|null $sname
+ * @property string|null $name
+ * @property string $email
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property Carbon|null $two_factor_confirmed_at
+ * @property string $avator
+ * @property string $active
+ * @property string|null $remember_token
+ * @property string|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * 
+ * @property Collection|PostCategory[] $post_categories
+ * @property Collection|Post[] $posts
+ *
+ * @package App\Models
+ */
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+	use HasRoles, HasPermissions;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+	use SoftDeletes;
+	protected $table = 'users';
+
+	protected $casts = [
+		'email_verified_at' => 'date',
+		'two_factor_confirmed_at' => 'date'
+	];
+
+	protected $hidden = [
+		'password',
+		'two_factor_secret',
+		'remember_token'
+	];
+
+	protected $fillable = [
+		'fname',
+		'lname',
+		'sname',
+		'name',
+		'email',
+		'email_verified_at',
+		'password',
+		'two_factor_secret',
+		'two_factor_recovery_codes',
+		'two_factor_confirmed_at',
+		'avator',
+		'active',
+		'remember_token'
+	];
+
+	public function post_categories()
+	{
+		return $this->hasMany(PostCategory::class, 'created_by');
+	}
+
+	public function posts()
+	{
+		return $this->hasMany(Post::class, 'created_by');
+	}
+
+	/**
+     * Hash the password before saving the user record.
      */
-    protected $fillable = [
-        'fname',
-        'lname',
-        'sname',
-        'name',
-        'email',
-        'password',
-        'active',
-        'avator',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-
-    public function setPasswordAttribute($password)
-    {   
-        $this->attributes['password'] = bcrypt($password);
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
 }
