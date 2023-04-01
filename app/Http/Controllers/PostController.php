@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 
+
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-
 use Datatables;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -27,7 +27,7 @@ class PostController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a data-toggle="tooltip" 
-                                    href="'. route('users.edit', $row->id) .'" 
+                                    href="'. route('posts.edit', $row->id) .'" 
                                     class="btn btn-link btn-primary btn-lg" 
                                     data-original-title="Edit Record">
                                 <i class="fa fa-edit"></i>
@@ -36,7 +36,7 @@ class PostController extends Controller
                                     data-toggle="tooltip" 
                                     title="" 
                                     class="btn btn-link btn-danger" 
-                                    onclick="delRecord(`' . $row->id . '`, `'.route('users.destroy', $row->id).'`, `#tb_users`)"
+                                    onclick="delRecord(`' . $row->id . '`, `'.route('posts.destroy', $row->id).'`, `#tb_posts`)"
                                     data-original-title="Remove">
                                 <i class="fa fa-times"></i>
                             </button>';
@@ -47,7 +47,7 @@ class PostController extends Controller
         }
 
         // render view
-        return view('cms.users.index');
+        return view('cms.posts.index');
     }
 
     /**

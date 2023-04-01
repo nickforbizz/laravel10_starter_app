@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\PostCategory;
+
+
 use App\Http\Requests\StorePostCategoryRequest;
 use App\Http\Requests\UpdatePostCategoryRequest;
-use Illuminate\Http\Client\Request;
 
-use Datatables;
+use Illuminate\Http\Request;
+use DataTables;
 
 class PostCategoryController extends Controller
 {
@@ -17,7 +19,7 @@ class PostCategoryController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = PostCategory::where('active', 1)->get();
+        $data = PostCategory::where('active', 0)->get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -46,7 +48,7 @@ class PostCategoryController extends Controller
         }
 
         // render view
-        return view('cms.postcategories.index');
+        return view('cms.postCategories.index');
     }
 
     /**
@@ -54,7 +56,7 @@ class PostCategoryController extends Controller
      */
     public function create()
     {
-        return view('cms.postcategories.create');
+        return view('cms.postCategories.create');
     }
 
     /**
@@ -79,7 +81,7 @@ class PostCategoryController extends Controller
      */
     public function edit(PostCategory $postCategory)
     {
-        return view('cms.postcategories.create', compact('postCategory'));
+        return view('cms.postCategories.create', compact('postCategory'));
     }
 
     /**
@@ -92,7 +94,7 @@ class PostCategoryController extends Controller
 
         // Redirect the user to the user's profile page
         return redirect()
-                ->route('postCategory.index', ['postCategory' => $postCategory])
+                ->route('postCategories.index')
                 ->with('success', 'Record updated successfully!');
     }
 

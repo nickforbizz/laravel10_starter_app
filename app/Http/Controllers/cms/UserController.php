@@ -113,7 +113,7 @@ class UserController extends Controller
 
         // Redirect the user to the user's profile page
         return redirect()
-                ->route('users.index', ['user' => $user])
+                ->route('users.index')
                 ->with('success', 'Record updated successfully!');
 
     }

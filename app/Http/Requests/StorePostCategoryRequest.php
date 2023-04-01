@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class StorePostCategoryRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class StorePostCategoryRequest extends FormRequest
     {
         
         return [
-            'name' => ['required|min:2', Rule::unique('post_categories')],
+            'name' => ['required', 'min:2', Rule::unique('post_categories')],
         ];
     }
 
@@ -36,5 +37,14 @@ class StorePostCategoryRequest extends FormRequest
             'unique' => ':attribute is already used',
             'required' => 'The :attribute field is required.',
         ];
+    }
+
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->input('name')),
+            'created_by' => Auth::id()
+        ]);
     }
 }
