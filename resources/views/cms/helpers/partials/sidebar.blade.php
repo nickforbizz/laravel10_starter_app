@@ -43,7 +43,7 @@
 						<i class="fa fa-ellipsis-h"></i>
 					</span>
 					<h4 class="text-section">Modules</h4>
-					<hr>
+					<hr> 
 				</li>
 				<li class="nav-item @if(Route::is('users.*')) active @endif">
 					<a href="{{ route('users.index') }}">
@@ -51,121 +51,11 @@
 						<p>Users</p>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a data-toggle="collapse" href="#sidebarLayouts">
-						<i class="fas fa-th-list"></i>
-						<p>Sidebar Layouts</p>
-						<span class="caret"></span>
-					</a>
-					<div class="collapse" id="sidebarLayouts">
-						<ul class="nav nav-collapse">
-							<li>
-								<a href="sidebar-style-1.html">
-									<span class="sub-item">Sidebar Style 1</span>
-								</a>
-							</li>
-							<li>
-								<a href="overlay-sidebar.html">
-									<span class="sub-item">Overlay Sidebar</span>
-								</a>
-							</li>
-							<li>
-								<a href="compact-sidebar.html">
-									<span class="sub-item">Compact Sidebar</span>
-								</a>
-							</li>
-							<li>
-								<a href="static-sidebar.html">
-									<span class="sub-item">Static Sidebar</span>
-								</a>
-							</li>
-							<li>
-								<a href="icon-menu.html">
-									<span class="sub-item">Icon Menu</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a data-toggle="collapse" href="#forms">
-						<i class="fas fa-pen-square"></i>
-						<p>Forms</p>
-						<span class="caret"></span>
-					</a>
-					<div class="collapse" id="forms">
-						<ul class="nav nav-collapse">
-							<li>
-								<a href="forms/forms.html">
-									<span class="sub-item">Basic Form</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a data-toggle="collapse" href="#tables">
-						<i class="fas fa-table"></i>
-						<p>Tables</p>
-						<span class="caret"></span>
-					</a>
-					<div class="collapse" id="tables">
-						<ul class="nav nav-collapse">
-							<li>
-								<a href="tables/tables.html">
-									<span class="sub-item">Basic Table</span>
-								</a>
-							</li>
-							<li>
-								<a href="tables/datatables.html">
-									<span class="sub-item">Datatables</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a data-toggle="collapse" href="#maps">
-						<i class="fas fa-map-marker-alt"></i>
-						<p>Maps</p>
-						<span class="caret"></span>
-					</a>
-					<div class="collapse" id="maps">
-						<ul class="nav nav-collapse">
-							<li>
-								<a href="maps/jqvmap.html">
-									<span class="sub-item">JQVMap</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a data-toggle="collapse" href="#charts">
-						<i class="far fa-chart-bar"></i>
-						<p>Charts</p>
-						<span class="caret"></span>
-					</a>
-					<div class="collapse" id="charts">
-						<ul class="nav nav-collapse">
-							<li>
-								<a href="charts/charts.html">
-									<span class="sub-item">Chart Js</span>
-								</a>
-							</li>
-							<li>
-								<a href="charts/sparkline.html">
-									<span class="sub-item">Sparkline</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a href="widgets.html">
-						<i class="fas fa-desktop"></i>
-						<p>Widgets</p>
-						<span class="badge badge-success">4</span>
+
+				<li class="nav-item @if(Route::is('postCategories.*')) active @endif">
+					<a href="{{ route('postCategories.index') }}">
+						<i class="icon-people"></i>
+						<p> PostCategories</p>
 					</a>
 				</li>
 

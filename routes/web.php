@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\cms\UserController;
+use App\Http\Controllers\PostCategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/klove/{toString}', "KloveController@index");
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     echo 'cache:clear';
@@ -50,6 +51,8 @@ Route::middleware('cms')->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/cms', [App\Http\Controllers\HomeController::class, 'cms'])->name('cms');
     Route::resource('users', UserController::class);
+    Route::resource('posts', PostController::class);
+    Route::resource('postCategories', PostCategoryController::class);
 });
 
 
