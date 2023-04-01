@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PostCategory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -27,7 +28,7 @@ class PostFactory extends Factory
             'slug' => Str::slug($title),
             'content' => $this->faker->paragraph,
             'created_by' => $this->faker->randomElement($users),
-            'post_category_id' => $this->faker->randomElement($categories),
+            'category_id' => $this->faker->randomElement($categories),
         ];
     }
 }
