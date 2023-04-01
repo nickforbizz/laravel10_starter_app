@@ -69,12 +69,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         
-        $user = new User;
-
-
         $request = $this->addFieldsStoreImg($request);
         
-
         $user = User::create($request->all());
 
         if(! empty($request->roles)) {
@@ -89,7 +85,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return 'show';
+        return 'show user';
     }
 
     /**
@@ -118,7 +114,7 @@ class UserController extends Controller
         // Redirect the user to the user's profile page
         return redirect()
                 ->route('users.index', ['user' => $user])
-                ->with('success', 'User profile updated successfully!');
+                ->with('success', 'Record updated successfully!');
 
     }
 
