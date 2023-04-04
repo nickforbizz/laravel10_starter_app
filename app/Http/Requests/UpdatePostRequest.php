@@ -21,8 +21,18 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $rules = [
+            'title' => 'required|min:2',
+        ];
+
+        return $rules;
+    }
+
+    public function messages()
+    {
         return [
-            //
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
         ];
     }
 }

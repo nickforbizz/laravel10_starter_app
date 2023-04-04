@@ -90,7 +90,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return 'show user';
+        return $user;
     }
 
     /**
@@ -152,13 +152,14 @@ class UserController extends Controller
 
     private function addFieldsStoreImg(Request $request, User $user=null)
     {
-
+        // Delete Image
         if($user){
             if ($user->avator && Storage::disk('public')->exists($user->avator)) {
                 Storage::disk('public')->delete($user->avator);
             }
         }
 
+        // Store Image
         if($request->has('profile')){
             $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
             $request->request->add(['avator' => $avator_filename]);

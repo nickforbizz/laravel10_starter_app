@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GlobalHelper;
 use App\Models\Post;
 
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use Datatables;
+use App\Models\PostCategory;
+use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -55,7 +58,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $post_categories = PostCategory::where('active', 1)->get();
+        return view('cms.posts.create', compact('post_categories'));
     }
 
     /**
@@ -63,7 +67,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $request = $this->storeFeaturedImg($request);
+        $post = Post::create($request->all());
+
+        return redirect()
+                ->route('cms.posts.index')
+                ->with('success', 'Record Created Successfully'); 
     }
 
     /**
@@ -71,7 +80,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return $post;
     }
 
     /**
@@ -79,7 +88,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $post_categories = PostCategory::where('active', 1)->get();
+        return view('cms.posts.create', compact('post', 'post_categories'));
     }
 
     /**
@@ -87,7 +97,13 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $request = $this->storeFeaturedImg($request);
+        $post->update($request->all());
+
+        // Redirect the post to the post's profile page
+        return redirect()
+                ->route('posts.index')
+                ->with('success', 'Record updated successfully!');
     }
 
     /**
@@ -95,6 +111,41 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+         // delete post's profile image if it exists
+         if ($post->featured_img && Storage::disk('public')->exists($post->featured_img)) {
+            Storage::disk('public')->delete($post->featured_img);
+        }
+
+        if($post->delete()){
+            return response()->json([
+                'code' => 1,
+                'msg' => 'Record deleted successfully'
+            ]);
+        }
+
+        return response()->json([
+            'code' => -1,
+            'msg' => 'Record did not delete'
+        ]);
     }
+
+    private function storeFeaturedImg(Request $request, Post $post=null)
+    {
+
+        // Delete Image
+        if($post){
+            if ($post->featured_img && Storage::disk('public')->exists($post->featured_img)) {
+                Storage::disk('public')->delete($post->featured_img);
+            }
+        }
+
+        // Store Image
+        if($request->has('profile')){
+            $featured_img_filename = GlobalHelper::saveImage($request->file('featured_img'),'profiles', 'public');
+            $request->request->add(['featured_img' => $featured_img_filename]);
+        }
+
+        return  $request;
+    }
+    
 }
