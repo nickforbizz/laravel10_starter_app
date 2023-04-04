@@ -54,30 +54,42 @@
 
 				<li class="nav-item @if(Route::is('postCategories.*')) active @endif">
 					<a href="{{ route('postCategories.index') }}">
-						<i class="icon-people"></i>
+						<i class="far fa-clone"></i>
 						<p> PostCategories</p>
+					</a>
+				</li>
+
+				<li class="nav-item @if(Route::is('posts.*')) active @endif">
+					<a href="{{ route('posts.index') }}">
+						<i class="far fa-edit"></i>
+						<p> Posts</p>
 					</a>
 				</li>
 
 
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#submenu">
-						<i class="fas fa-bars"></i>
-						<p>Menu Levels</p>
+						<i class="fas fa-cog"></i>
+						<p>System Parameters</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="submenu">
 						<ul class="nav nav-collapse">
 							<li>
 								<a data-toggle="collapse" href="#subnav2">
-									<span class="sub-item">Level 1</span>
+									<span class="sub-item">Users</span>
 									<span class="caret"></span>
 								</a>
 								<div class="collapse" id="subnav2">
 									<ul class="nav nav-collapse subnav">
 										<li>
 											<a href="#">
-												<span class="sub-item">Level 2</span>
+												<span class="sub-item">Roles</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="sub-item">Permissions</span>
 											</a>
 										</li>
 									</ul>
@@ -85,7 +97,7 @@
 							</li>
 							<li>
 								<a href="#">
-									<span class="sub-item">Level 1</span>
+									<span class="sub-item">Params</span>
 								</a>
 							</li>
 						</ul>

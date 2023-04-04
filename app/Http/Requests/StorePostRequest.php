@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StorePostRequest extends FormRequest
 {
@@ -11,7 +13,8 @@ class StorePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $user_roles = Auth::user()->roles->pluck('name')->toArray();
+        return in_array('admin', $user_roles);
     }
 
     /**
@@ -21,8 +24,21 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $rules = [
+            'title' => 'required|min:2',
+            'content' => 'required|min:5',
+            'category_id' => ['required', Rule::exists('post_categories')],
+            'featured_img' => 'required',
+        ];
+
+        return $rules;
+    }
+
+    public function messages()
+    {
         return [
-            //
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
         ];
     }
 }

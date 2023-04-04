@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-
+use App\Models\Permission;
+use App\Models\Role;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,6 +50,8 @@ class UserController extends Controller
                 ->make(true);
         }
 
+        
+
         // render view
         return view('cms.users.index');
     }
@@ -60,7 +63,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('cms.users.create');
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('cms.users.create', compact('roles', 'permissions'));
     }
 
     /**
@@ -85,7 +90,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return 'show user';
+        return $user;
     }
 
     /**
@@ -147,13 +152,14 @@ class UserController extends Controller
 
     private function addFieldsStoreImg(Request $request, User $user=null)
     {
-
+        // Delete Image
         if($user){
             if ($user->avator && Storage::disk('public')->exists($user->avator)) {
                 Storage::disk('public')->delete($user->avator);
             }
         }
 
+        // Store Image
         if($request->has('profile')){
             $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
             $request->request->add(['avator' => $avator_filename]);
