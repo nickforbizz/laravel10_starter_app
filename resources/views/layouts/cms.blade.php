@@ -28,7 +28,12 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
 
-
+		<style>
+			.tb_img{
+				height: 3rem;
+    			border-radius: 15%;
+			}
+		</style>
 
 
 	@stack('styles')
@@ -144,6 +149,8 @@
 
 
 	<script>
+
+		
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();

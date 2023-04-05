@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
             'email' => 'superadmin@admin.com',
             'email_verified_at' => now(),
             'active' => 1,
-            'password' => '$2y$10$IMBPKfdPnvT05HMqh5EgjOXni77TuxdO0tYovQthbdVzXO5KjAtBi' // Superadmin@2023
+            'password' => 'Superadmin@2023' // Superadmin@2023
         ]);
 
         $superadmin->assignRole('user', 'writer', 'admin', 'superadmin');
@@ -38,7 +38,7 @@ class AdminSeeder extends Seeder
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'active' => 1,
-            'password' => '$2y$10$LpdLRNylDkhVwra6TRU76.i5sF4wos9xHK3ibe1O.wg09N7RKHx4i' // Admin@2023
+            'password' => 'Admin@2023' // Admin@2023
         ]);
 
         $admin->assignRole('user', 'writer', 'admin');
@@ -54,7 +54,7 @@ class AdminSeeder extends Seeder
             'email' => 'writer@admin.com',
             'email_verified_at' => now(),
             'active' => 1,
-            'password' => '$2y$10$UoANkk/3ey0K.cRRolCILut/.tVfMPqubz8SuHg1yE6rArISyIitW' // Writer@2023
+            'password' => 'Writer@2023' // Writer@2023
         ]);
 
         $writer->assignRole('user', 'writer');
@@ -70,7 +70,7 @@ class AdminSeeder extends Seeder
             'email' => 'user@admin.com',
             'email_verified_at' => now(),
             'active' => 1,
-            'password' => '$2y$10$UCWqNwAix3hL/kFiF6w9pO3rPhk4gaxU/V7wU5szzQtJYtalzsS0u' // User@2023
+            'password' => 'User@2023' // User@2023
         ]);
 
         $user->assignRole('user');

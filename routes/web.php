@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\cms\UserController;
-use App\Http\Controllers\PostCategoryController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\cms\PostCategoryController;
+use App\Http\Controllers\cms\PostController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 

@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\cms;
+use App\Http\Controllers\Controller;
 
 use App\Helpers\GlobalHelper;
 use App\Models\Post;
@@ -12,6 +13,7 @@ use App\Models\PostCategory;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -21,12 +23,18 @@ class PostController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = Post::where('active', 1)->get();
+        $data = Post::get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($row) {
                     return date_format($row->created_at, 'Y/m/d H:i');
+                })
+                ->editColumn('featured_img', function ($row) {
+                    return '<img class="tb_img" src="'. url('storage/'.$row->featured_img) .'" alt="'. $row->slug .'" data-toggle="popover" data-placement="top" data-content="<img src='. url('storage/'.$row->featured_img) .' style=\'max-height: 200px; max-width: 200px;\'>">';
+                })
+                ->editColumn('content', function ($row) {
+                    return Str::limit($row->featured_img, 20, '...');
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a data-toggle="tooltip" 
@@ -45,7 +53,7 @@ class PostController extends Controller
                             </button>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['featured_img', 'content', 'action'])
                 ->make(true);
         }
 
@@ -70,9 +78,15 @@ class PostController extends Controller
         $request = $this->storeFeaturedImg($request);
         $post = Post::create($request->all());
 
+        if($post){
+            return redirect()
+            ->route('posts.index')
+            ->with('success', 'Record Created Successfully');  
+        }
+        $post_categories = PostCategory::where('active', 1)->get();
         return redirect()
-                ->route('cms.posts.index')
-                ->with('success', 'Record Created Successfully'); 
+        ->route('cms.posts.create', compact('post_categories'))
+        ->with('error', 'Error while creating record'); 
     }
 
     /**
@@ -89,6 +103,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $post_categories = PostCategory::where('active', 1)->get();
+        return $post_categories;
         return view('cms.posts.create', compact('post', 'post_categories'));
     }
 
@@ -140,8 +155,8 @@ class PostController extends Controller
         }
 
         // Store Image
-        if($request->has('profile')){
-            $featured_img_filename = GlobalHelper::saveImage($request->file('featured_img'),'profiles', 'public');
+        if($request->has('featuredimg')){
+            $featured_img_filename = GlobalHelper::saveImage($request->file('featuredimg'),'posts', 'public');
             $request->request->add(['featured_img' => $featured_img_filename]);
         }
 

@@ -56,8 +56,21 @@
 
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input id="title" type="text" class="form-control form-control" name="title" placeholder="Enter title ..." value="{{ $post->title ?? '' }}"  />
+                            <input id="title" type="text" class="form-control form-control" 
+                                name="title" 
+                                placeholder="Enter title ..." 
+                                value="{{ old('title', $post->title ?? '')  }}"  />
                             @error('title') <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="slug"> Slug</label>
+                            <input id="slug" type="text" class="form-control form-control" 
+                               
+                                disabled
+                                value="{{ old('slug', $post->slug ?? '') }}"  />
+                            @error('slug') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -75,15 +88,17 @@
 
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea name="content" id="content" class="form-control form-control" placeholder="Enter content ...">{{ $post->content ?? '' }}</textarea>
+                            <textarea name="content" id="content" class="form-control form-control" placeholder="Enter content ...">{{ old('content', $post->content ?? '') }}</textarea>
                             @error('content') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group form-floating-label">
-                            <label for="featured_img" class=""> Featured Image </label>
-                            <input id="featured_img" type="file" class="form-control input-border-bottom" name="featured_img" />
+                            <label for="featuredimg" class=""> Featured Image </label>
+                            <input id="featuredimg" type="file" class="form-control input-border-bottom" name="featuredimg" />
                             <img id="blah" src="#" alt="your image" height="50px"/>
+                            @error('featured_img') <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                     </div>  

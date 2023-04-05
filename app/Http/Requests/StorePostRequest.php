@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class StorePostRequest extends FormRequest
 {
@@ -27,8 +28,9 @@ class StorePostRequest extends FormRequest
         $rules = [
             'title' => 'required|min:2',
             'content' => 'required|min:5',
-            'category_id' => ['required', Rule::exists('post_categories')],
-            'featured_img' => 'required',
+            'category_id' => 'required',
+            'featuredimg' => 'required',
+            'slug' => 'unique:posts,slug',
         ];
 
         return $rules;
@@ -40,5 +42,19 @@ class StorePostRequest extends FormRequest
             'unique' => ':attribute is already used',
             'required' => 'The :attribute field is required.',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->input('title')),
+        ]);
+    }
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'created_by' => Auth::id()
+        ]);
     }
 }

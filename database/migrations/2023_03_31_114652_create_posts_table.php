@@ -13,7 +13,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');
-            $table->string('featured_img')->default('default_avator.png');
+            $table->string('featured_img')->default('default_post.png');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('category_id');
