@@ -23,7 +23,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = Post::get();
+        $data = Post::orderBy('created_at', 'desc')->get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -33,8 +33,14 @@ class PostController extends Controller
                 ->editColumn('featured_img', function ($row) {
                     return '<img class="tb_img" src="'. url('storage/'.$row->featured_img) .'" alt="'. $row->slug .'" data-toggle="popover" data-placement="top" data-content="<img src='. url('storage/'.$row->featured_img) .' style=\'max-height: 200px; max-width: 200px;\'>">';
                 })
+                ->editColumn('category_id', function ($row) {
+                    return $row->post_category->name;
+                })
+                ->editColumn('title', function ($row) {
+                    return Str::limit($row->title, 10, '...');
+                })
                 ->editColumn('content', function ($row) {
-                    return Str::limit($row->featured_img, 20, '...');
+                    return Str::limit($row->content, 20, '...');
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a data-toggle="tooltip" 
@@ -53,7 +59,7 @@ class PostController extends Controller
                             </button>';
                     return $btn;
                 })
-                ->rawColumns(['featured_img', 'content', 'action'])
+                ->rawColumns(['featured_img', 'category_id', 'title', 'content', 'action'])
                 ->make(true);
         }
 
@@ -103,7 +109,6 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $post_categories = PostCategory::where('active', 1)->get();
-        return $post_categories;
         return view('cms.posts.create', compact('post', 'post_categories'));
     }
 
