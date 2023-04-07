@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
 
 class StorePostRequest extends FormRequest
@@ -14,8 +15,9 @@ class StorePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user_roles = Auth::user()->roles->pluck('name')->toArray();
-        return in_array('admin', $user_roles);
+        $user = auth()->user();
+        return $user->hasAnyRole(['admin', 'superadmin']);
+        // return in_array('admin', $user_roles) || in_array('superadmin', $user_roles);
     }
 
     /**

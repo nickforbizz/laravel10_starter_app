@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Laravel Starter App</title>
+	<title>{{ env('APP_NAME') }}</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('assets/img/icon.ico') }}" type="image/x-icon" />
 
@@ -114,6 +114,9 @@
 	<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 	<script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
 
+	<!-- Tiny MCE -->
+	<script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API_KEY') }}/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 	<!-- jQuery UI -->
 	<script src="{{ asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
@@ -149,7 +152,11 @@
 
 
 	<script>
-
+		tinymce.init({
+		selector: 'textarea',
+		plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+		toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+		});
 		
 		function readURL(input) {
 			if (input.files && input.files[0]) {
@@ -171,47 +178,54 @@
 				buttons: true,
 				dangerMode: true,
 				showCancelButton: true, // added showCancelButton parameter
-			}).then(function() {
-				let payload = {
-					id, _token: '{{ csrf_token() }}'
-				};
-				$.ajax({
-					url: url,
-					data: payload,
-					method: 'delete',
-					success: function(res) {
-						console.log(res);
-						if (res.code == 1) {
-							Swal.fire({
-								icon: 'info',
-								title: 'Record Response',
-								text: res.msg,
-							}).then(() => {
-								$(tb_id).DataTable().ajax.reload();
-								$("#product_catsModal").modal('hide');
-							});
-						} else {
+			}).then(function(willDelete) {
+				if (willDelete.isConfirmed) {
+					let payload = {
+						id, _token: '{{ csrf_token() }}'
+					};
+					$.ajax({
+						url: url,
+						data: payload,
+						method: 'delete',
+						success: function(res) {
+							console.log(res);
+							if (res.code == 1) {
+								Swal.fire({
+									icon: 'info',
+									title: 'Record Response',
+									text: res.msg,
+								}).then(() => {
+									$(tb_id).DataTable().ajax.reload();
+									$("#product_catsModal").modal('hide');
+								});
+							} else {
+								Swal.fire({
+									icon: 'warning',
+									title: 'Record Response',
+									text: res.msg,
+									footer: '<a href> <i> Need help </i>?</a>'
+								}).then(() => {
+									$(tb_id).DataTable().ajax.reload();
+									$("#product_catsModal").modal('hide');
+								});
+							}
+	
+						},
+						error: function(err) {
+							console.error(err);
 							Swal.fire({
 								icon: 'warning',
 								title: 'Record Response',
 								text: res.msg,
-								footer: '<a href> <i> Need help </i>?</a>'
-							}).then(() => {
-								$(tb_id).DataTable().ajax.reload();
-								$("#product_catsModal").modal('hide');
 							});
 						}
+					});
 
-					},
-					error: function(err) {
-						console.error(err);
-						Swal.fire({
-							icon: 'warning',
-							title: 'Record Response',
-							text: res.msg,
-						});
-					}
-				});
+				}else {
+					// Code for when the user clicks the "Cancel" button
+					// Prevent the form submission
+					event.preventDefault();
+				}
 			}).catch(function(reason) {
 				Swal.fire({
 					icon: 'info',

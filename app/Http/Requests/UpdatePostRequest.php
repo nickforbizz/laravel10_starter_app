@@ -12,7 +12,8 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $user = auth()->user();
+        return $user->hasAnyRole(['admin', 'superadmin']);
     }
 
     /**
@@ -25,7 +26,7 @@ class UpdatePostRequest extends FormRequest
         $rules = [
             'title' => 'required|min:2',
             'slug' => [
-                'required',
+                'nullable',
                 Rule::unique('posts')->ignore($this->post)
             ]
         ];

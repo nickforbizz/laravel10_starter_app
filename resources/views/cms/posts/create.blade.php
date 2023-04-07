@@ -77,10 +77,11 @@
                         <div class="form-group">
                             <label for="category_id">Category</label>
                             <select name="category_id" id="product_category" class="form-control form-control">
-                                @foreach($post_categories as $category)
-                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                                    <!-- <option value=""> -- No item -- </option>  -->
-                                @endforeach
+                                @forelse($post_categories as $category)
+                                    <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : '' }}> {{ $category->name }} </option>
+                                @empty
+                                    <option selected disabled> -- No item -- </option> 
+                                @endforelse
                             </select>
                             @error('category_id') <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -96,7 +97,11 @@
                         <div class="form-group form-floating-label">
                             <label for="featuredimg" class=""> Featured Image </label>
                             <input id="featuredimg" type="file" class="form-control input-border-bottom" name="featuredimg" />
-                            <img id="blah" src="#" alt="your image" height="50px"/>
+                            @if ($post->featured_img)
+                                <img id="blah" src="{{ asset('storage/'.$post->featured_img) }}" alt="current image" height="100px"/>
+                            @else
+                                <img id="blah" src="#" alt="no image" height="100px"/>
+                            @endif
                             @error('featured_img') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -127,7 +132,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $("#featured_img").change(function() {
+        $("#featuredimg").change(function() {
 			readURL(this);
 		});
 
