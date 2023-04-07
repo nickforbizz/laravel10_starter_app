@@ -15,7 +15,7 @@ class StoreRoleRequest extends FormRequest
     public function authorize(): bool
     {
         $user = auth()->user();
-        return $user->hasAnyRole(['admin', 'superadmin']);
+        return $user->hasRole('superadmin');
     }
 
     /**
@@ -37,6 +37,11 @@ class StoreRoleRequest extends FormRequest
             'unique' => ':attribute is already used',
             'required' => 'The :attribute field is required.',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // do something before validation
     }
 
 

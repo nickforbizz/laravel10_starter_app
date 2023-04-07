@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdatePermissionRequest extends FormRequest
 {
@@ -23,7 +24,29 @@ class UpdatePermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'guard_name' => 'required|min:2',
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // do something before validation
+    }
+
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'created_by' => Auth::id()
+        ]);
     }
 }

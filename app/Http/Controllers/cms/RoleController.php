@@ -87,7 +87,6 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        // return 1;
         return view('cms.roles.create', compact('role'));
     }
 
