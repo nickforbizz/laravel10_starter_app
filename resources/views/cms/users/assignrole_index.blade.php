@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title"> Users </h4>
+        <h4 class="page-title"> Assign Roles </h4>
         <ul class="breadcrumbs">
             <li class="nav-home">
                 <a href="#">
@@ -14,7 +14,7 @@
                 <i class="flaticon-right-arrow"></i>
             </li>
             <li class="nav-item">
-                <a href="#">Users</a>
+                <a href="#">Assign Roles</a>
             </li>
             <li class="separator">
                 <i class="flaticon-right-arrow"></i>
@@ -30,17 +30,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="xd-flex Xalign-items-center">
-                        
-                        <a href="{{ route('assignRoles.create') }}" class="btn btn-primary btn-round float-right" >
-                            <i class="flaticon-add "></i>
-                            Assign Roles
-                        </a> 
-                        <a href="{{ route('users.create') }}" class="btn btn-primary btn-round float-right mr-2" >
-                            <i class="flaticon-add"></i>
-                            Add User
-                        </a> 
+                    <div class="d-flex align-items-center">
                         <h4 class="card-title">Add Record</h4>
+                        
+                        <a href="{{ route('users.create') }}" class="btn btn-primary btn-round ml-auto" >
+                            <i class="flaticon-add"></i>
+                            Add Record
+                        </a> 
                     </div>
                 </div>
                 <div class="card-body">
@@ -95,14 +91,12 @@
 
                     <div class="table-responsive">
                         @include('cms.helpers.partials.feedback')
-                        <table id="tb_users" class="display table table-striped table-hover">
+                        <table id="tb_assignroles" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Created At</th>
+                                    <th>Role</th>
+                                    <th>Model</th>
                                     <th style="width: 10%">Action</th>
                                 </tr>
                             </thead>
@@ -123,25 +117,19 @@
 
 <script>
     $(document).ready(function() {
-        $('#tb_users').DataTable({
+        $('#tb_assignroles').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('users.index') }}",
+            ajax: "{{ route('assignRoles.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'fname'
+                    data: 'role'
                 },
                 {
-                    data: 'lname'
-                },
-                {
-                    data: 'email'
-                },					
-                {
-                    data: 'created_at',
+                    data: 'model'
                 },
                 {
                     data: 'action',
@@ -151,7 +139,7 @@
                 },
             ]
         });
-        // #tb_users
+        // #tb_assignroles
 
         // Add Row
         // $('#add-row').DataTable({
