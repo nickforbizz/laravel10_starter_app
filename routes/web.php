@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\cms\PermissionController;
 use App\Http\Controllers\cms\UserController;
 use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
@@ -55,7 +56,7 @@ Route::middleware('cms')->group(function(){
     Route::resource('posts', PostController::class);
     Route::resource('postCategories', PostCategoryController::class);
     Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PostCategoryController::class);
+    Route::resource('permissions', PermissionController::class);
 });
 
 

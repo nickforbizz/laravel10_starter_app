@@ -89,8 +89,9 @@
 												<span class="sub-item">Roles</span>
 											</a>
 										</li>
-										<li>
-											<a href="#">
+
+										<li class=" @if(Route::is('permissions.*')) active @endif">
+											<a href="{{ route('permissions.index') }}">
 												<span class="sub-item">Permissions</span>
 											</a>
 										</li>
