@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\cms\AssignRoleController;
 use App\Http\Controllers\cms\PermissionController;
 use App\Http\Controllers\cms\UserController;
 use App\Http\Controllers\cms\PostCategoryController;
@@ -52,11 +53,14 @@ Route::middleware('cms')->group(function(){
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/cms', [App\Http\Controllers\HomeController::class, 'cms'])->name('cms');
+    
+    // Resources Routes
     Route::resource('users', UserController::class);
     Route::resource('posts', PostController::class);
     Route::resource('postCategories', PostCategoryController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::resource('assignRoles', AssignRoleController::class);
 });
 
 
