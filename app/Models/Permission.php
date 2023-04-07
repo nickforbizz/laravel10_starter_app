@@ -30,7 +30,8 @@ class Permission extends Model
 
 	protected $fillable = [
 		'name',
-		'guard_name'
+		'guard_name',
+		'created_by'
 	];
 
 	public function model_has_permissions()
@@ -41,5 +42,10 @@ class Permission extends Model
 	public function roles()
 	{
 		return $this->belongsToMany(Role::class, 'role_has_permissions');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class, 'created_by');
 	}
 }
