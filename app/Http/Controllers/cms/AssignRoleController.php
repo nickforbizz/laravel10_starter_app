@@ -7,14 +7,47 @@ use App\Models\ModelHasRole;
 use App\Http\Requests\StoreModelHasRoleRequest;
 use App\Http\Requests\UpdateModelHasRoleRequest;
 
+use Illuminate\Http\Request;
+use DataTables;
+
 class AssignRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // return datatable of the makes available
+        $data = ModelHasRole::get();
+        if ($request->ajax()) {
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn_edit = '<a data-toggle="tooltip" 
+                                    href="'. route('assignRole.edit', $row->id) .'" 
+                                    class="btn btn-link btn-primary btn-lg" 
+                                    data-original-title="Edit Record">
+                                <i class="fa fa-edit"></i>
+                            </a>';
+                    $btn_del = null;
+                    if(auth()->user()->hasRole('superadmin')){
+                        $btn_del = '<button type="button" 
+                                    data-toggle="tooltip" 
+                                    title="" 
+                                    class="btn btn-link btn-danger" 
+                                    onclick="delRecord(`' . $row->id . '`, `'.route('assignRole.destroy', $row->id).'`, `#tb_assignroles`)"
+                                    data-original-title="Remove">
+                                <i class="fa fa-times"></i>
+                            </button>';
+                    }
+                    return $btn_edit.$btn_del;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        // render view
+        return view('cms.users.assignrole_index');
     }
 
     /**
@@ -22,7 +55,8 @@ class AssignRoleController extends Controller
      */
     public function create()
     {
-        //
+        // render view
+        return view('cms.users.assignrole_create');
     }
 
     /**
@@ -30,7 +64,10 @@ class AssignRoleController extends Controller
      */
     public function store(StoreModelHasRoleRequest $request)
     {
-        //
+        TODO: // add logic
+        return redirect()
+            ->route('assignRole.index')
+            ->with('success', 'Record Created Successfully');  
     }
 
     /**
@@ -38,7 +75,8 @@ class AssignRoleController extends Controller
      */
     public function show(ModelHasRole $modelHasRole)
     {
-        //
+        return response()
+        ->json($modelHasRole, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
     }
 
     /**
@@ -46,7 +84,7 @@ class AssignRoleController extends Controller
      */
     public function edit(ModelHasRole $modelHasRole)
     {
-        //
+        return view('cms.users.assignrole_create', compact('modelHasRole'));
     }
 
     /**
@@ -54,7 +92,11 @@ class AssignRoleController extends Controller
      */
     public function update(UpdateModelHasRoleRequest $request, ModelHasRole $modelHasRole)
     {
-        //
+        TODO: // add logic
+        // Redirect the user to the user's profile page
+        return redirect()
+                ->route('assignRole.index')
+                ->with('success', 'Record updated successfully!');
     }
 
     /**
@@ -62,6 +104,16 @@ class AssignRoleController extends Controller
      */
     public function destroy(ModelHasRole $modelHasRole)
     {
-        //
+        if($modelHasRole->delete()){
+            return response()->json([
+                'code' => 1,
+                'msg' => 'Record deleted successfully'
+            ], 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
+        }
+
+        return response()->json([
+            'code' => -1,
+            'msg' => 'Record did not delete'
+        ], 422, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
     }
 }
