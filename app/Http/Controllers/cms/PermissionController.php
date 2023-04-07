@@ -15,7 +15,7 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // return datatable of the makes available
         $data = Permission::where('active', 1)->get();
@@ -87,7 +87,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('cms.permissions.create', compact('role'));
+        return view('cms.permissions.create', compact('permission'));
     }
 
     /**

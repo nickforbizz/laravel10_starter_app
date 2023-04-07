@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title"> Roles </h4>
+        <h4 class="page-title"> Permissions </h4>
         <ul class="breadcrumbs">
             <li class="nav-home">
                 <a href="#">
@@ -14,7 +14,7 @@
                 <i class="flaticon-right-arrow"></i>
             </li>
             <li class="nav-item">
-                <a href="#"> Roles</a>
+                <a href="#"> Permissions</a>
             </li>
             <li class="separator">
                 <i class="flaticon-right-arrow"></i>
@@ -32,7 +32,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Add Record</h4>
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary btn-round ml-auto" >
+                        <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-round ml-auto" >
                             <i class="flaticon-add mr-2"></i>
                             Add Record
                         </a> 
@@ -43,7 +43,7 @@
 
                     <div class="table-responsive">
                         @include('cms.helpers.partials.feedback')
-                        <table id="tb_roles" class="display table table-striped table-hover">
+                        <table id="tb_permissions" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -71,10 +71,10 @@
 
 <script>
     $(document).ready(function() {
-        $('#tb_roles').DataTable({
+        $('#tb_permissions').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('roles.index') }}",
+            ajax: "{{ route('permissions.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -99,7 +99,7 @@
                 },
             ]
         });
-        // #tb_role
+        // #tb_permissions
 
     });
 
