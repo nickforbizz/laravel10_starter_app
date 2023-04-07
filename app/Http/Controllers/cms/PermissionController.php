@@ -29,21 +29,25 @@ class PermissionController extends Controller
                     return isset($row->created_by) ? $row?->user?->email : 'N/A';
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a data-toggle="tooltip" 
+                    $btn_edit = '<a data-toggle="tooltip" 
                                     href="'. route('permissions.edit', $row->id) .'" 
                                     class="btn btn-link btn-primary btn-lg" 
                                     data-original-title="Edit Record">
                                 <i class="fa fa-edit"></i>
-                            </a>
-                            <button type="button" 
-                                    data-toggle="tooltip" 
-                                    title="" 
-                                    class="btn btn-link btn-danger" 
-                                    onclick="delRecord(`' . $row->id . '`, `'.route('permissions.destroy', $row->id).'`, `#tb_permissions`)"
-                                    data-original-title="Remove">
-                                <i class="fa fa-times"></i>
-                            </button>';
-                    return $btn;
+                            </a>';
+                    $btn_del = null;
+                    if(auth()->user()->hasRole('superadmin')){
+                        $btn_del = '<button type="button" 
+                                data-toggle="tooltip" 
+                                title="" 
+                                class="btn btn-link btn-danger" 
+                                onclick="delRecord(`' . $row->id . '`, `'.route('permissions.destroy', $row->id).'`, `#tb_permissions`)"
+                                data-original-title="Remove">
+                            <i class="fa fa-times"></i>
+                        </button>';
+
+                    }
+                    return $btn_edit.$btn_del;
                 })
                 ->rawColumns(['action', 'created_at', 'created_by'])
                 ->make(true);
