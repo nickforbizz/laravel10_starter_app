@@ -1,18 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\cms;
+
 use App\Http\Controllers\Controller;
-
-use App\Models\PostCategory;
-
-
-use App\Http\Requests\StorePostCategoryRequest;
-use App\Http\Requests\UpdatePostCategoryRequest;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
+use App\Models\Role;
 
 use Illuminate\Http\Request;
 use DataTables;
 
-class PostCategoryController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,16 +18,19 @@ class PostCategoryController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = PostCategory::where('active', 0)->get();
+        $data = Role::where('active', 1)->get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($row) {
                     return date_format($row->created_at, 'Y/m/d H:i');
                 })
+                ->editColumn('created_by', function ($row) {
+                    return isset($row->created_by) ? $row?->user?->email : 'N/A';
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<a data-toggle="tooltip" 
-                                    href="'. route('postCategories.edit', $row->id) .'" 
+                                    href="'. route('roles.edit', $row->id) .'" 
                                     class="btn btn-link btn-primary btn-lg" 
                                     data-original-title="Edit Record">
                                 <i class="fa fa-edit"></i>
@@ -38,18 +39,18 @@ class PostCategoryController extends Controller
                                     data-toggle="tooltip" 
                                     title="" 
                                     class="btn btn-link btn-danger" 
-                                    onclick="delRecord(`' . $row->id . '`, `'.route('postCategories.destroy', $row->id).'`, `#tb_postCategories`)"
+                                    onclick="delRecord(`' . $row->id . '`, `'.route('roles.destroy', $row->id).'`, `#tb_roles`)"
                                     data-original-title="Remove">
                                 <i class="fa fa-times"></i>
                             </button>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'created_at', 'created_by'])
                 ->make(true);
         }
 
         // render view
-        return view('cms.postCategories.index');
+        return view('cms.roles.index');
     }
 
     /**
@@ -57,55 +58,58 @@ class PostCategoryController extends Controller
      */
     public function create()
     {
-        return view('cms.postCategories.create');
+        // render view
+        return view('cms.roles.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostCategoryRequest $request)
+    public function store(StoreRoleRequest $request)
     {
-        PostCategory::create($request->all());
-        return redirect()->back()->with('success', 'Record Created Successfully');   
+        Role::create($request->all());
+        return redirect()
+            ->route('roles.index')
+            ->with('success', 'Record Created Successfully');   
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(PostCategory $postCategory)
+    public function show(Role $role)
     {
         return response()
-        ->json($postCategory, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
+        ->json($role, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PostCategory $postCategory)
+    public function edit(Role $role)
     {
-        return view('cms.postCategories.create', compact('postCategory'));
+        // return 1;
+        return view('cms.roles.create', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostCategoryRequest $request, PostCategory $postCategory)
+    public function update(UpdateRoleRequest $request, Role $role)
     {
-
-        $postCategory->update($request->all());
+        $role->update($request->all());
 
         // Redirect the user to the user's profile page
         return redirect()
-                ->route('postCategories.index')
+                ->route('roles.index')
                 ->with('success', 'Record updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PostCategory $postCategory)
+    public function destroy(Role $role)
     {
-        if($postCategory->delete()){
+        if($role->delete()){
             return response()->json([
                 'code' => 1,
                 'msg' => 'Record deleted successfully'

@@ -3,6 +3,7 @@
 use App\Http\Controllers\cms\UserController;
 use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
+use App\Http\Controllers\cms\RoleController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,8 @@ Route::middleware('cms')->group(function(){
     Route::resource('users', UserController::class);
     Route::resource('posts', PostController::class);
     Route::resource('postCategories', PostCategoryController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PostCategoryController::class);
 });
 
 

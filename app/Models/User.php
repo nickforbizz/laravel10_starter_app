@@ -86,6 +86,8 @@ class User extends Authenticatable
 		return $this->hasMany(Post::class, 'created_by');
 	}
 
+	
+
 	/**
      * Hash the password before saving the user record.
      */

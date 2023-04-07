@@ -67,23 +67,25 @@
 				</li>
 
 
-				<li class="nav-item">
+				<li class="nav-item @if(Route::is('roles.*') || 
+									Route::is('permissions.*')) active 
+									@endif">
 					<a data-toggle="collapse" href="#submenu">
 						<i class="fas fa-cog"></i>
 						<p>System Parameters</p>
 						<span class="caret"></span>
 					</a>
-					<div class="collapse" id="submenu">
+					<div class="@if(Route::is('roles.*') || Route::is('permissions.*')) collapsed @else collapse @endif" id="submenu">
 						<ul class="nav nav-collapse">
 							<li>
 								<a data-toggle="collapse" href="#subnav2">
 									<span class="sub-item">Users</span>
 									<span class="caret"></span>
 								</a>
-								<div class="collapse" id="subnav2">
+								<div class="@if(Route::is('roles.*') || Route::is('permissions.*')) collapsed @else collapse @endif" id="subnav2">
 									<ul class="nav nav-collapse subnav">
-										<li>
-											<a href="#">
+										<li class=" @if(Route::is('roles.*')) active @endif">
+											<a href="{{ route('roles.index') }}">
 												<span class="sub-item">Roles</span>
 											</a>
 										</li>

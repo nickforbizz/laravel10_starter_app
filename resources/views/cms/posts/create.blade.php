@@ -78,7 +78,7 @@
                             <label for="category_id">Category</label>
                             <select name="category_id" id="product_category" class="form-control form-control">
                                 @forelse($post_categories as $category)
-                                    <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : '' }}> {{ $category->name }} </option>
+                                    <option value="{{ $category->id }}" @if(isset($post->id)) {{  $category->id == $post->category_id ? 'selected' : '' }} @endif> {{ $category->name }} </option>
                                 @empty
                                     <option selected disabled> -- No item -- </option> 
                                 @endforelse
@@ -97,7 +97,7 @@
                         <div class="form-group form-floating-label">
                             <label for="featuredimg" class=""> Featured Image </label>
                             <input id="featuredimg" type="file" class="form-control input-border-bottom" name="featuredimg" />
-                            @if ($post->featured_img)
+                            @if (isset($post->featured_img))
                                 <img id="blah" src="{{ asset('storage/'.$post->featured_img) }}" alt="current image" height="100px"/>
                             @else
                                 <img id="blah" src="#" alt="no image" height="100px"/>
