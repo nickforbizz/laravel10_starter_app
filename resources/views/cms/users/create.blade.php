@@ -103,7 +103,7 @@
 
 
                         <div class="form-group">
-                            <label for="role_id"> Roles </label>
+                            <label for="role"> Roles </label>
                             <select name="roles[]" id="role" multiple="multiple" class="form-control form-control select2">
                                 @forelse($roles as $role)
                                     <option value="{{ $role->name }}" @if($user->hasRole($role->name)) selected @endif> {{ $role->name }} </option>
