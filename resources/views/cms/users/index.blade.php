@@ -31,11 +31,6 @@
             <div class="card">
                 <div class="card-header">
                     <div class="xd-flex Xalign-items-center">
-                        
-                        <a href="{{ route('assignRoles.create') }}" class="btn btn-primary btn-round float-right" >
-                            <i class="flaticon-add "></i>
-                            Assign Roles
-                        </a> 
                         <a href="{{ route('users.create') }}" class="btn btn-primary btn-round float-right mr-2" >
                             <i class="flaticon-add"></i>
                             Add User
