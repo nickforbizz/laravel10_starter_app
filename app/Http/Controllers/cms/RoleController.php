@@ -5,6 +5,7 @@ namespace App\Http\Controllers\cms;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Models\Permission;
 use App\Models\Role;
 
 use Illuminate\Http\Request;
@@ -70,7 +71,8 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        Role::create($request->all());
+        $role = Role::create($request->all());
+        $role->syncPermissions($request->input('permissions'));
         return redirect()
             ->route('roles.index')
             ->with('success', 'Record Created Successfully');   
@@ -90,7 +92,9 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('cms.roles.create', compact('role'));
+        $permissions = Permission::where('active', 1)->get();
+        $role_permissions = $role->permissions()->pluck('name')->toArray();
+        return view('cms.roles.create', compact('role', 'permissions', 'role_permissions'));
     }
 
     /**
@@ -98,7 +102,10 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
+
+        $permissions = $role->permissions()->pluck('name')->toArray();
         $role->update($request->all());
+        $role->syncPermissions($request->input('permissions'));
 
         // Redirect the user to the user's profile page
         return redirect()

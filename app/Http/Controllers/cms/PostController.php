@@ -152,15 +152,15 @@ class PostController extends Controller
     private function storeFeaturedImg(Request $request, Post $post=null)
     {
 
-        // Delete Image
-        if($post){
-            if ($post->featured_img && Storage::disk('public')->exists($post->featured_img)) {
-                Storage::disk('public')->delete($post->featured_img);
-            }
-        }
-
+        
         // Store Image
         if($request->has('featuredimg')){
+            // Delete Image
+            if($post){
+                if ($post->featured_img && Storage::disk('public')->exists($post->featured_img)) {
+                    Storage::disk('public')->delete($post->featured_img);
+                }
+            }
             $featured_img_filename = GlobalHelper::saveImage($request->file('featuredimg'),'posts', 'public');
             $request->request->add(['featured_img' => $featured_img_filename]);
         }
