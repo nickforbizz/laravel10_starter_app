@@ -28,6 +28,9 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
 
+	<!-- select2 -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 		<style>
 			.tb_img{
 				height: 3rem;
@@ -150,13 +153,25 @@
 	<!-- Atlantis JS -->
 	<script src="{{ asset('assets/js/atlantis.min.js') }}"></script>
 
+	<!-- select2 -->
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 	<script>
-		tinymce.init({
-		selector: 'textarea',
-		plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-		toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+		$(document).ready(function() {
+			// select2 init
+			$('.select2').select2({
+				placeholder: 'Select an option',
+			});
+
+			// tinymce.init
+			tinymce.init({
+				selector: '.tiny_textarea',
+				plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+				toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+			});
 		});
+
 		
 		function readURL(input) {
 			if (input.files && input.files[0]) {

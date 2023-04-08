@@ -89,7 +89,7 @@
 
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea name="content" id="content" class="form-control form-control" placeholder="Enter content ...">{{ old('content', $post->content ?? '') }}</textarea>
+                            <textarea name="content" id="content" class="form-control form-control tiny_textarea" placeholder="Enter content ...">{{ old('content', $post->content ?? '') }}</textarea>
                             @error('content') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

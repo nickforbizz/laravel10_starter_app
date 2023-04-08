@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\ModelHasRole;
 use App\Models\Permission;
 use App\Models\Role;
 use DataTables;
@@ -64,7 +65,6 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        $permissions = Permission::all();
         return view('cms.users.create', compact('roles', 'permissions'));
     }
 
@@ -82,7 +82,9 @@ class UserController extends Controller
             $user->assignRole($request->roles);
         }
 
-        return redirect()->back()->with('success', 'Record Created Successfully');   
+        return redirect()
+        ->route('users.index')
+        ->with('success', 'Record Created Successfully');   
     }
 
     /**
@@ -99,8 +101,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         
-
-        return view('cms.users.create', compact('user'));
+        $roles = Role::all();
+        return view('cms.users.create', compact('user', 'roles'));
     }
 
     /**
@@ -113,6 +115,7 @@ class UserController extends Controller
         $user->update($request->all());
 
         if(! empty($request->roles)) {
+            ModelHasRole::where('model_id', $user->id)->delete();
             $user->assignRole($request->roles);
         }
 
