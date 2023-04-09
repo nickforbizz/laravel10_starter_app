@@ -106,6 +106,7 @@ class RoleController extends Controller
         $permissions_arr = $request->input('permissions');
         $permissions = Permission::whereIn('name',  $permissions_arr)->get();
 
+        $role->syncPermissions($permissions);
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission->name);
         }
