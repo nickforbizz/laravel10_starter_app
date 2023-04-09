@@ -40,6 +40,11 @@ Route::get('/optimize', function() {
     // return what you want
 });
 
+Route::get('/flush-perms', function() {
+    Artisan::call('permission:cache-reset');
+    // return what you want
+});
+
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 

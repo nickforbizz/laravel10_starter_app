@@ -20,7 +20,7 @@ class PostCategoryController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = PostCategory::where('active', 0)->get();
+        $data = PostCategory::orderBy('created_at', 'desc')->get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
