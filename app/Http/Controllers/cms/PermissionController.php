@@ -5,6 +5,7 @@ namespace App\Http\Controllers\cms;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use App\Models\Guard;
 use App\Models\Permission;
 
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = Permission::where('active', 1)->get();
+        $data = Permission::orderBy('created_at', 'desc')->get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -62,8 +63,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        $guards = Guard::where('active', 1)->get();
         // render view
-        return view('cms.permissions.create');
+        return view('cms.permissions.create', compact('guards'));
     }
 
     /**
@@ -91,7 +93,8 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('cms.permissions.create', compact('permission'));
+        $guards = Guard::where('active', 1)->get();
+        return view('cms.permissions.create', compact('permission', 'guards'));
     }
 
     /**

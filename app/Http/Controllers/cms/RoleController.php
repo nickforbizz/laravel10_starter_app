@@ -19,7 +19,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = Role::where('active', 1)->get();
+        $data = Role::orderBy('created_at', 'desc')->get();
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -71,6 +71,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
+        
         $role = Role::create($request->all());
         $role->syncPermissions($request->input('permissions'));
         return redirect()
@@ -102,10 +103,15 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        $permissions_arr = $request->input('permissions');
+        $permissions = Permission::whereIn('name',  $permissions_arr)->get();
 
-        $permissions = $role->permissions()->pluck('name')->toArray();
+
+        $role->syncPermissions([]);
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission->name);
+        }
         $role->update($request->all());
-        $role->syncPermissions($request->input('permissions'));
 
         // Redirect the user to the user's profile page
         return redirect()

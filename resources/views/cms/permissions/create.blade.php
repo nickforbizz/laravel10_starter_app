@@ -59,18 +59,27 @@
                             <input id="name" type="text" name="name" class="form-control pl-2 input-border-bottom @error('name') is-invalid @enderror"  value="{{ $permission->name ?? '' }}" readonly />
                             @else
                             <input id="name" type="text" class="form-control input-border-bottom @error('name') is-invalid @enderror" name="name"  value="{{ $permission->name ?? '' }}" required />
-                            <label for="name" class="placeholder">name</label>
+                            <label for="name" class="placeholder"> Name</label>
                             @endif
                             @error('name') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <div class="form-group form-floating-label">
-                            <input id="guard_name" type="text" class="form-control pl-2 input-border-bottom @error('guard_name') is-invalid @enderror" name="guard_name"  value="{{ $permission->guard_name ?? '' }}" required />
-                            <label for="guard_name" class="placeholder"> Guard Name</label>
+
+                        <div class="form-group">
+                            <label for="guard_name"> Guard Name</label>
+                            <select name="guard_name" id="guard_name" class="form-control form-control">
+                                @forelse($guards as $guard)
+                                    <option value="{{ $guard->name }}" @if(isset($post->id)) {{  $guard->id == $post->guard_id ? 'selected' : '' }} @endif> {{ $guard->name }} </option>
+                                @empty
+                                    <option selected disabled> -- No item -- </option> 
+                                @endforelse
+                            </select>
                             @error('guard_name') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
+                       
 
                         
 
