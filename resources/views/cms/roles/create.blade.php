@@ -74,6 +74,7 @@
 
                         <div class="form-group">
                             <label for="permission"> Permissions </label>
+                            {{ $role->getPermissionNames() }}
                             <select name="permissions[]" id="permission" multiple="multiple" class="form-control form-control select2">
                                 @forelse($permissions as $permission)
                                     <option value="{{ $permission->name }}" @if(in_array($permission->name, $role_permissions)) selected @endif > {{ $permission->name }} </option>
