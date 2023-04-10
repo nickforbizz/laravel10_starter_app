@@ -52,6 +52,7 @@
                         @csrf
                         @if(isset($user->id))
                         @method('PUT')
+                        <input type="hidden" name="id" value="{{ $user->id }}">
                         @endif
 
                         <div class="form-group form-floating-label">

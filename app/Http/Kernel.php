@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
 
         'cms' => [
             'auth',
-            'role:superadmin'
+            // 'role:superadmin|admin'
         ],
     ];
 

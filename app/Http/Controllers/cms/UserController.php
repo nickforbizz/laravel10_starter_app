@@ -31,33 +31,40 @@ class UserController extends Controller
                     return date_format($row->created_at, 'Y/m/d H:i');
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a data-toggle="tooltip" 
-                                    href="'. route('users.edit', $row->id) .'" 
-                                    class="btn btn-link btn-primary btn-lg" 
-                                    data-original-title="Edit Record">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <button type="button" 
+                    $btn_edit = $btn_del = null;
+                    if (auth()->user()->hasAnyRole('superadmin|admin') || auth()->id() == $row->id) {
+                        $btn_edit = '<a data-toggle="tooltip" 
+                                        href="' . route('users.edit', $row->id) . '" 
+                                        class="btn btn-link btn-primary btn-lg" 
+                                        data-original-title="Edit Record">
+                                    <i class="fa fa-edit"></i>
+                                </a>';
+
+                    }
+
+                    if (auth()->user()->hasRole('superadmin')) {
+                        $btn_del = '<button type="button" 
                                     data-toggle="tooltip" 
                                     title="" 
                                     class="btn btn-link btn-danger" 
-                                    onclick="delRecord(`' . $row->id . '`, `'.route('users.destroy', $row->id).'`, `#tb_users`)"
+                                    onclick="delRecord(`' . $row->id . '`, `' . route('users.destroy', $row->id) . '`, `#tb_users`)"
                                     data-original-title="Remove">
                                 <i class="fa fa-times"></i>
                             </button>';
-                    return $btn;
+                    }
+                    return $btn_edit . $btn_del;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
-        
+
 
         // render view
         return view('cms.users.index');
     }
 
-   
+
 
     /**
      * Show the form for creating a new resource.
@@ -73,18 +80,18 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        
+
         $request = $this->addFieldsStoreImg($request);
-        
+
         $user = User::create($request->all());
 
-        if(! empty($request->roles)) {
+        if (!empty($request->roles)) {
             $user->assignRole($request->roles);
         }
 
         return redirect()
-        ->route('users.index')
-        ->with('success', 'Record Created Successfully');   
+            ->route('users.index')
+            ->with('success', 'Record Created Successfully');
     }
 
     /**
@@ -100,7 +107,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        
+
         $roles = Role::all();
         return view('cms.users.create', compact('user', 'roles'));
     }
@@ -111,18 +118,17 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $request = $this->addFieldsStoreImg($request, $user);
-
         $user->update($request->all());
 
-        if(! empty($request->roles)) {
+        if (!empty($request->roles)) {
             ModelHasRole::where('model_id', $user->id)->delete();
             $user->assignRole($request->roles);
         }
 
         // Redirect the user to the user's profile page
         return redirect()
-                ->route('users.index')
-                ->with('success', 'Record updated successfully!');
+            ->route('users.index')
+            ->with('success', 'Record updated successfully!');
 
     }
 
@@ -132,12 +138,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
-         // delete user's profile image if it exists
+        // delete user's profile image if it exists
         if ($user->avator && Storage::disk('public')->exists($user->avator)) {
             Storage::disk('public')->delete($user->avator);
         }
 
-        if($user->delete()){
+        if ($user->delete()) {
             return response()->json([
                 'code' => 1,
                 'msg' => 'Record deleted successfully'
@@ -153,23 +159,23 @@ class UserController extends Controller
     }
 
 
-    private function addFieldsStoreImg(Request $request, User $user=null)
+    private function addFieldsStoreImg(Request $request, User $user = null)
     {
-        
+
         // Store Image
-        if($request->has('profile')){
+        if ($request->has('profile')) {
+            $avator_filename = GlobalHelper::saveImage($request->file('profile'), 'profiles', 'public');
+            $request->request->add(['avator' => $avator_filename]);
             // Delete Image
-            if($user){
+            if ($user) {
                 if ($user->avator && Storage::disk('public')->exists($user->avator)) {
                     Storage::disk('public')->delete($user->avator);
                 }
             }
-            $avator_filename = GlobalHelper::saveImage($request->file('profile'),'profiles', 'public');
-            $request->request->add(['avator' => $avator_filename]);
         }
-        $fullname = $request->sname.' '.$request->fname.' '.$request->lname;
-        $request->request->add(['name' =>  $fullname]);
+        $fullname = $request->sname . ' ' . $request->fname . ' ' . $request->lname;
+        $request->request->add(['name' => $fullname]);
 
-        return  $request;
+        return $request;
     }
 }

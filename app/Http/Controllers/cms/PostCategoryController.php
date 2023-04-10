@@ -28,13 +28,15 @@ class PostCategoryController extends Controller
                     return date_format($row->created_at, 'Y/m/d H:i');
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a data-toggle="tooltip" 
+                    $btn_edit = '<a data-toggle="tooltip" 
                                     href="'. route('postCategories.edit', $row->id) .'" 
                                     class="btn btn-link btn-primary btn-lg" 
                                     data-original-title="Edit Record">
                                 <i class="fa fa-edit"></i>
-                            </a>
-                            <button type="button" 
+                            </a>';
+                            $btn_del = null;
+                            if(auth()->user()->hasRole('superadmin')){ 
+                                $btn_del = '<button type="button" 
                                     data-toggle="tooltip" 
                                     title="" 
                                     class="btn btn-link btn-danger" 
@@ -42,7 +44,8 @@ class PostCategoryController extends Controller
                                     data-original-title="Remove">
                                 <i class="fa fa-times"></i>
                             </button>';
-                    return $btn;
+                        }
+                        return $btn_edit.$btn_del;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
