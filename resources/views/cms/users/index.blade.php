@@ -31,11 +31,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="xd-flex Xalign-items-center">
+                        @can('create users')
                         <a href="{{ route('users.create') }}" class="btn btn-primary btn-round float-right mr-2" >
                             <i class="flaticon-add"></i>
                             Add User
                         </a> 
-                        <h4 class="card-title">Add Record</h4>
+                        @endcan
+                        <h4 class="card-title">List of Users</h4>
                     </div>
                 </div>
                 <div class="card-body">
