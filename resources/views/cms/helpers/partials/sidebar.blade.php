@@ -43,14 +43,17 @@
 						<i class="fa fa-ellipsis-h"></i>
 					</span>
 					<h4 class="text-section">Modules</h4>
-					<hr> 
+					<hr>
 				</li>
+
+				@if(auth()->user()->hasAnyRole(['admin', 'superadmin']))
 				<li class="nav-item @if(Route::is('users.*')) active @endif">
 					<a href="{{ route('users.index') }}">
 						<i class="icon-people"></i>
 						<p>Users</p>
 					</a>
 				</li>
+				@endif
 
 				<li class="nav-item @if(Route::is('postCategories.*')) active @endif">
 					<a href="{{ route('postCategories.index') }}">
@@ -66,7 +69,7 @@
 					</a>
 				</li>
 
-
+				@if(auth()->user()->hasAnyRole(['admin', 'superadmin']))
 				<li class="nav-item @if(Route::is('roles.*') || 
 									Route::is('permissions.*')) active 
 									@endif">
@@ -106,6 +109,7 @@
 						</ul>
 					</div>
 				</li>
+				@endif
 
 				<hr>
 				<li class="nav-item">
