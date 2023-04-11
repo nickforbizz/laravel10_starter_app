@@ -13,7 +13,7 @@ class UpdatePostRequest extends FormRequest
     public function authorize(): bool
     {
         $user = auth()->user();
-        return $user->hasAnyRole(['admin', 'superadmin']);
+        return $user->hasAnyRole(['editor', 'admin', 'superadmin']) ||  $this->created_by == auth()->id();
     }
 
     /**

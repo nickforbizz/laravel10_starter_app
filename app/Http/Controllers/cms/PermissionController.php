@@ -30,25 +30,25 @@ class PermissionController extends Controller
                     return isset($row->created_by) ? $row?->user?->email : 'N/A';
                 })
                 ->addColumn('action', function ($row) {
-                    $btn_edit = '<a data-toggle="tooltip" 
-                                    href="'. route('permissions.edit', $row->id) .'" 
+                    $btn_edit = $btn_del = null;
+                    if (auth()->user()->hasRole('superadmin')) {
+                        $btn_edit = '<a data-toggle="tooltip" 
+                                    href="' . route('permissions.edit', $row->id) . '" 
                                     class="btn btn-link btn-primary btn-lg" 
                                     data-original-title="Edit Record">
                                 <i class="fa fa-edit"></i>
                             </a>';
-                    $btn_del = null;
-                    if(auth()->user()->hasRole('superadmin')){
+
                         $btn_del = '<button type="button" 
                                 data-toggle="tooltip" 
                                 title="" 
                                 class="btn btn-link btn-danger" 
-                                onclick="delRecord(`' . $row->id . '`, `'.route('permissions.destroy', $row->id).'`, `#tb_permissions`)"
+                                onclick="delRecord(`' . $row->id . '`, `' . route('permissions.destroy', $row->id) . '`, `#tb_permissions`)"
                                 data-original-title="Remove">
                             <i class="fa fa-times"></i>
                         </button>';
-
                     }
-                    return $btn_edit.$btn_del;
+                    return $btn_edit . $btn_del;
                 })
                 ->rawColumns(['action', 'created_at', 'created_by'])
                 ->make(true);
@@ -76,7 +76,7 @@ class PermissionController extends Controller
         Permission::create($request->all());
         return redirect()
             ->route('permissions.index')
-            ->with('success', 'Record Created Successfully');   
+            ->with('success', 'Record Created Successfully');
     }
 
     /**
@@ -85,7 +85,7 @@ class PermissionController extends Controller
     public function show(Permission $permission)
     {
         return response()
-        ->json($permission, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
+            ->json($permission, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
     }
 
     /**
@@ -106,8 +106,8 @@ class PermissionController extends Controller
 
         // Redirect the user to the user's profile page
         return redirect()
-                ->route('permissions.index')
-                ->with('success', 'Record updated successfully!');
+            ->route('permissions.index')
+            ->with('success', 'Record updated successfully!');
     }
 
     /**
@@ -115,7 +115,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        if($permission->delete()){
+        if ($permission->delete()) {
             return response()->json([
                 'code' => 1,
                 'msg' => 'Record deleted successfully'

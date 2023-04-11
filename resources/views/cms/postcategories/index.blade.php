@@ -31,11 +31,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h4 class="card-title">Add Row</h4>
+                        <h4 class="card-title">List of Available Record(s)</h4>
+                        @can('create post categories')
                         <a href="{{ route('postCategories.create') }}" class="btn btn-primary btn-round ml-auto" >
                             <i class="flaticon-add mr-2"></i>
                             Add Row
                         </a> 
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">

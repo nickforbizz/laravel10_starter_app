@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\cms;
+
 use App\Http\Controllers\Controller;
 
 use App\Models\PostCategory;
@@ -28,24 +29,27 @@ class PostCategoryController extends Controller
                     return date_format($row->created_at, 'Y/m/d H:i');
                 })
                 ->addColumn('action', function ($row) {
-                    $btn_edit = '<a data-toggle="tooltip" 
-                                    href="'. route('postCategories.edit', $row->id) .'" 
-                                    class="btn btn-link btn-primary btn-lg" 
-                                    data-original-title="Edit Record">
-                                <i class="fa fa-edit"></i>
-                            </a>';
-                            $btn_del = null;
-                            if(auth()->user()->hasRole('superadmin')){ 
-                                $btn_del = '<button type="button" 
+                    $btn_edit = $btn_del = null;
+                    if (auth()->user()->hasAnyRole('superadmin|admin|editor') || auth()->id() == $row->created_by) {
+                        $btn_edit = '<a data-toggle="tooltip" 
+                                        href="' . route('postCategories.edit', $row->id) . '" 
+                                        class="btn btn-link btn-primary btn-lg" 
+                                        data-original-title="Edit Record">
+                                    <i class="fa fa-edit"></i>
+                                </a>';
+                    }
+
+                    if (auth()->user()->hasRole('superadmin')) {
+                        $btn_del = '<button type="button" 
                                     data-toggle="tooltip" 
                                     title="" 
                                     class="btn btn-link btn-danger" 
-                                    onclick="delRecord(`' . $row->id . '`, `'.route('postCategories.destroy', $row->id).'`, `#tb_postCategories`)"
+                                    onclick="delRecord(`' . $row->id . '`, `' . route('postCategories.destroy', $row->id) . '`, `#tb_postCategories`)"
                                     data-original-title="Remove">
                                 <i class="fa fa-times"></i>
                             </button>';
-                        }
-                        return $btn_edit.$btn_del;
+                    }
+                    return $btn_edit . $btn_del;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -69,7 +73,7 @@ class PostCategoryController extends Controller
     public function store(StorePostCategoryRequest $request)
     {
         PostCategory::create($request->all());
-        return redirect()->back()->with('success', 'Record Created Successfully');   
+        return redirect()->back()->with('success', 'Record Created Successfully');
     }
 
     /**
@@ -78,7 +82,7 @@ class PostCategoryController extends Controller
     public function show(PostCategory $postCategory)
     {
         return response()
-        ->json($postCategory, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
+            ->json($postCategory, 200, ['JSON_PRETTY_PRINT' => JSON_PRETTY_PRINT]);
     }
 
     /**
@@ -99,8 +103,8 @@ class PostCategoryController extends Controller
 
         // Redirect the user to the user's profile page
         return redirect()
-                ->route('postCategories.index')
-                ->with('success', 'Record updated successfully!');
+            ->route('postCategories.index')
+            ->with('success', 'Record updated successfully!');
     }
 
     /**
@@ -108,7 +112,7 @@ class PostCategoryController extends Controller
      */
     public function destroy(PostCategory $postCategory)
     {
-        if($postCategory->delete()){
+        if ($postCategory->delete()) {
             return response()->json([
                 'code' => 1,
                 'msg' => 'Record deleted successfully'
