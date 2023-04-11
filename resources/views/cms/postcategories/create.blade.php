@@ -51,7 +51,8 @@
 
                         @csrf
                         @if(isset($postCategory->id))
-                        @method('PUT')
+                            @method('PUT')
+                            <input type="hidden" name="created_by" value="{{ auth()->id() }}">
                         @endif
 
 

@@ -51,7 +51,8 @@
 
                         @csrf
                         @if(isset($post->id))
-                        @method('PUT')
+                            @method('PUT')
+                            <input type="hidden" name="created_by" value="{{ auth()->id() }}">
                         @endif
 
                         <div class="form-group">

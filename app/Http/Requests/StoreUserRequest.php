@@ -13,8 +13,8 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user_roles = Auth::user()->roles->pluck('name')->toArray();
-        return in_array('admin', $user_roles);
+        $user = auth()->user();
+        return $user->hasAnyRole(['admin', 'superadmin']);
     }
 
     /**
