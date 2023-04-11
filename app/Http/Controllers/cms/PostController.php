@@ -44,6 +44,7 @@ class PostController extends Controller
                     return Str::limit($row->content, 20, '...');
                 })
                 ->addColumn('action', function ($row) {
+                    $btn_edit = $btn_del = null;
                     if (auth()->user()->hasAnyRole('superadmin|admin|editor') || auth()->id() == $row->created_by) {
                         $btn_edit = '<a data-toggle="tooltip" 
                                     href="' . route('posts.edit', $row->id) . '" 
@@ -52,7 +53,7 @@ class PostController extends Controller
                                 <i class="fa fa-edit"></i>
                             </a>';
                     }
-                    $btn_del = null;
+
                     if (auth()->user()->hasAnyRole('superadmin|admin')) {
                         $btn_del = '<button type="button" 
                                     data-toggle="tooltip" 
