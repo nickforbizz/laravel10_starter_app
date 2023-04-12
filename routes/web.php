@@ -5,6 +5,7 @@ use App\Http\Controllers\cms\PermissionController;
 use App\Http\Controllers\cms\UserController;
 use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
+use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -60,12 +61,15 @@ Route::middleware('cms')->group(function(){
     Route::get('/cms', [App\Http\Controllers\HomeController::class, 'cms'])->name('cms');
     
     // Resources Routes
-    Route::resource('users', UserController::class);
-    Route::resource('posts', PostController::class);
-    Route::resource('postCategories', PostCategoryController::class);
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
-    Route::resource('assignRoles', AssignRoleController::class);
+    Route::resources([
+        'users' => UserController::class,
+        'posts' => PostController::class,
+        'postCategories' => PostCategoryController::class,
+        'roles' => RoleController::class,
+        'permissions' => PermissionController::class,
+        'assignRoles' => AssignRoleController::class,
+        'reports' => ReportController::class,
+    ]);
 });
 
 

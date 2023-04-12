@@ -69,6 +69,13 @@
 					</a>
 				</li>
 
+				<li class="nav-item @if(Route::is('reports.*')) active @endif">
+					<a href="{{ route('reports.index') }}">
+						<i class="far fa-edit"></i>
+						<p> Reports</p>
+					</a>
+				</li>
+
 				@if(auth()->user()->hasAnyRole(['admin', 'superadmin']))
 				<li class="nav-item @if(Route::is('roles.*') || 
 									Route::is('permissions.*')) active 
