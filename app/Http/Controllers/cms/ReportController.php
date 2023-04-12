@@ -38,4 +38,16 @@ class ReportController extends Controller
             'selectedYear' => $selectedYear
         ]);
     }
+
+
+    public function downloadCsv(Request $request)
+    {
+        $data = Post::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
+                    ->groupBy('month')
+                    ->get();
+                    
+        $csvExporter = new \LaravelCsvGenerator\LaravelCsvGenerator();
+        $csvExporter->build($data, ['Month', 'Count'])->download('post_count_by_month.csv');
+    }
+
 }
