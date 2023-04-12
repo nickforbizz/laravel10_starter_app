@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        // Cache::put('name', auth()->user(), 1000);
+        // dd(
+        //     Cache::get('name')
+        // );
         return view('home');
     }
 
