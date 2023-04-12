@@ -27,16 +27,14 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/fonts.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
-
 	<!-- select2 -->
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-		<style>
-			.tb_img{
-				height: 3rem;
-    			border-radius: 15%;
-			}
-		</style>
+	
+	<link rel="stylesheet" href="{{ asset('assets/css/cms.css') }}">
+
+
+	
 
 
 	@stack('styles')
@@ -51,7 +49,8 @@
 			<div class="logo-header" data-background-color="blue">
 
 				<a href="{{ route('cms') }}" class="logo">
-					<img src="{{ asset('assets/img/logo.svg') }}" alt="navbar brand" class="navbar-brand">
+					<!-- <img src="{{ asset('assets/img/logo.svg') }}" alt="navbar brand" class="navbar-brand"> -->
+					{{ env('APP_NAME') }}
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
