@@ -12,14 +12,12 @@ use Carbon\Carbon;
 
 class ReportController extends Controller
 {
-    public function index($year = null)
+    public function index(Request $request)
     {
-        if (!$year) {
-            $year = Carbon::now()->year;
-        }
+        $selectedYear = $request->get('year', Carbon::now()->year);
 
         $data = Post::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
-            ->whereYear('created_at', '=', $year)
+            ->whereYear('created_at', $selectedYear)
             ->groupBy('month')
             ->get();
 
@@ -29,6 +27,15 @@ class ReportController extends Controller
             $chartData[$month] = $row->count;
         }
 
-        return view('cms.reports.index')->with('chartData', $chartData);
+        $years = Post::select(DB::raw('YEAR(created_at) as year'))
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+
+        return view('cms.reports.index', [
+            'chartData' => $chartData,
+            'years' => $years,
+            'selectedYear' => $selectedYear
+        ]);
     }
 }
