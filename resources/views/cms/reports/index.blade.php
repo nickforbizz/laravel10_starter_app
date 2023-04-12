@@ -48,6 +48,7 @@
 
                     <div>
                         <a href="{{ route('reports.download.csv') }}" class="btn btn-primary">Download CSV</a>
+
                     </div>
 
                     <canvas id="myChart" height="100"></canvas>
