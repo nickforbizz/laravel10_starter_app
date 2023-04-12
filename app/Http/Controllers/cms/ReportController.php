@@ -29,6 +29,6 @@ class ReportController extends Controller
             $chartData[$month] = $row->count;
         }
 
-        return view('reports.index')->with('chartData', $chartData);
+        return view('cms.reports.index')->with('chartData', $chartData);
     }
 }
