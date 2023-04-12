@@ -62,6 +62,8 @@ Route::middleware('cms')->group(function(){
 
     // Downloadable Reports
     Route::get('reports/download/csv', 'ReportController@downloadCsv')->name('reports.download.csv');
+    Route::get('reports/download/pdf', 'ReportController@downloadPdf')->name('reports.download.pdf');
+
 
     
     // Resources Routes
