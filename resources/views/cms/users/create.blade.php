@@ -107,7 +107,7 @@
                             <label for="role"> Roles </label>
                             <select name="roles[]" id="role" multiple="multiple" class="form-control form-control select2">
                                 @forelse($roles as $role)
-                                    <option value="{{ $role->name }}" @if($user->hasRole($role->name)) selected @endif> {{ $role->name }} </option>
+                                    <option value="{{ $role->name }}" @if(isset($user) && $user->hasRole($role->name)) selected @endif> {{ $role->name }} </option>
                                 @empty
                                     <option selected disabled> -- No item -- </option> 
                                 @endforelse

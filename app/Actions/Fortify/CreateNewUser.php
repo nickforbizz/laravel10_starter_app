@@ -2,8 +2,8 @@
 
 namespace App\Actions\Fortify;
 
+use App\Events\UserRegistered;
 use App\Models\User;
-use App\Notifications\WelcomeEmailNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -38,10 +38,10 @@ class CreateNewUser implements CreatesNewUsers
             'lname' => $input['lname'],
             'name' => $input['fname'] .' '. $input['lname'],
             'email' => $input['email'],
-            'password' => Hash::make($input['password']),
+            'password' => $input['password'],
         ]);
 
-        $user->notify(new WelcomeEmailNotification());
+        event(new UserRegistered($user));
 
         return $user;
     }
