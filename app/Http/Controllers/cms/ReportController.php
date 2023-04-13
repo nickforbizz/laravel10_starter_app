@@ -5,6 +5,7 @@ namespace App\Http\Controllers\cms;
 use App\Exports\PostReportExport;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
 use App\Services\ReportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,13 +20,16 @@ class ReportController extends Controller
 
         try {
             $posts_report = $reportService->getCountByMonth(new Post, $selectedYear);
+            $users_report = $reportService->getCountByMonth(new User, $selectedYear);
         } catch (\Throwable $th) {
             throw $th;
         }
-
+        
         return view('cms.reports.index', [
             'postsChartData' => $posts_report['chartData'],
             'postsYears' => $posts_report['years'],
+            'usersChartData' => $users_report['chartData'],
+            'usersYears' => $users_report['years'],
             'selectedYear' => $selectedYear
         ]);
     }
