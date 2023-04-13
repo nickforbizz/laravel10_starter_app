@@ -38,9 +38,9 @@
                 <div class="card-body">
                     <h2>Posts Report</h2>
                     <div class="form-group">
-                        <label for="year">Select Year:</label>
-                        <select class="form-control" id="year" name="year">
-                            @foreach($years as $year)
+                        <label for="posts_year">Select Year:</label>
+                        <select class="form-control" id="posts_year" name="year">
+                            @foreach($postsYears as $year)
                             <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : '' }}>{{ $year }}</option>
                             @endforeach
                         </select>
@@ -71,7 +71,7 @@
 <script>
     const selectedYear = $('#year').val();
     $(document).ready(function() {
-        $('#year').change(function() {
+        $('#posts_year').change(function() {
             var year = $(this).val();
             window.location.href = '{{ route("reports.index") }}?year=' + year;
         });
@@ -79,7 +79,7 @@
 
     });
 
-    var data = {!! json_encode($chartData) !!};
+    var data = {!! json_encode($postsChartData) !!};
 
     var labels = [];
     var values = [];
