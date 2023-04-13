@@ -8,6 +8,7 @@ use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/test', function() {
-    $user = User::first();
-    event(new UserRegistered($user));
-    echo 'dddd';
+    // $admins = Role::whereIn('name', ['admin', 'superadmin'])
+    // ->with('users')->get();
+    $users = User::whereHas('roles', function ($query) {
+        $query->whereIn('name', ['admin', 'superadmin']);
+    })->get();
+    return $users;
     // return what you want
 }); 
 
