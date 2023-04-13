@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\cms;
 
+use App\Events\UserRegistered;
 use App\Helpers\GlobalHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -73,7 +74,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('cms.users.create', compact('roles', 'permissions'));
+        // $permissions = Permissions::all();
+        return view('cms.users.create', compact('roles'));
     }
 
     /**
@@ -86,7 +88,7 @@ class UserController extends Controller
 
         $user = User::create($request->all());
 
-        $user->notify(new WelcomeEmailNotification());
+        event(new UserRegistered($user));
 
         if (!empty($request->roles)) {
             $user->assignRole($request->roles);
