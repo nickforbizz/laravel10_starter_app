@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\ModelHasRole;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Notifications\WelcomeEmailNotification;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
 
@@ -84,6 +85,8 @@ class UserController extends Controller
         $request = $this->addFieldsStoreImg($request);
 
         $user = User::create($request->all());
+
+        $user->notify(new WelcomeEmailNotification());
 
         if (!empty($request->roles)) {
             $user->assignRole($request->roles);
