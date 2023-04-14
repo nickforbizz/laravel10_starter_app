@@ -78,14 +78,18 @@
 
 				@if(auth()->user()->hasAnyRole(['admin', 'superadmin']))
 				<li class="nav-item @if(Route::is('roles.*') || 
-									Route::is('permissions.*')) active 
+									Route::is('permissions.*') ||
+									 Route::is('notifications.*') ) active 
 									@endif">
 					<a data-toggle="collapse" href="#submenu">
 						<i class="fas fa-cog"></i>
 						<p>System Parameters</p>
 						<span class="caret"></span>
 					</a>
-					<div class="@if(Route::is('roles.*') || Route::is('permissions.*')) collapsed @else collapse @endif" id="submenu">
+					<div class="@if( Route::is('roles.*') || 
+								     Route::is('permissions.*') ||
+									 Route::is('notifications.*') ) collapsed @else collapse @endif" 
+									 id="submenu">
 						<ul class="nav nav-collapse">
 							<li>
 								<a data-toggle="collapse" href="#subnav2">
@@ -108,6 +112,13 @@
 									</ul>
 								</div>
 							</li>
+
+							<li class=" @if(Route::is('notifications.*')) active @endif">
+								<a href="{{ route('notifications.index') }}">
+									<span class="sub-item">Notifications </span>
+								</a>
+							</li>
+
 							<li>
 								<a href="#">
 									<span class="sub-item">Params</span>

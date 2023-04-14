@@ -2,12 +2,14 @@
 
 use App\Events\UserRegistered;
 use App\Http\Controllers\cms\AssignRoleController;
+use App\Http\Controllers\cms\NotificationController;
 use App\Http\Controllers\cms\PermissionController;
 use App\Http\Controllers\cms\UserController;
 use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
+use App\Http\Controllers\HomeController;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -70,8 +72,8 @@ Route::get('/', function () {
 // Backend/CMS
 Route::middleware('cms')->group(function(){
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/cms', [App\Http\Controllers\HomeController::class, 'cms'])->name('cms');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/cms', [HomeController::class, 'cms'])->name('cms');
 
     // Downloadable Reports
     Route::get('reports/download/csv', [ReportController::class, 'downloadCsv'])->name('reports.download.csv');
@@ -87,7 +89,9 @@ Route::middleware('cms')->group(function(){
         'permissions' => PermissionController::class,
         'assignRoles' => AssignRoleController::class,
         'reports' => ReportController::class,
+        'notifications' => NotificationController::class,
     ]);
+    Route::post('/notifications//mark-as-read', [NotificationController::class, 'markNotification'])->name('notifications.markNotification');
 });
 
 
