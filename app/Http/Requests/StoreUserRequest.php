@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class StoreUserRequest extends FormRequest
 {
@@ -26,7 +27,6 @@ class StoreUserRequest extends FormRequest
     {
         $rules = [
             'fname' => 'required|min:2',
-            'password' => 'required|confirmed|min:5',
             'email' => ['required', Rule::unique('users')],
         ];
         
@@ -43,6 +43,18 @@ class StoreUserRequest extends FormRequest
             'unique' => ':attribute is already used',
             'required' => 'The :attribute field is required.',
         ];
+    }
+
+
+    protected function prepareForValidation()
+    {
+        if (!$this->has('password')) {
+            $randomPassword = Str::random(7);
+            $this->merge([
+                'password' => $randomPassword
+            ]);
+            // call event to send user new password
+        }
     }
 
    

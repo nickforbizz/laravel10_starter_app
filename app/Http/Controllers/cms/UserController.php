@@ -33,7 +33,14 @@ class UserController extends Controller
                     return date_format($row->created_at, 'Y/m/d H:i');
                 })
                 ->addColumn('action', function ($row) {
-                    $btn_edit = $btn_del = null;
+                    $btn_edit = $btn_del = $btn_view = null;
+                    $btn_view = '<a data-toggle="tooltip" 
+                                        href="' . route('users.show', $row->id) . '" 
+                                        class="btn btn-link btn-primary btn-lg" 
+                                        data-original-title="View Record">
+                                    <i class="fa fa-eye"></i>
+                                </a>';
+
                     if (auth()->user()->hasAnyRole('superadmin|admin') || auth()->id() == $row->id) {
                         $btn_edit = '<a data-toggle="tooltip" 
                                         href="' . route('users.edit', $row->id) . '" 
@@ -54,7 +61,7 @@ class UserController extends Controller
                                 <i class="fa fa-times"></i>
                             </button>';
                     }
-                    return $btn_edit . $btn_del;
+                    return $btn_view. $btn_edit . $btn_del;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -104,7 +111,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $user;
+        return view('cms.users.show', compact('user'));
     }
 
     /**
@@ -122,6 +129,13 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        if ($request->has('password')) {
+            $user->update($request->all());
+            
+            return redirect()
+            ->route('users.show', $user)->with('success', 'Password was updated successfully.');
+        }
+
         $request = $this->addFieldsStoreImg($request, $user);
         $user->update($request->all());
 
@@ -129,6 +143,7 @@ class UserController extends Controller
             ModelHasRole::where('model_id', $user->id)->delete();
             $user->assignRole($request->roles);
         }
+        
 
         // Redirect the user to the user's profile page
         return redirect()
