@@ -73,7 +73,7 @@
 							<div class="notif-center">
 
 								@forelse($notifications as $notification)
-								<a href="#">
+								<a href="{{ route('notifications.index') }}">
 									<div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
 									<div class="notif-content">
 										<span class="block">
@@ -83,13 +83,13 @@
 									</div>
 								</a>
 								@empty
-								<p class="ps-3"> -- No notification -- </p>
+								<p class="p-3"> -- No notification -- </p>
 								@endforelse
 							</div>
 						</div>
 					</li>
 					<li>
-						<a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i> </a>
+						<a class="see-all" href="{{ route('notifications.index') }}">See all notifications<i class="fa fa-angle-right"></i> </a>
 					</li>
 				</ul>
 			</li>
@@ -105,19 +105,13 @@
 					<div class="quick-actions-scroll scrollbar-outer">
 						<div class="quick-actions-items">
 							<div class="row m-0">
-								<a class="col-6 col-md-4 p-0" href="#">
+								<a class="col-6 col-md-4 p-0" href="{{ route('reports.index') }}">
 									<div class="quick-actions-item">
 										<i class="flaticon-file-1"></i>
 										<span class="text">Generated Report</span>
 									</div>
 								</a>
-								<a class="col-6 col-md-4 p-0" href="#">
-									<div class="quick-actions-item">
-										<i class="flaticon-database"></i>
-										<span class="text">Create New Database</span>
-									</div>
-								</a>
-								<a class="col-6 col-md-4 p-0" href="#">
+								<a class="col-6 col-md-4 p-0" href="{{ route('posts.create') }}">
 									<div class="quick-actions-item">
 										<i class="flaticon-pen"></i>
 										<span class="text">Create New Post</span>
