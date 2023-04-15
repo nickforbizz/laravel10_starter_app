@@ -24,14 +24,15 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'fname' => 'required|min:2',
-            'password' => 'required|confirmed|min:5',
-            // 'email' => ['required', Rule::unique('users')],
-        ];
         
         if ($this->has('password')) {
             $rules['password'] = 'required|confirmed|min:5';
+        }else{
+            $rules = [
+                'fname' => 'required|min:2',
+                // 'email' => ['required', Rule::unique('users')],
+            ];
+
         }
 
         return $rules;

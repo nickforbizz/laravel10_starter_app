@@ -88,7 +88,7 @@
                         </div>
 
                         
-                        <div class="form-group form-floating-label">
+                        <!-- <div class="form-group form-floating-label">
                             <input id="password" type="password" class="form-control input-border-bottom" name="password" required="true" />
                             <label for="password" class="placeholder"> Password</label>
                             @error('password') <span class="text-danger">{{ $message }}</span>
@@ -100,7 +100,7 @@
                             <label for="password_confirmation" class="placeholder">Confirm Password</label>
                             @error('password_confirmation') <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div>
+                        </div> -->
 
 
                         <div class="form-group">
