@@ -72,7 +72,7 @@ Route::get('/', function () {
 // Backend/CMS
 Route::middleware('cms')->group(function(){
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'cms'])->name('home');
     Route::get('/cms', [HomeController::class, 'cms'])->name('cms');
 
     // Downloadable Reports
