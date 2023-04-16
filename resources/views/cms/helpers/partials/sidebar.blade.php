@@ -18,7 +18,7 @@
 					<div class="collapse in" id="collapseExample">
 						<ul class="nav">
 							<li>
-								<a href="{{ route('users.edit', auth()->id()) }}">
+								<a href="{{ route('users.show', auth()->id()) }}">
 									<span class="link-collapse">My Profile</span>
 								</a>
 							</li>
