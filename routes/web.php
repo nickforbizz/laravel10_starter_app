@@ -74,6 +74,8 @@ Route::middleware('cms')->group(function(){
 
     Route::get('/home', [HomeController::class, 'cms'])->name('home');
     Route::get('/cms', [HomeController::class, 'cms'])->name('cms');
+    Route::get('/search', 'SearchController@search')->name('search');
+
 
     // Downloadable Reports
     Route::get('reports/download/csv', [ReportController::class, 'downloadCsv'])->name('reports.download.csv');
