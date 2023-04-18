@@ -30,22 +30,27 @@
         <div class="col-md-12 p-2">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        @forelse ($results as $result)
-                        <div class="col-12">
-                            <h1 class="text-capitalize">{{ $result->title }}</h1> 
-                        </div>
 
+
+                    @forelse ($results as $result)
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h1 class="text-capitalize">
+                                <a href="{{ route('posts.show', $result->id) }}"> {{ $result->title }} </a>
+                            </h1>
+                        </div>
 
                         <div class="col-12">
                             <p>{!! $result->content !!}</p>
                         </div>
-                        @empty
-                        <p>No results found</p>
-                        @endforelse
-
-
                     </div>
+
+                    
+                    @empty
+                    <p class="m-5">No results found</p>
+                    @endforelse
+
+
 
 
                 </div>
