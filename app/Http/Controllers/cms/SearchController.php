@@ -14,10 +14,10 @@ class SearchController extends Controller
         
         $results = DB::table('posts')
                     ->where('title', 'like', '%'.$query.'%')
-                    ->orWhere('body', 'like', '%'.$query.'%')
+                    ->orWhere('content', 'like', '%'.$query.'%')
                     ->get();
         
-        return view('search', ['results' => $results]);
+        return view('cms.search.index', ['results' => $results]);
     }
 
 }

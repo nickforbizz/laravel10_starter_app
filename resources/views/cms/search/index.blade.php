@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title"> Search Page </h4>
+        <h4 class="page-title"> Search Results </h4>
         <ul class="breadcrumbs">
             <li class="nav-home">
                 <a href="#">
@@ -30,16 +30,27 @@
         <div class="col-md-12 p-2">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        @forelse ($results as $result)
-                        <h2>{{ $result->title }}</h2>
-                        <p>{{ $result->body }}</p>
-                        @empty
-                        <p>No results found</p>
-                        @endforelse
 
 
+                    @forelse ($results as $result)
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h1 class="text-capitalize">
+                                <a href="{{ route('posts.show', $result->id) }}"> {{ $result->title }} </a>
+                            </h1>
+                        </div>
+
+                        <div class="col-12">
+                            <p>{!! $result->content !!}</p>
+                        </div>
                     </div>
+
+                    
+                    @empty
+                    <p class="m-5">No results found</p>
+                    @endforelse
+
+
 
 
                 </div>
