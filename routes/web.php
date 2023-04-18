@@ -9,6 +9,7 @@ use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
+use App\Http\Controllers\cms\SearchController;
 use App\Http\Controllers\HomeController;
 use App\Models\Role;
 use App\Models\User;
@@ -74,7 +75,7 @@ Route::middleware('cms')->group(function(){
 
     Route::get('/home', [HomeController::class, 'cms'])->name('home');
     Route::get('/cms', [HomeController::class, 'cms'])->name('cms');
-    Route::get('/search', 'SearchController@search')->name('search');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
     // Downloadable Reports

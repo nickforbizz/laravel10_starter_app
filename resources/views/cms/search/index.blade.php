@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title"> Search Page </h4>
+        <h4 class="page-title"> Search Results </h4>
         <ul class="breadcrumbs">
             <li class="nav-home">
                 <a href="#">
@@ -32,8 +32,14 @@
                 <div class="card-body">
                     <div class="row">
                         @forelse ($results as $result)
-                        <h2>{{ $result->title }}</h2>
-                        <p>{{ $result->body }}</p>
+                        <div class="col-12">
+                            <h1 class="text-capitalize">{{ $result->title }}</h1> 
+                        </div>
+
+
+                        <div class="col-12">
+                            <p>{!! $result->content !!}</p>
+                        </div>
                         @empty
                         <p>No results found</p>
                         @endforelse
