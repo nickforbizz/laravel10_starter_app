@@ -9,7 +9,7 @@
 							<i class="fa fa-search search-icon"></i>
 						</button>
 					</div>
-					<input type="text" placeholder="Search ..."  name="query" class="form-control">
+					<input type="text" placeholder="Search ..."  name="q" class="form-control">
 				</div>
 			</form>
 		</div>
