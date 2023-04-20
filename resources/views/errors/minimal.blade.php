@@ -29,11 +29,11 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-8">
-                <img src="https://th.bing.com/th/id/R.0039451dd1350657f69400330d080150?rik=vQzVeXynj%2bLNEw&pid=ImgRaw&r=0"  alt="You Seem Lost" class="img-lost" height="20vh">
+                @yield('img')
 
             </div>
             <div class="col-4 mt-5">
-                <h1 class="display-4 pt-5"> @yield('code') </h1>
+                <h1 class="display-4 mt-4 pt-5"> @yield('code') </h1>
                 <p class="lead"> @yield('message') </p>
                 <a href="{{ route('home') }}" class="btn btn-primary">Go Back Home</a>
             </div>
