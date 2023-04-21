@@ -31,7 +31,8 @@ class ProductFactory extends Factory
             'quantity' => $this->faker->numberBetween(1, 20),
             'color' => $this->faker->colorName,
             'size' => $this->faker->randomElement(['s', 'm', 'l', 'xl']),
-            'photo' => $this->faker->image('public/storage/products', 640, 480, null, true),
+            'label' => $this->faker->randomElement(['New', 'Featured', '', 'Discounted']),
+            'photo' => $this->faker->image('public/storage/products', 640, 480, null, false),
             'created_by' => $this->faker->randomElement($users),
             'category_id' => $this->faker->randomElement($categories),
         ];
