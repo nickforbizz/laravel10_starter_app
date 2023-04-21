@@ -69,6 +69,20 @@
 					</a>
 				</li>
 
+				<li class="nav-item @if(Route::is('productCategories.*')) active @endif">
+					<a href="{{ route('productCategories.index') }}">
+						<i class="far fa-clone"></i>
+						<p> productCategories</p>
+					</a>
+				</li>
+
+				<li class="nav-item @if(Route::is('products.*')) active @endif">
+					<a href="{{ route('products.index') }}">
+						<i class="far fa-edit"></i>
+						<p> products</p>
+					</a>
+				</li>
+
 				<li class="nav-item @if(Route::is('reports.*')) active @endif">
 					<a href="{{ route('reports.index') }}">
 						<i class="far fa-edit"></i>

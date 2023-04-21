@@ -4,8 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
 
 class StorePostRequest extends FormRequest

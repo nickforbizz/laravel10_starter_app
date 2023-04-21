@@ -4,9 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
-class StoreProductRequest extends FormRequest
+class StoreProductCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +26,9 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:2',
-            'description' => 'required|min:5',
-            'category_id' => 'required',
-            'featuredimg' => 'required',
-            'slug' => 'unique:products,slug',
+            'name' => ['required', 'min:2', Rule::unique('product_categories')],
         ];
     }
-
 
     public function messages()
     {
@@ -42,16 +38,11 @@ class StoreProductRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'slug' => Str::slug($this->input('title')),
-        ]);
-    }
 
     public function passedValidation()
     {
         $this->merge([
+            'slug' => Str::slug($this->input('name')),
             'created_by' => Auth::id()
         ]);
     }
