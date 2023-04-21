@@ -7,12 +7,13 @@ use App\Http\Controllers\cms\PermissionController;
 use App\Http\Controllers\cms\UserController;
 use App\Http\Controllers\cms\PostCategoryController;
 use App\Http\Controllers\cms\PostController;
+use App\Http\Controllers\cms\ProductCategoryController;
+use App\Http\Controllers\cms\ProductController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
 use App\Http\Controllers\cms\SearchController;
 use App\Http\Controllers\frontend\viewsController;
 use App\Http\Controllers\HomeController;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -92,6 +93,8 @@ Route::middleware('cms')->group(function(){
         'users' => UserController::class,
         'posts' => PostController::class,
         'postCategories' => PostCategoryController::class,
+        'products' => ProductController::class,
+        'productCategories' => ProductCategoryController::class,
         'roles' => RoleController::class,
         'permissions' => PermissionController::class,
         'assignRoles' => AssignRoleController::class,
