@@ -108,7 +108,7 @@
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'featured_img'
+                    data: 'photo'
                 },
                 {
                     data: 'category_id'
@@ -117,7 +117,7 @@
                     data: 'title'
                 },
                 {
-                    data: 'content'
+                    data: 'description'
                 },					
                 {
                     data: 'created_at',

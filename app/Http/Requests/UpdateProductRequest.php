@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -11,7 +12,8 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $user = auth()->user();
+        return $user->hasAnyRole(['admin', 'superadmin']) ||  $this->created_by == auth()->id();
     }
 
     /**
@@ -22,7 +24,19 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|min:2',
+            'slug' => [
+                'nullable',
+                Rule::unique('products')->ignore($this->product)
+            ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
         ];
     }
 }

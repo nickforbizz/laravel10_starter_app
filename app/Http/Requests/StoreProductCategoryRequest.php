@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class StoreProductCategoryRequest extends FormRequest
 {
@@ -11,7 +14,8 @@ class StoreProductCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $user = auth()->user();
+        return $user->hasAnyRole(['admin', 'superadmin']);
     }
 
     /**
@@ -22,7 +26,24 @@ class StoreProductCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'min:2', Rule::unique('product_categories')],
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'unique' => ':attribute is already used',
+            'required' => 'The :attribute field is required.',
+        ];
+    }
+
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->input('name')),
+            'created_by' => Auth::id()
+        ]);
     }
 }
