@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class StorePostRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class StorePostRequest extends FormRequest
     public function authorize(): bool
     {
         $user = auth()->user();
-        return $user->hasAnyRole(['writer', 'editor', 'admin', 'superadmin']);
+        return $user->hasAnyRole(['admin', 'superadmin']);
     }
 
     /**
@@ -24,16 +24,15 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'title' => 'required|min:2',
-            'content' => 'required|min:5',
+            'description' => 'required|min:5',
             'category_id' => 'required',
             'featuredimg' => 'required',
-            'slug' => 'unique:posts,slug',
+            'slug' => 'unique:products,slug',
         ];
-
-        return $rules;
     }
+
 
     public function messages()
     {

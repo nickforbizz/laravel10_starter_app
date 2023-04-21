@@ -4,9 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
-class StorePostRequest extends FormRequest
+class StoreProductCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +15,7 @@ class StorePostRequest extends FormRequest
     public function authorize(): bool
     {
         $user = auth()->user();
-        return $user->hasAnyRole(['writer', 'editor', 'admin', 'superadmin']);
+        return $user->hasAnyRole(['admin', 'superadmin']);
     }
 
     /**
@@ -24,15 +25,9 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'title' => 'required|min:2',
-            'content' => 'required|min:5',
-            'category_id' => 'required',
-            'featuredimg' => 'required',
-            'slug' => 'unique:posts,slug',
+        return [
+            'name' => ['required', 'min:2', Rule::unique('product_categories')],
         ];
-
-        return $rules;
     }
 
     public function messages()
@@ -43,16 +38,11 @@ class StorePostRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'slug' => Str::slug($this->input('title')),
-        ]);
-    }
 
     public function passedValidation()
     {
         $this->merge([
+            'slug' => Str::slug($this->input('name')),
             'created_by' => Auth::id()
         ]);
     }

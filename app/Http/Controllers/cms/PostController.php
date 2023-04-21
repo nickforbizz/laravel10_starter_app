@@ -4,17 +4,18 @@ namespace App\Http\Controllers\cms;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Helpers\GlobalHelper;
 use App\Models\Post;
+use App\Models\PostCategory;
 
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\PostCategory;
+
 use DataTables;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
