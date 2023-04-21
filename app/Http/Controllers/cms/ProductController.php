@@ -171,4 +171,79 @@ class ProductController extends Controller
 
         return  $request;
     }
+
+
+    // -------------------------- CART Logic code --------------------------
+    /**
+     * View Cart Busket
+     *
+     * @return void
+     */
+    public function cart()
+    {
+        return view('cart');
+    }
+
+
+    /**
+     * Add Product to Cart
+     *
+     * @param  [type] $id
+     * @return void
+     */
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);
+ 
+        $cart = session()->get('cart', []);
+ 
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        }  else {
+            $cart[$id] = [
+                "product_name" => $product->name,
+                "photo" => $product->photo,
+                "price" => $product->price,
+                "quantity" => 1
+            ];
+        }
+ 
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product add to cart successfully!');
+    }
+ 
+    /**
+     * Update Cart Item
+     *
+     * @param  Request $request
+     * @return void
+     */
+    public function updateCart(Request $request)
+    {
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart successfully updated!');
+        }
+    }
+ 
+    /**
+     * Remove Cart Item
+     *
+     * @param  Request $request
+     * @return void
+     */
+    public function removeCartItem(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product successfully removed!');
+        }
+    }
+    // ----------------------------- END CART logic code -----------------------------
 }
