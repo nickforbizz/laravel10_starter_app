@@ -22,7 +22,7 @@
 			
 			<li class="nav-item dropdown hidden-caret">
 				<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-envelope"></i>
+					<i class="fa fa-envelope"></i> 
 				</a>
 				<ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
 					<li>
