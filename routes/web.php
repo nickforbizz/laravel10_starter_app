@@ -10,6 +10,7 @@ use App\Http\Controllers\cms\PostController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
 use App\Http\Controllers\cms\SearchController;
+use App\Http\Controllers\frontend\viewsController;
 use App\Http\Controllers\HomeController;
 use App\Models\Role;
 use App\Models\User;
@@ -65,10 +66,13 @@ Route::get('/flush-perms', function() {
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+
+// Frontend Views
+Route::get('/', [ViewsController::class, 'index'])->name('home');
 
 // Backend/CMS
 Route::middleware('cms')->group(function(){

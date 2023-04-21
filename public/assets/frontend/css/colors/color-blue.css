@@ -1,0 +1,37 @@
+/* -------------------------------- */
+/*           Theme Color            */
+/* -------------------------------- */
+#intro .h1, .p-btn.line, .btn-white.line:hover,
+.owl-btn-slider.owl-theme .owl-nav [class*="owl-"],
+.price-card.bg-white .price-header, .blog-card a:hover,
+.pagination .page-item .page-link, .tag-links a {
+  color: #2d2de2; }
+
+.feature-card .icon-circle, .header-shadow,
+.owl-btn-slider.owl-theme .owl-nav [class*="owl-"]:hover,
+.price-card.premium, .static, .tag-links a:hover,
+.owl-dots-slider.owl-theme .owl-dots .owl-dot span,
+.contact:after, .contact-card, .fill-bg, .btn:not([disabled]):not(.disabled):active,
+.form-field .input-line:after, .card-links li .badge,
+.address, .footer, .pagination .page-item.active .page-link,
+.blog-banner .overlay, .tag-links a:hover, .p-btn, .p-btn.line:hover {
+  background-color: #2d2de2; }
+
+.heading:after {
+  background-image: url(../../img/head.png); }
+
+.demo .demo-link {
+  background-color: rgba(45, 45, 226, 0.9); }
+
+.owl-btn-slider.owl-theme .owl-nav [class*="owl-"],
+.client-card .client-img, .tag-links a, .p-btn.line {
+  border-color: #2d2de2; }
+
+.overlay {
+  background-color: rgba(45, 45, 226, 0.7); }
+
+@media (max-width: 992px) {
+  #header .txt-color {
+    background-color: #2d2de2; } }
+
+/*# sourceMappingURL=color-blue.css.map */
