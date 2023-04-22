@@ -19,10 +19,6 @@ jobs:
         run: php artisan key:generate
       - name: Generate storage link
         run: php artisan storage:link
-      - name: Run database migrations
-        run: php artisan migrate --force
-      - name: Run database seed
-        run: php artisan db:seed
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: 📂 Sync files
