@@ -20,6 +20,7 @@
 
 <!-- Styles -->
 <link href="{{ asset('assets/frontend/css/style.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/frontend/css/aos.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/frontend/css/colors/color-blue.css') }}" rel="stylesheet" id="color_theme" type="text/css" />
 
 <!-- Google fonts -->
@@ -35,7 +36,7 @@
   
 </head>
 
-<body>
+<body id="parallaxAos">
 
 <!-- Wrapper Start -->
 <div id="wrapper">
@@ -61,20 +62,20 @@
                 <!-- Navigation Collapse Start -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item mr-4">
-                            <a class="nav-link scroll-nav-link" href="#about">About</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle scroll-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                More
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#about">About</a>
+                                <a class="dropdown-item" href="#features">Features</a>
+                                <a class="dropdown-item" href="#pricing">Pricing</a>
+                                <a class="dropdown-item" href="#team">Team</a>
+                                <a class="dropdown-item" href="#support">Support</a>
+                            </div>
                         </li>
                         <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="#features">Features</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="#pricing">Pricing</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="#team">Team</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="#blog">Blog</a>
+                            <a class="nav-link scroll-nav-link" href="{{ url('blogs') }}">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link scroll-nav-link" href="#support">Support</a>
@@ -143,15 +144,7 @@
 </div>
 <!-- Wrapper End -->
 
-<!-- Scripts -->
-<script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/lity.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/jquery.cookie.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
+
 
 @stack('scripts')
 </body>

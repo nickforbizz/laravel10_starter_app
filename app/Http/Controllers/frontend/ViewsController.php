@@ -16,4 +16,13 @@ class ViewsController extends Controller
 
         return view('frontend.index', compact('products', 'posts'));
     }
+
+
+    public function posts()
+    {
+        $products = Product::where('active', 1)->get();
+        $posts = Post::where('active', 1)->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('frontend.posts', compact('products', 'posts'));
+    }
 }

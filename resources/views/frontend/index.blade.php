@@ -817,3 +817,13 @@
 
 
 @push('scripts')
+<!-- Scripts -->
+<script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/lity.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.cookie.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
+@endpush

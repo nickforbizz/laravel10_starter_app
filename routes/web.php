@@ -75,6 +75,12 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // Frontend Views
 Route::get('/', [ViewsController::class, 'index'])->name('home');
+Route::get('/about', [ViewsController::class, 'about'])->name('about');
+Route::get('/blog/{id}', [ViewsController::class, 'post'])->name('blog');
+Route::get('/blogs', [ViewsController::class, 'posts'])->name('blogs');
+Route::prefix('web')->group(function () {
+
+});
 
 // Backend/CMS
 Route::middleware('cms')->group(function () {
@@ -113,7 +119,3 @@ Route::middleware('cms')->group(function () {
 });
 
 
-
-
-
-// Frontend

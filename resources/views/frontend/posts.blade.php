@@ -28,11 +28,11 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                             <!-- Blog Card Start -->
-                            <div class="blog-card sm-shadow p-3">
+                            <div class="blog-card sm-shadow p-3" data-aos="fade-up">
                                 <!-- Blog Image Start -->
                                 <div class="blog-img mb-3">
                                     <a href="blog-details-left-sidebar.html" class="d-block setImgBack">
-                                        <img src="img/blog/01.jpg" alt="Blog 01">
+                                        <img src="{{ asset('assets/frontend/img/blog/01.jpg') }}" class="img-fluid" alt="Blog 01">
                                         <!-- Blog Overlay Start -->
                                         <div class="overlay d-flex">
                                             <!-- Blog Icons Start -->
@@ -78,7 +78,7 @@
                                 <!-- Blog Image Start -->
                                 <div class="blog-img mb-3">
                                     <a href="blog-details-left-sidebar.html" class="d-block setImgBack">
-                                        <img src="img/blog/02.jpg" alt="Blog 02">
+                                        <img src="{{ asset('assets/frontend/img/blog/02.jpg') }}" class="img-fluid" alt="Blog 02">
                                         <!-- Blog Overlay Start -->
                                         <div class="overlay d-flex">
                                             <!-- Blog Icons Start -->
@@ -124,7 +124,7 @@
                                 <!-- Blog Image Start -->
                                 <div class="blog-img mb-3">
                                     <a href="blog-details-left-sidebar.html" class="d-block setImgBack">
-                                        <img src="img/blog/03.jpg" alt="Blog 03">
+                                        <img src="{{ asset('assets/frontend/img/blog/03.jpg') }}" class="img-fluid" alt="Blog 03">
                                         <!-- Blog Overlay Start -->
                                         <div class="overlay d-flex">
                                             <!-- Blog Icons Start -->
@@ -170,7 +170,7 @@
                                 <!-- Blog Image Start -->
                                 <div class="blog-img mb-3">
                                     <a href="blog-details-left-sidebar.html" class="d-block setImgBack">
-                                        <img src="img/blog/02.jpg" alt="Blog 02">
+                                        <img src="{{ asset('assets/frontend/img/blog/02.jpg') }}" class="img-fluid" alt="Blog 02">
                                         <!-- Blog Overlay Start -->
                                         <div class="overlay d-flex">
                                             <!-- Blog Icons Start -->
@@ -216,7 +216,7 @@
                                 <!-- Blog Image Start -->
                                 <div class="blog-img mb-3">
                                     <a href="blog-details-left-sidebar.html" class="d-block setImgBack">
-                                        <img src="img/blog/03.jpg" alt="Blog 03">
+                                        <img src="{{ asset('assets/frontend/img/blog/03.jpg') }}" class="img-fluid" alt="Blog 03">
                                         <!-- Blog Overlay Start -->
                                         <div class="overlay d-flex">
                                             <!-- Blog Icons Start -->
@@ -262,7 +262,7 @@
                                 <!-- Blog Image Start -->
                                 <div class="blog-img mb-3">
                                     <a href="blog-details-left-sidebar.html" class="d-block setImgBack">
-                                        <img src="img/blog/02.jpg" alt="Blog 02">
+                                        <img src="{{ asset('assets/frontend/img/blog/02.jpg') }}" class="img-fluid" alt="Blog 02">
                                         <!-- Blog Overlay Start -->
                                         <div class="overlay d-flex">
                                             <!-- Blog Icons Start -->
@@ -302,7 +302,7 @@
                             </div>
                             <!-- Blog Card End -->
                         </div>
-                        <div class="col-lg-12 d-flex pt-4">
+                        <div class="col-lg-12 d-flex pt-2 mb-4">
                             <nav aria-label="..." class="mx-auto">
                                 <ul class="pagination">
                                     <li class="page-item disabled"><span class="page-link"><i class="ti-angle-left"></i></span></li>
@@ -356,7 +356,7 @@
                                 <!-- Post Link Start -->
                                 <a href="#" class="d-block py-3 px-2">
                                     <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-01.jpg" alt="Post image">
+                                        <img class="align-self-start mr-3 img-64 img-circle" src="{{ asset('assets/frontend/img/thump-01.jpg') }}" alt="Post image">
                                         <div class="media-body">
                                             <h5 class="h5 mt-0 mb-1">Title</h5>
                                             <p>Cras sit amet nibh libero, in gravida nulla.</p>
@@ -369,7 +369,7 @@
                                 <!-- Post Link Start -->
                                 <a href="#" class="d-block py-3 px-2">
                                     <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-02.jpg" alt="Post image">
+                                        <img class="align-self-start mr-3 img-64 img-circle" src="{{ asset('assets/frontend/img/thump-02.jpg') }}" alt="Post image">
                                         <div class="media-body">
                                             <h5 class="h5 mt-0 mb-1">Title</h5>
                                             <p>Cras sit amet nibh libero, in gravida nulla.</p>
@@ -382,7 +382,7 @@
                                 <!-- Post Link Start -->
                                 <a href="#" class="d-block py-3 px-2">
                                     <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-01.jpg" alt="Post image">
+                                        <img class="align-self-start mr-3 img-64 img-circle" src="{{ asset('assets/frontend/img/thump-01.jpg') }}" alt="Post image">
                                         <div class="media-body">
                                             <h5 class="h5 mt-0 mb-1">Title</h5>
                                             <p>Cras sit amet nibh libero, in gravida nulla.</p>
@@ -433,3 +433,13 @@
 
 
 @push('scripts')
+
+<!-- Scripts -->
+<script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/aos.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.cookie.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/blog.pages.js') }}"></script>
+
+@endpush
