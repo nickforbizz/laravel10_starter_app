@@ -13,9 +13,6 @@ jobs:
       - name: Get the latest code
         uses: actions/checkout@v2.3.2
       - uses: actions/setup-node@master
-      - name: Copy .env back to original location
-        run: cp .env.bak .env
-        if: ${{ always() }}
       - name: Install Dependencies
         run: composer update --ignore-platform-reqs
       - name: Generate key
@@ -31,5 +28,3 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-      - name: Copy .env to backup location again
-        run: cp .env .env.bak
