@@ -1,90 +1,6 @@
-<!doctype html>
-<html lang="en">
-
-<!-- Mirrored from www.kri8thm.in/html/the-appo/blog-details-left-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Apr 2023 08:56:58 GMT -->
-<head>
-
-<!-- Meta Tag -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Seo Meta -->
-<meta name="description" content="The Appo - App Landing Template HTML5 and CSS3">
-<meta name="keywords" content="app landing, app lander, app, one page landing page, themeforest, multi purpose, app, css3, html5">
-
-<title>The Appo</title>
-
-<!-- Favicon -->
-<link href="img/favicon.png" rel="icon" />
-<link href="img/apple-touch-icon.png" rel="apple-touch-icon" />
-
-<!-- Styles -->
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/switcher.css" rel="stylesheet" type="text/css" />
-<link href="css/colors/color-blue.css" rel="stylesheet" id="color_theme" type="text/css" />
-
-<!-- Google fonts -->
-<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,500,600,700" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-
-<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-  
-</head>
-
-<body id="parallaxAos">
-
-<!-- Wrapper Start -->
-<div id="wrapper">
-    <!-- Page Loading -->
-    <div id="loading">
-        <div id="loader"></div>
-    </div>   
-    <!-- Header Start -->
-    <header id="header" class="fixed-top">
-        <!-- Navigation Start -->
-        <nav class="navbar navbar-expand-lg navbar-light txt-color" id="mainNav">
-            <div class="container">
-                <!-- Logo -->
-                <a class="navbar-brand" href="homepage-one-default.html"><img src="img/logo-white.png" alt="The Appo"></a>
-                <!-- Navigation Button -->
-                <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <!-- Navigation Collapse Start -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item mr-4">
-                            <a class="nav-link scroll-nav-link" href="homepage-one-default.html#about">About</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="homepage-one-default.html#features">Features</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="homepage-one-default.html#screens">Screens</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="homepage-one-default.html#pricing">Pricing</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link" href="homepage-one-default.html#team">Team</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll-nav-link active" href="homepage-one-default.html#blog">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link scroll-nav-link" href="homepage-one-default.html#support">Support</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Navigation Collapse End -->
-            </div>
-        </nav>
-        <!-- Navigation End -->
-    </header>
-    <!-- Header End -->
+@extends('layouts.frontend')
+    
+    @section('content')
     
     <!-- Intro Start -->
     <div class="blog-banner d-flex">
@@ -93,8 +9,8 @@
             <!-- Row Start -->
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto text-center">
-                    <h2 class="blog-title h2 mb-3" data-aos="fade-up" data-aos-duration="500">Most Popular App</h2>
-                    <p data-aos="fade-up" data-aos-duration="1000">Nostrum salutandi necessitatibus cu duo, an lobortis tractatos quo. Tation aliquip ei est. Id per semper accusata interpretaris.</p>
+                    <h2 class="blog-title h2 mb-3" data-aos="fade-up" data-aos-duration="500">Blog Posts</h2>
+                    <p data-aos="fade-up" data-aos-duration="1000">Get latest news and updates from our blog page regarding technology.</p>
                 </div>
             </div>
             <!-- Row End -->
@@ -106,17 +22,17 @@
     <div class="mt-6">
         <div class="container">
             <!-- Row Start -->
-            <div class="row flex-row-reverse">
+            <div class="row">
                 <div class="col lg-8 sm-12">
                     <!-- Blog Details Start -->
                     <div class="blog-details sm-shadow bg-white p-3 mb-4">
                         <!-- Blog Details Image Start -->
                         <div class="blog-details-image mb-4">
-                            <img src="img/blog/main-01.jpg" alt="Blog main image">
+                            <img src="{{ url('storage/' . $post->featured_img) }}" alt="Blog main image">
                             <div class="overlay-gradient py-4 px-3">
-                                <span class="d-block mb-2">Posted by Jone Deo</span>
+                                <span class="d-block mb-2">Posted by {{ $post->user->name  }}</span>
                                 <div class="clearfix">
-                                    <span class="d-flex mr-3 float-left"><i class="ti-calendar mr-2"></i> <span class="txt-12 align-self-center">26 Jan. 2017</span></span>
+                                    <span class="d-flex mr-3 float-left"><i class="ti-calendar mr-2"></i> <span class="txt-12 align-self-center"> {{ $post->created_at->format('F j, Y') }} </span></span>
                                     <span class="d-flex mr-3 float-left"><i class="ti-eye mr-2"></i> <span class="txt-12 align-self-center">123</span></span>
                                     <span class="d-flex float-left"><i class="ti-comments mr-2"></i> <span class="txt-12 align-self-center">26</span></span>
                                 </div>
@@ -124,12 +40,10 @@
                         </div>
                         <!-- Blog Details Image End -->
                         <!-- Blog content Start -->
-                        <h4 class="h4 mb-3">Ridens labitur evertitur pri cu, eam ne omnis definiebas.</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus autem deserunt doloribus et explicabo facere modi mollitia necessitatibus nihil, nisi nobis nulla obcaecati pariatur perspiciatis possimus quidem, quisquam quo recusandae sapiente similique tempore tenetur ullam, vel veniam voluptas? At cumque ducimus explicabo officia ratione. A accusantium, architecto culpa dignissimos, distinctio fugiat fugit molestiae nemo quae quis quo reprehenderit repudiandae sapiente sequi sit tempore vel?</p>
-                        <blockquote class="mb-4">
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-                        </blockquote>
-                        <p>Ius ex vitae eleifend, sea bonorum percipit aliquando ei. Te saperet indoctum mea, in sea eros vocibus copiosae. At nam impedit rationibus, in nec nihil voluptua definiebas, quot soluta causae est an. Et oblique nostrum dissentiunt eam, mei scripta bonorum assueverit ea. Ne nec indoctum intellegat.</p>
+                        <h4 class="h4 mb-3"> {{ $post->title  }} </h4>
+                        <div>
+                        {!! $post->content  !!}
+                        </div>
                         <!-- Blog content End -->
                     </div>
                     <!-- Blog Details End -->
@@ -222,7 +136,7 @@
                         <!-- Form End -->
                     </div>
                 </div>
-                <div class="col lg-4 sm-12">
+                <div class="col lg-4 sm-12 mb-5">
                     <div class="sm-shadow bg-white p-3 mb-4">
                         <!-- Form Start -->
                         <form action="#" class="mb-5">
@@ -239,15 +153,13 @@
                             <span class="h4 mb-3">Categories</span>
                             <!-- Card link start -->
                             <ul class="card-links">
+                                @forelse($post_categories as $post_category)
                                 <li>
-                                    <a href="#" class="d-block py-3 px-2">iPhone <span class="badge badge-secondary ml-1">10</span></a>
+                                    <a href="#" class="d-block py-3 px-2"> {{ $post_category->name }} <span class="badge badge-secondary ml-1">{{ $post_category->posts->count()  }}</span></a>
                                 </li>
-                                <li>
-                                    <a href="#" class="d-block py-3 px-2">Android <span class="badge badge-secondary ml-1">10</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-block py-3 px-2">Phone Windows  <span class="badge badge-secondary ml-1">10</span></a>
-                                </li>
+                                @empty
+                                <p>No Categories</p>
+                                @endforelse
                             </ul>
                             <!-- Card link End -->
                         </div>
@@ -258,45 +170,23 @@
                         <span class="h4 mb-3">Latest Posts</span>
                         <!-- Card link start -->
                         <ul class="card-links">
+                        @forelse($latest_posts as $latest_post)
                             <li>
                                 <!-- Post Link Start -->
                                 <a href="#" class="d-block py-3 px-2">
                                     <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-01.jpg" alt="Post image">
+                                        <img class="align-self-start mr-3 img-64 img-circle" src="{{ url('storage/' . $latest_post->featured_img) }}" alt="Post image">
                                         <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">Title</h5>
-                                            <p>Cras sit amet nibh libero, in gravida nulla.</p>
+                                            <h5 class="h5 mt-0 mb-1">{{ Str::limit($latest_post->title, 25) }}</h5>
+                                            <div> {!! Str::limit($latest_post->content, 45) !!} </div>
                                         </div>
                                     </div>
                                 </a>
                                 <!-- Post Link End -->
                             </li>
-                            <li>
-                                <!-- Post Link Start -->
-                                <a href="#" class="d-block py-3 px-2">
-                                    <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-02.jpg" alt="Post image">
-                                        <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">Title</h5>
-                                            <p>Cras sit amet nibh libero, in gravida nulla.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Post Link End -->
-                            </li>
-                            <li>
-                                <!-- Post Link Start -->
-                                <a href="#" class="d-block py-3 px-2">
-                                    <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-01.jpg" alt="Post image">
-                                        <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">Title</h5>
-                                            <p>Cras sit amet nibh libero, in gravida nulla.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Post Link End -->
-                            </li>
+                        @empty
+                        <p>No Latest Posts</p>
+                        @endforelse
                         </ul>
                         <!-- Card link End -->
                     </div>
@@ -335,59 +225,17 @@
     </div>
     <!-- Blog End -->
     
-    <!-- Footer Start -->
-    <footer class="footer mt-6">
-        <div class="container">
-            <!-- Row Start -->
-            <div class="row">
-                <div class="col-lg-6 col-md-8 mx-auto mt-5">
-                    <!-- Footer logo -->
-					<div class="text-center mx-auto mb-4">
-						<img src="img/logo-white.png" alt="Footer logo" class="d-inline">
-					</div>
-                    <!-- Subscription Start -->
-                    <div id="subscribe-frm">
-                        <!-- Subscription Form -->
-                        <form action="https://www.kri8thm.in/html/the-appo/php/subscribe.php" method="post" id="subscribe">
-                            <input id="newsletterEmail" name="email" type="text" placeholder="Enter your email" class="form-control form-input-line input-rounded white-placeholder">
-                            <input type="submit" value="Subscribe" class="btn btn-white btn-rounded">
-                        </form>
-                        <!-- Subscription Message -->
-                        <div id="response"></div>
-                    </div>
-                    <!-- Subscription End -->
-                    <!-- Social Start -->
-                    <div class="social-link d-flex justify-content-around my-4">
-                        <a href="#">facebook</a>
-                        <a href="#">twitter</a>
-                        <a href="#">linkedin</a>
-                        <a href="#">github</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Row End -->
-        </div>
-        <!-- Last Footer Start -->
-        <div class="last-footer">
-            <div class="container text-center">
-                <p>© 2018 All Right Reserved | <a href="homepage-one-default.html">The Appo</a></p>
-            </div>
-        </div>
-        <!-- Last Footer End -->
-    </footer>
-    <!-- Footer End -->
-    
-</div>
-<!-- Wrapper End -->
+    @endsection
+
+
+@push('scripts')
 
 <!-- Scripts -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/jquery.cookie.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/blog.pages.js"></script>
-</body>
+<script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/aos.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.cookie.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/blog.pages.js') }}"></script>
 
-<!-- Mirrored from www.kri8thm.in/html/the-appo/blog-details-left-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Apr 2023 08:56:58 GMT -->
-</html>
+@endpush
