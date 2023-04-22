@@ -12,7 +12,7 @@ use App\Http\Controllers\cms\ProductController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
 use App\Http\Controllers\cms\SearchController;
-use App\Http\Controllers\frontend\viewsController;
+use App\Http\Controllers\frontend\ViewsController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -39,25 +39,16 @@ Route::get('/test', function () {
     // return what you want
 });
 
-Route::get('/clear-cache', function () {
-    Artisan::call('cache:clear');
-    echo 'cache:clear';
-    // return what you want
-});
 
-Route::get('/clear-config', function () {
-    Artisan::call('config:clear');
-    // return what you want
-});
-
-Route::get('/config-cache', function () {
-    Artisan::call('config:cache');
-    // return what you want
-});
 
 Route::get('/optimize', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
     Artisan::call('optimize');
-    // return what you want
+    Artisan::call('storage:link');
+    Artisan::call('composer dump-autoload');
+    return 'done';
 });
 
 Route::get('/flush-perms', function () {
@@ -74,7 +65,7 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 
 // Frontend Views
-Route::get('/', [ViewsController::class, 'index'])->name('home');
+Route::get('/', [ViewsController::class, 'index']);
 Route::get('/about', [ViewsController::class, 'about'])->name('about');
 Route::get('/blog/{id}', [ViewsController::class, 'getPost'])->name('blog');
 Route::get('/blogs', [ViewsController::class, 'posts'])->name('blogs');

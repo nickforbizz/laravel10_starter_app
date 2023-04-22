@@ -24,8 +24,7 @@ class ViewsController extends Controller
     {
         $post_categories = PostCategory::where('active', 1)->with('posts')->get();
         $latest_posts = Post::where('active', 1)->orderBy('created_at', 'desc')->take(4)->get();
-        $post = Post::findOrFail($id);
-
+        $post = Post::with('comments.user')->findOrFail($id);
         return view('frontend.post', compact('post_categories', 'latest_posts', 'post'));
     }
 
