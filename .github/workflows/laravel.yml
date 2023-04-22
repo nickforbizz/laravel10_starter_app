@@ -1,6 +1,6 @@
 name: Deploy Laravel Project on push
 on:
-  push:
+  pull_request:
     branches:
       - main
 jobs:
