@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto text-center">
                     <h2 class="blog-title h2 mb-3" data-aos="fade-up" data-aos-duration="500">Blog Posts</h2>
-                    <p data-aos="fade-up" data-aos-duration="1000">Get latest news and updates from our blog page regarding technology.</p>
+                    <p data-aos="fade-up" data-aos-duration="1000">  Get latest news and updates from our blog page regarding technology.</p>
                 </div>
             </div>
             <!-- Row End -->
