@@ -1,6 +1,6 @@
 name: Deploy Laravel Project on push
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
@@ -8,8 +8,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Copy .env to backup location
-        run: cp .env .env.bak
       - name: Get the latest code
         uses: actions/checkout@v2.3.2
       - uses: actions/setup-node@master
