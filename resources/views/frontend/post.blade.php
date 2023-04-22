@@ -9,8 +9,8 @@
             <!-- Row Start -->
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto text-center">
-                    <h2 class="blog-title h2 mb-3" data-aos="fade-up" data-aos-duration="500">Most Popular App</h2>
-                    <p data-aos="fade-up" data-aos-duration="1000">Nostrum salutandi necessitatibus cu duo, an lobortis tractatos quo. Tation aliquip ei est. Id per semper accusata interpretaris.</p>
+                    <h2 class="blog-title h2 mb-3" data-aos="fade-up" data-aos-duration="500">Blog Posts</h2>
+                    <p data-aos="fade-up" data-aos-duration="1000">Get latest news and updates from our blog page regarding technology.</p>
                 </div>
             </div>
             <!-- Row End -->
@@ -28,11 +28,11 @@
                     <div class="blog-details sm-shadow bg-white p-3 mb-4">
                         <!-- Blog Details Image Start -->
                         <div class="blog-details-image mb-4">
-                            <img src="img/blog/main-01.jpg" alt="Blog main image">
+                            <img src="{{ url('storage/' . $post->featured_img) }}" alt="Blog main image">
                             <div class="overlay-gradient py-4 px-3">
-                                <span class="d-block mb-2">Posted by Jone Deo</span>
+                                <span class="d-block mb-2">Posted by {{ $post->user->name  }}</span>
                                 <div class="clearfix">
-                                    <span class="d-flex mr-3 float-left"><i class="ti-calendar mr-2"></i> <span class="txt-12 align-self-center">26 Jan. 2017</span></span>
+                                    <span class="d-flex mr-3 float-left"><i class="ti-calendar mr-2"></i> <span class="txt-12 align-self-center"> {{ $post->created_at->format('F j, Y') }} </span></span>
                                     <span class="d-flex mr-3 float-left"><i class="ti-eye mr-2"></i> <span class="txt-12 align-self-center">123</span></span>
                                     <span class="d-flex float-left"><i class="ti-comments mr-2"></i> <span class="txt-12 align-self-center">26</span></span>
                                 </div>
@@ -40,12 +40,10 @@
                         </div>
                         <!-- Blog Details Image End -->
                         <!-- Blog content Start -->
-                        <h4 class="h4 mb-3">Ridens labitur evertitur pri cu, eam ne omnis definiebas.</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus autem deserunt doloribus et explicabo facere modi mollitia necessitatibus nihil, nisi nobis nulla obcaecati pariatur perspiciatis possimus quidem, quisquam quo recusandae sapiente similique tempore tenetur ullam, vel veniam voluptas? At cumque ducimus explicabo officia ratione. A accusantium, architecto culpa dignissimos, distinctio fugiat fugit molestiae nemo quae quis quo reprehenderit repudiandae sapiente sequi sit tempore vel?</p>
-                        <blockquote class="mb-4">
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-                        </blockquote>
-                        <p>Ius ex vitae eleifend, sea bonorum percipit aliquando ei. Te saperet indoctum mea, in sea eros vocibus copiosae. At nam impedit rationibus, in nec nihil voluptua definiebas, quot soluta causae est an. Et oblique nostrum dissentiunt eam, mei scripta bonorum assueverit ea. Ne nec indoctum intellegat.</p>
+                        <h4 class="h4 mb-3"> {{ $post->title  }} </h4>
+                        <div>
+                        {!! $post->content  !!}
+                        </div>
                         <!-- Blog content End -->
                     </div>
                     <!-- Blog Details End -->
@@ -155,15 +153,13 @@
                             <span class="h4 mb-3">Categories</span>
                             <!-- Card link start -->
                             <ul class="card-links">
+                                @forelse($post_categories as $post_category)
                                 <li>
-                                    <a href="#" class="d-block py-3 px-2">iPhone <span class="badge badge-secondary ml-1">10</span></a>
+                                    <a href="#" class="d-block py-3 px-2"> {{ $post_category->name }} <span class="badge badge-secondary ml-1">{{ $post_category->posts->count()  }}</span></a>
                                 </li>
-                                <li>
-                                    <a href="#" class="d-block py-3 px-2">Android <span class="badge badge-secondary ml-1">10</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-block py-3 px-2">Phone Windows  <span class="badge badge-secondary ml-1">10</span></a>
-                                </li>
+                                @empty
+                                <p>No Categories</p>
+                                @endforelse
                             </ul>
                             <!-- Card link End -->
                         </div>
@@ -174,45 +170,23 @@
                         <span class="h4 mb-3">Latest Posts</span>
                         <!-- Card link start -->
                         <ul class="card-links">
+                        @forelse($latest_posts as $latest_post)
                             <li>
                                 <!-- Post Link Start -->
                                 <a href="#" class="d-block py-3 px-2">
                                     <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-01.jpg" alt="Post image">
+                                        <img class="align-self-start mr-3 img-64 img-circle" src="{{ url('storage/' . $latest_post->featured_img) }}" alt="Post image">
                                         <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">Title</h5>
-                                            <p>Cras sit amet nibh libero, in gravida nulla.</p>
+                                            <h5 class="h5 mt-0 mb-1">{{ Str::limit($latest_post->title, 25) }}</h5>
+                                            <div> {!! Str::limit($latest_post->content, 45) !!} </div>
                                         </div>
                                     </div>
                                 </a>
                                 <!-- Post Link End -->
                             </li>
-                            <li>
-                                <!-- Post Link Start -->
-                                <a href="#" class="d-block py-3 px-2">
-                                    <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-02.jpg" alt="Post image">
-                                        <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">Title</h5>
-                                            <p>Cras sit amet nibh libero, in gravida nulla.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Post Link End -->
-                            </li>
-                            <li>
-                                <!-- Post Link Start -->
-                                <a href="#" class="d-block py-3 px-2">
-                                    <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="img/thump-01.jpg" alt="Post image">
-                                        <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">Title</h5>
-                                            <p>Cras sit amet nibh libero, in gravida nulla.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Post Link End -->
-                            </li>
+                        @empty
+                        <p>No Latest Posts</p>
+                        @endforelse
                         </ul>
                         <!-- Card link End -->
                     </div>
@@ -255,3 +229,13 @@
 
 
 @push('scripts')
+
+<!-- Scripts -->
+<script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/aos.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.cookie.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/blog.pages.js') }}"></script>
+
+@endpush

@@ -76,7 +76,7 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 // Frontend Views
 Route::get('/', [ViewsController::class, 'index'])->name('home');
 Route::get('/about', [ViewsController::class, 'about'])->name('about');
-Route::get('/blog/{id}', [ViewsController::class, 'post'])->name('blog');
+Route::get('/blog/{id}', [ViewsController::class, 'getPost'])->name('blog');
 Route::get('/blogs', [ViewsController::class, 'posts'])->name('blogs');
 Route::prefix('web')->group(function () {
 
