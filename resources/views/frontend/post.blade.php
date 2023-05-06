@@ -34,7 +34,7 @@
                             <div class="clearfix">
                                 <span class="d-flex mr-3 float-left"><i class="ti-calendar mr-2"></i> <span class="txt-12 align-self-center"> {{ $post->created_at->format('F j, Y') }} </span></span>
                                 <span class="d-flex mr-3 float-left"><i class="ti-eye mr-2"></i> <span class="txt-12 align-self-center">123</span></span>
-                                <span class="d-flex float-left"><i class="ti-comments mr-2"></i> <span class="txt-12 align-self-center">26</span></span>
+                                <span class="d-flex float-left"><i class="ti-comments mr-2"></i> <span class="txt-12 align-self-center"> {{ $post->comments->count() }}  </span></span>
                             </div>
                         </div>
                     </div>
