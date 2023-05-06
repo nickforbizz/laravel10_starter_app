@@ -51,7 +51,7 @@
         <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
             <div class="container">
                 <!-- Logo -->
-                <a class="navbar-brand nb-two" href="homepage-one-default.html">
+                <a class="navbar-brand nb-two" href="{{ route('wellcome') }}">
                     <img src="{{ asset('assets/frontend/img/logo.png') }}" alt="{{ env('APP_NAME') }}" class="logo-normal">
                     <img src="{{ asset('assets/frontend/img/logo-white.png') }}" alt="{{ env('APP_NAME') }}" class="logo-scroll">
                 </a>
@@ -62,9 +62,10 @@
                 <!-- Navigation Collapse Start -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="nav navbar-nav ml-auto">
+                        @if(Route::is('wellcome'))  
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle scroll-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                More
+                                Services
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#about">About</a>
@@ -74,6 +75,11 @@
                                 <a class="dropdown-item" href="#support">Support</a>
                             </div>
                         </li>
+                        @else
+                        <li class="nav-item mr-3">
+                            <a class="nav-link scroll-nav-link" href="{{ route('wellcome') }}">Home</a>
+                        </li>
+                        @endif
                         <li class="nav-item mr-3">
                             <a class="nav-link scroll-nav-link" href="{{ url('blogs') }}">Blog</a>
                         </li>
