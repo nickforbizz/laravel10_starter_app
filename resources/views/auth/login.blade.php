@@ -1,18 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
 
-
-        <div class="col-6" 
-            style="background-image: url('{{ asset('assets/frontend/img/heroimg.png') }}');
-                background-size:contain;
-                background-repeat: no-repeat;">
-            
-        </div>
-
-
+       
         <div class="col-6">
             <div class="card" style="max-height:70vh">
                 <div class="card-header"> <h3 class="text-muted">{{ __('Login') }}</h3></div>
@@ -91,6 +83,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-6" 
+            style="background-image: url('{{ asset('assets/frontend/img/illustrations/illustration-1-dark.png') }}');
+                background-size:contain;
+                background-repeat: no-repeat;">
+            
+        </div>
+
+
+
     </div>
 </div>
 @endsection

@@ -12,10 +12,9 @@ class ViewsController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::where('active', 1)->get();
-        $posts = Post::where('active', 1)->orderBy('created_at', 'desc')->take(3)->get();
+       
 
-        return view('frontend.index', compact('products', 'posts'));
+        return view('frontend.index');
     }
 
 
