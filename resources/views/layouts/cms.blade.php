@@ -112,65 +112,69 @@
 
 
 	<!--   Core JS Files   -->
-	<script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
-	<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
-	<script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+	<script  src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
 
 	<!-- Tiny MCE -->
-	<script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API_KEY') }}/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<!-- <script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API_KEY') }}/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
 
 	<!-- jQuery UI -->
-	<script src="{{ asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
-	<script src="{{ asset('assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
+	<!-- <script src="{{ asset('assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script> -->
 
 	<!-- jQuery Scrollbar -->
-	<script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
 
 
-	<!-- Chart JS -->
-	<script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
+	
 
 	<!-- jQuery Sparkline -->
-	<script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+	<!-- <script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script> -->
 
-	<!-- Chart Circle -->
-	<script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
+	
 
 	<!-- Datatables -->
 	<script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
 
 	<!-- Bootstrap Notify -->
-	<script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+	<!-- <script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script> -->
 
 	<!-- jQuery Vector Maps -->
-	<script src="{{ asset('assets/js/plugin/jqvmap/jquery.vmap.min.js') }}"></script>
-	<script src="{{ asset('assets/js/plugin/jqvmap/maps/jquery.vmap.world.js') }}"></script>
+	<!-- <script src="{{ asset('assets/js/plugin/jqvmap/jquery.vmap.min.js') }}"></script> -->
+	<!-- <script src="{{ asset('assets/js/plugin/jqvmap/maps/jquery.vmap.world.js') }}"></script> -->
 
 	<!-- Sweet Alert -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
 	<!-- Atlantis JS -->
 	<script src="{{ asset('assets/js/atlantis.min.js') }}"></script>
 
 	<!-- select2 -->
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 	<script>
 		$(document).ready(function() {
-			// select2 init
+
+			// Disable submit btn when submitting form
+			$(".submit-form-btn").click(function() {
+				$(this).html(`<i class="fa fa-spinner" aria-hidden="true"></i> Submitting ...`).attr('disabled', true);
+				$(this).parents('form').submit()
+			})
 			
+			// select2 init
 			$('.select2').select2({
 				placeholder: 'Select an option',	
 			});
 			
 
 			// tinymce.init
-			tinymce.init({
-				selector: '.tiny_textarea',
-				plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-				toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-			});
+			// tinymce.init({
+			// 	selector: '.tiny_textarea',
+			// 	plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+			// 	toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+			// });
 		});
 
 		

@@ -16,6 +16,7 @@ use App\Models\Role;
 use App\Notifications\WelcomeEmailNotification;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -25,7 +26,9 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = User::where('active', 1)->get();
+        $data = Cache::remember('user_all', 60, function () {
+            return User::where('active', 1)->get();
+        });
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -94,6 +97,7 @@ class UserController extends Controller
         $request = $this->addFieldsStoreImg($request);
 
         $user = User::create($request->all());
+
 
         event(new UserRegistered($user));
 

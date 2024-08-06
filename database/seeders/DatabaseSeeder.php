@@ -24,8 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(ProductSeeder::class);
-        $this->call(CommentSeeder::class);
+        $this->call(CommentSeeder::class); 
         $this->call(GuardSeeder::class);
+        $this->call(PermissionTableSeeder::class);
 
         
     }

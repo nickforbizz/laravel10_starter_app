@@ -176,5 +176,8 @@ class PermissionTableSeeder extends Seeder
             'guard_name' => 'web',
             'created_by' => $users->random()->id
         ]);
+
+
+        
     }
 }

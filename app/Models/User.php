@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Cacheable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,7 +45,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions;
+	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions, Cacheable;
 
 	use SoftDeletes;
 	protected $table = 'users';
