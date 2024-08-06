@@ -45,9 +45,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions, Cacheable;
+	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions;
 
 	use SoftDeletes;
+
+	use Cacheable;
 	protected $table = 'users';
 
 	protected $casts = [
