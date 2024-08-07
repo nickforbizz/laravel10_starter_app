@@ -81,6 +81,7 @@
                                     <option selected disabled> -- No item -- </option> 
                                 @endforelse
                             </select>
+                            <input type="checkbox" id="select2_checkAll" >Select All<br>
 
                             
                             @error('permissions') <span class="text-danger">{{ $message }}</span>
@@ -112,7 +113,15 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        
+        $("#select2_checkAll").click(function() {
+				if ($("#select2_checkAll").is(':checked')) {
+					$("#permission > option").prop("selected", "selected");
+					$("#permission").trigger("change");
+				} else {
+					$("#permission > option").removeAttr("selected");
+					$("#permission").val('').trigger("change");
+				}
+			});
     });
 
 

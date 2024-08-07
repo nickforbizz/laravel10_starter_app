@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Cacheable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,6 +48,9 @@ class User extends Authenticatable
 	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions;
 
 	use SoftDeletes;
+
+	use Cacheable;
+	
 	protected $table = 'users';
 
 	protected $casts = [
@@ -66,6 +70,7 @@ class User extends Authenticatable
 		'sname',
 		'name',
 		'email',
+		'phone',
 		'email_verified_at',
 		'password',
 		'two_factor_secret',

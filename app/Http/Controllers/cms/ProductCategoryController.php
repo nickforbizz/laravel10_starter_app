@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProductCategoryRequest;
 
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Cache;
 
 class ProductCategoryController extends Controller
 {
@@ -18,7 +19,9 @@ class ProductCategoryController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = ProductCategory::orderBy('created_at', 'desc')->get();
+        $data = Cache::remember('productcategory_all', 60, function () {
+            return ProductCategory::orderBy('created_at', 'desc')->get();
+        });
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()

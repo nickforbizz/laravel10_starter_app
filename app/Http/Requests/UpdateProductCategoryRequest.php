@@ -24,7 +24,7 @@ class UpdateProductCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required|min:2', Rule::unique('product_categories')->ignore($this->id)],
+            'name' => ['required', Rule::unique('product_categories')->ignore($this->id)],
         ];
     }
 

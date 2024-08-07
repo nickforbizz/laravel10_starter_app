@@ -56,22 +56,17 @@
                         @endif
 
 
-                        <div class="form-group form-floating-label">
-                            @if(isset($productCategory->id)) 
-                            <label for="name" class="">Name</label>
-                            <input id="name" type="text" class="form-control input-border-bottom @error('name') is-invalid @enderror"  value="{{ $productCategory->name ?? '' }}" readonly disabled />
-                            @else
-                            <input id="name" type="text" class="form-control input-border-bottom @error('name') is-invalid @enderror" name="name"  value="{{ $productCategory->name ?? '' }}" required />
-                            <label for="name" class="placeholder">name</label>
-                            @endif
+                        <div class="form-group">
+                            <label for="name" class="placeholder"> Title </label>
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  value="{{ $productCategory->name ?? '' }}" required />
                             @error('email') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <div class="form-group form-floating-label">
-                            <textarea name="description" id="description" class="form-control input-border-bottom" >{{ $productCategory->description ?? '' }}
-                            </textarea>
+                        <div class="form-group">
                             <label for="description" class="placeholder"> Description</label>
+                            <textarea name="description" id="description" class="form-control" >{{ $productCategory->description ?? '' }}
+                            </textarea>
                             @error('description') <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -81,8 +76,8 @@
 
 
                         <div class="card">
-                            <div class="form-group form-floating-label">
-                                <button class="btn btn-success btn-round float-right">Submit</button>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-round submit-form-btn float-right">Submit</button>
                             </div>
                         </div>
                     </form>

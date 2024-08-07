@@ -26,7 +26,7 @@ class StoreProductCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:2', Rule::unique('product_categories')],
+            'name' => 'required|min:2|unique:product_categories,name',
         ];
     }
 
