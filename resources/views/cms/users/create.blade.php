@@ -87,7 +87,9 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="phone" class=""> Phone </label>
-                                    <input id="phone" type="text" class="form-control" name="phone" placeholder="Enter your input"/>
+                                    <input id="phone" type="text" class="form-control" name="phone" value="{{ $user->phone ?? '' }}" placeholder="Enter your input"/>
+                                    @error('phone') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -95,7 +97,7 @@
 
 
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="password" class="placeholder"> Password</label>
@@ -112,7 +114,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 

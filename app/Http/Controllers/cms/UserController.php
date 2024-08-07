@@ -35,6 +35,9 @@ class UserController extends Controller
                 ->editColumn('created_at', function ($row) {
                     return date_format($row->created_at, 'Y/m/d H:i');
                 })
+                ->editColumn('profile', function ($row) {
+                    return '<img class="tb_img" src="' . url('storage/' . $row->avator) . '" alt="' . $row->name . '" data-toggle="popover" data-placement="top" data-content="<img src=' . url('storage/' . $row->avator) . ' style=\'max-height: 200px; max-width: 200px;\'>">';
+                })
                 ->addColumn('action', function ($row) {
                     $btn_edit = $btn_del = $btn_view = null;
                     $btn_view = '<a data-toggle="tooltip" 
@@ -66,7 +69,7 @@ class UserController extends Controller
                     }
                     return $btn_view. $btn_edit . $btn_del;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'profile'])
                 ->make(true);
         }
 
@@ -99,7 +102,7 @@ class UserController extends Controller
         $user = User::create($request->all());
 
 
-        event(new UserRegistered($user));
+        // event(new UserRegistered($user));
 
         if (!empty($request->roles)) {
             $user->assignRole($request->roles);
