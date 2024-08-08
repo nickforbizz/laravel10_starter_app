@@ -81,10 +81,76 @@
                         </div>
 
 
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input id="price" type="number" class="form-control" name="price" placeholder="Enter price ..." value="{{ old('price', $product->price ?? '')  }}" />
+                                    @error('price') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="quantity">Quantity</label>
+                                    <input id="quantity" type="number" class="form-control" name="quantity" placeholder="Enter quantity ..." value="{{ old('quantity', $product->quantity ?? '')  }}" />
+                                    @error('quantity') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
 
 
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="color"> Color </label>
+                                    <input id="color" type="color" class="form-control" name="color" placeholder="Enter color ..." value="{{ old('color', $product->color ?? '')  }}" />
+                                    @error('color') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="size"> Size </label>
+                                    <select name="size" id="size" class="form-control">
+                                        <option value="s" @if(isset($product->id)) {{ $product->size == 's' ? 'selected' : '' }} @endif> Small </option>
+                                        <option value="m" @if(isset($product->id)) {{ $product->size == 'm' ? 'selected' : '' }} @endif> Middle </option>
+                                        <option value="l" @if(isset($product->id)) {{ $product->size == 'l' ? 'selected' : '' }} @endif> Large </option>
+                                        <option value="xl" @if(isset($product->id)) {{ $product->size == 'xl' ? 'selected' : '' }} @endif> XLarge </option>
+                                    </select>
+                                    @error('size') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="label">label</label>
+                                    <input id="label" type="text" class="form-control" name="label" placeholder="Enter label ..." value="{{ old('label', $product->label ?? '')  }}" />
+                                    @error('label') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="status"> status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="1"> In Stock </option>
+                                        <option value="2"> Cooming soon </option>
+                                        <option value="3"> Sold </option>
+                                        <option value="4"> Returned </option>
+                                        <option value="5"> Discounted </option>
+                                    </select>
+                                    @error('status') <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div class="row">
@@ -120,7 +186,7 @@
 
                 <div class="card">
                     <div class="form-group form-floating-label">
-                        <button class="btn btn-success btn-round submit-form-btn float-right">Submit</button>
+                        <button class="btn btn-success btn-round Xsubmit-form-btn float-right">Submit</button>
                     </div>
                 </div>
                 </form>

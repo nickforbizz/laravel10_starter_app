@@ -39,10 +39,12 @@ class ProductController extends Controller
                     return $row->product_category->name;
                 })
                 ->editColumn('title', function ($row) {
-                    return Str::limit($row->title, 10, '...');
-                })
-                ->editColumn('description', function ($row) {
-                    return Str::limit($row->description, 20, '...');
+                    return '<a data-toggle="tooltip" 
+                            href="' . route('products.show', $row->id) . '" 
+                            class="btn btn-link btn-primary btn-lg" 
+                            data-original-title="Edit Record">
+                        ' . Str::limit($row->title, 10, '...') . '
+                    </a>';
                 })
                 ->addColumn('action', function ($row) {
                     $btn_edit = $btn_del = null;
@@ -67,7 +69,7 @@ class ProductController extends Controller
                     }
                     return $btn_edit . $btn_del;
                 })
-                ->rawColumns(['photo', 'category_id', 'title', 'description', 'action'])
+                ->rawColumns(['photo', 'category_id', 'title', 'action'])
                 ->make(true);
         }
 
@@ -108,7 +110,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product;
+        $product = Cache::remember('product_'.$product->id, 60, function () use ($product) {
+            return $product;
+        });
+        return view('cms.products.show', compact('product'));
     }
 
     /**
