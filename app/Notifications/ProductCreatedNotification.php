@@ -51,8 +51,8 @@ class ProductCreatedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'name' => $this->product->product. '['.$this->product->id.']',
-            'message' => "Product: ". $this->product->product. " Was created",
+            'name' => $this->product->title. '['.$this->product->id.']',
+            'message' => "Product: ". $this->product->title. " Was created",
         ];
     }
 }
