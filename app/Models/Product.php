@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Events\ProductCreated;
 use App\Traits\Cacheable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -74,5 +75,12 @@ class Product extends Model
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'created_by');
+	}
+
+	protected static function booted()
+	{
+		static::created(function ($product) {
+			event(new ProductCreated($product));
+		});
 	}
 }

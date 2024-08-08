@@ -2,21 +2,24 @@
 
 namespace App\Notifications;
 
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeEmailNotification extends Notification
+class ProductCreatedNotification extends Notification
 {
     use Queueable;
+
+    protected $product;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(Product $product)
     {
-        //
+        $this->product = $product;
     }
 
     /**
@@ -26,7 +29,7 @@ class WelcomeEmailNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -35,8 +38,8 @@ class WelcomeEmailNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Welcome to '.env('APP_NAME'))
-                    ->action('Visit the Application', url('/'))
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
 
@@ -48,9 +51,8 @@ class WelcomeEmailNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'name' => $this->user->name,
-            'email' => $this->user->email,
-            'message' => "new user registered",
+            'name' => $this->product->title. '['.$this->product->id.']',
+            'message' => "Product: ". $this->product->title. " Was created",
         ];
     }
 }
