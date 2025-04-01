@@ -2,197 +2,297 @@
 
 @section('content')
 
-<!-- Intro Start -->
-<div class="blog-banner d-flex">
-    <div class="overlay"></div>
-    <div class="container align-self-center">
-        <!-- Row Start -->
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto text-center">
-                <h2 class="blog-title h2 mb-3" data-aos="fade-up" data-aos-duration="500">Most Popular App</h2>
-                <p data-aos="fade-up" data-aos-duration="1000">Nostrum salutandi necessitatibus cu duo, an lobortis tractatos quo. Tation aliquip ei est. Id per semper accusata interpretaris.</p>
-            </div>
-        </div>
-        <!-- Row End -->
-    </div>
-</div>
-<!-- Intro End -->
+<main class="main">
 
-<!-- Blog Start -->
-<div class="mt-6">
+  <!-- Page Title -->
+  <div class="page-title dark-background">
     <div class="container">
-        <!-- Row Start -->
-        <div class="row">
-            <div class="col lg-8 sm-12">
-                <!-- Row Start -->
-                <div class="row">
-
-                    @forelse($posts as $post)
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                        <!-- Blog Card Start -->
-                        <div class="blog-card sm-shadow p-3" data-aos="fade-up">
-                            <!-- Blog Image Start -->
-                            <div class="blog-img mb-3">
-                                <a href="{{ route('blog',['id'=>$post->id]) }}" class="d-block setImgBack">
-                                    <img src="{{ url('storage/' . $post->featured_img) }}" class="img-fluid" alt="{{ $post->title }}">
-                                    <!-- Blog Overlay Start -->
-                                    <div class="overlay d-flex">
-                                        <!-- Blog Icons Start -->
-                                        <div class="blog-icons align-self-center mx-auto">
-                                            <!-- Search Icon -->
-                                            <div class="mb-4 top-animatt-icon text-center">
-                                                <i class="ti-search ti-x2"></i>
-                                            </div>
-                                            <!-- Comments and Views -->
-                                            <span class="d-block">
-                                                <i class="ti-eye"></i>
-                                                <span class="mr-2">12</span>
-                                                <i class="ti-comment"></i>
-                                                <span>21</span>
-                                            </span>
-                                        </div>
-                                        <!-- Blog Icons End -->
-                                    </div>
-                                    <!-- Blog Overlay End -->
-                                </a>
-                            </div>
-                            <!-- Blog Image End -->
-                            <!-- Blog Header Start -->
-                            <div class="mb-3">
-                                <!-- Blog Date -->
-                                <span class="d-block mb-3"><i class="ti-calendar mr-1"></i> {{ $post->created_at->format('F j, Y') }} </span>
-                                <span class="blog-head d-block">
-                                    <a href="{{ route('blog',['id'=>$post->id]) }}"> {{ Str::limit($post->title, 45) }}</a>
-                                </span>
-                            </div>
-                            <!-- Blog Header End -->
-                            <!-- Blog Description Start -->
-                            <p> {!! Str::limit($post->content, 125) !!} </p>
-                            <!-- Blog Description End -->
-                            <!-- Blog Read More Button -->
-                            <a href="{{ route('blog',['id'=>$post->id]) }}" class="btn arrow-btn p-0"><span>Read More</span><i class="ti-arrow-right"></i></a>
-                        </div>
-                        <!-- Blog Card End -->
-                    </div>
-                    @empty
-                    <p>No Posts</p>
-                    @endforelse
-
-
-
-
-                    <div class="col-lg-12 d-flex pt-2 mb-4">
-                        <div class="text-center">
-                            {{ $posts->links('vendor.pagination.bootstrap-4') }}
-                        </div>
-                        <hr>
-                        
-                    </div>
-                </div>
-                <!-- Row End -->
-            </div>
-            <div class="col lg-4 sm-12 mt-6 mt-lg-0">
-                <div class="sm-shadow bg-white p-3 mb-4">
-                    <!-- Form Start -->
-                    <form action="#" class="mb-5">
-                        <!-- Form Field -->
-                        <div class="form-field">
-                            <input name="search" id="search" type="text" placeholder="Search" class="form-control fc-line" required>
-                            <label for="search" class="input-line"></label>
-                            <button class="search-btn"><i class="ti-search"></i></button>
-                        </div>
-                    </form>
-                    <!-- Form End -->
-                    <!-- Categories Start -->
-                    <div>
-                        <span class="h4 mb-3">Categories</span>
-                        <!-- Card link start -->
-                        <ul class="card-links">
-                            @forelse($post_categories as $post_category)
-                            <li>
-                                <a href="#" class="d-block py-3 px-2"> {{ $post_category->name }} <span class="badge badge-secondary ml-1">{{ $post_category->posts->count()  }}</span></a>
-                            </li>
-                            @empty
-                            <p>No Categories</p>
-                            @endforelse
-                        </ul>
-                        <!-- Card link End -->
-                    </div>
-                    <!-- Categories End -->
-                </div>
-                <!-- Lastet Post Start -->
-                <div class="sm-shadow bg-white p-3 mb-4" data-aos="fade-up">
-                    <span class="h4 mb-3">Featured Posts</span>
-                    <!-- Card link start -->
-                    <ul class="card-links">
-
-                        @forelse($featured_posts as $featured_post)
-                            <li>
-                                <!-- Post Link Start -->
-                                <a href="#" class="d-block py-3 px-2">
-                                    <div class="media">
-                                        <img class="align-self-start mr-3 img-64 img-circle" src="{{ url('storage/' . $featured_post->featured_img) }}" alt="Post image">
-                                        <div class="media-body">
-                                            <h5 class="h5 mt-0 mb-1">{{ Str::limit($featured_post->title, 25) }}</h5>
-                                            <div> {!! Str::limit($featured_post->content, 45) !!} </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Post Link End -->
-                            </li>
-                        @empty
-                        <p>No Featured Posts</p>
-                        @endforelse
-
-                    </ul>
-                    <!-- Card link End -->
-                </div>
-                <!-- Lastet Post End -->
-                <!-- Tags Start -->
-                <div class="sm-shadow bg-white p-3 mb-4" data-aos="fade-up">
-                    <span class="h4 mb-3">Tags</span>
-                    <div class="tag-links">
-                        <a href="#">App</a>
-                        <a href="#">Mobile</a>
-                        <a href="#">Appo</a>
-                        <a href="#">Article</a>
-                        <a href="#">Download</a>
-                        <a href="#">Google</a>
-                        <a href="#">News</a>
-                    </div>
-                </div>
-                <!-- Tags End -->
-                <!-- Social Start -->
-                <div class="sm-shadow social-media bg-white p-3" data-aos="fade-up">
-                    <span class="h4 mb-3">Touch with us</span>
-                    <!-- Social Icons Start -->
-                    <ul class="social mx-auto clearfix">
-                        <li class="facebook"><a href="#" class="mx-auto align-self-center ti-facebook"></a></li>
-                        <li class="twitter"><a href="#" class="mx-auto align-self-center ti-twitter-alt"></a></li>
-                        <li class="linkedin"><a href="#" class="mx-auto align-self-center ti-linkedin"></a></li>
-                        <li class="github"><a href="#" class="mx-auto align-self-center ti-github"></a></li>
-                    </ul>
-                    <!-- Social Icons End -->
-                </div>
-                <!-- Social End -->
-            </div>
-        </div>
-        <!-- Row End -->
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li class="current">Blog</li>
+        </ol>
+      </nav>
+      <h1>Blog</h1>
     </div>
-</div>
-<!-- Blog End -->
+  </div><!-- End Page Title -->
 
-@endsection
+  <div class="container">
+    <div class="row">
 
+      <div class="col-lg-8">
 
-@push('scripts')
+        <!-- Blog Posts Section -->
+        <section id="blog-posts" class="blog-posts section">
 
-<!-- Scripts -->
-<script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/aos.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/jquery.cookie.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('assets/frontend/js/blog.pages.js') }}"></script>
+          <div class="container">
 
-@endpush
+            <div class="row gy-4">
+
+              <div class="col-12">
+                <article>
+
+                  <div class="post-img">
+                    <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
+                  </div>
+
+                  <h2 class="title">
+                    <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
+                  </h2>
+
+                  <div class="meta-top">
+                    <ul>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">John Doe</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 Comments</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="content">
+                    <p>
+                      Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
+                      Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
+                    </p>
+
+                    <div class="read-more">
+                      <a href="blog-details.html">Read More</a>
+                    </div>
+                  </div>
+
+                </article>
+              </div><!-- End post list item -->
+
+              <div class="col-12">
+
+                <article>
+
+                  <div class="post-img">
+                    <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid">
+                  </div>
+
+                  <h2 class="title">
+                    <a href="blog-details.html">Nisi magni odit consequatur autem nulla dolorem</a>
+                  </h2>
+
+                  <div class="meta-top">
+                    <ul>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">John Doe</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 Comments</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="content">
+                    <p>
+                      Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.
+                      Ad impedit qui officiis est in non aliquid veniam laborum. Id ipsum qui aut. Sit aliquam et quia molestias laboriosam. Tempora nam odit omnis eum corrupti qui aliquid excepturi molestiae. Facilis et sint quos sed voluptas. Maxime sed tempore enim omnis non alias odio quos distinctio.
+                    </p>
+                    <div class="read-more">
+                      <a href="blog-details.html">Read More</a>
+                    </div>
+                  </div>
+
+                </article>
+
+              </div><!-- End post list item -->
+
+              <div class="col-12">
+
+                <article>
+
+                  <div class="post-img">
+                    <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid">
+                  </div>
+
+                  <h2 class="title">
+                    <a href="blog-details.html">Possimus soluta ut id suscipit ea ut. In quo quia et soluta libero sit sint.</a>
+                  </h2>
+
+                  <div class="meta-top">
+                    <ul>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">John Doe</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 Comments</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="content">
+                    <p>
+                      Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.
+                      Doloremque est saepe laborum aut. Ipsa cupiditate ex harum at recusandae nesciunt. Ut dolores velit.
+                    </p>
+                    <div class="read-more">
+                      <a href="blog-details.html">Read More</a>
+                    </div>
+                  </div>
+
+                </article>
+
+              </div><!-- End post list item -->
+
+              <div class="col-12">
+
+                <article>
+
+                  <div class="post-img">
+                    <img src="assets/img/blog/blog-4.jpg" alt="" class="img-fluid">
+                  </div>
+
+                  <h2 class="title">
+                    <a href="blog-details.html">Non rem rerum nam cum quo minus. Dolor distinctio deleniti explicabo eius exercitationem.</a>
+                  </h2>
+
+                  <div class="meta-top">
+                    <ul>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">John Doe</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 Comments</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="content">
+                    <p>
+                      Aspernatur rerum perferendis et sint. Voluptates cupiditate voluptas atque quae. Rem veritatis rerum enim et autem. Saepe atque cum eligendi eaque iste omnis a qui.
+                      Quia sed sunt. Ea asperiores expedita et et delectus voluptates rerum. Id saepe ut itaque quod qui voluptas nobis porro rerum. Quam quia nesciunt qui aut est non omnis. Inventore occaecati et quaerat magni itaque nam voluptas. Voluptatem ducimus sint id earum ut nesciunt sed corrupti nemo.
+                    </p>
+                    <div class="read-more">
+                      <a href="blog-details.html">Read More</a>
+                    </div>
+                  </div>
+
+                </article>
+
+              </div><!-- End post list item -->
+
+            </div><!-- End blog posts list -->
+
+          </div>
+
+        </section><!-- /Blog Posts Section -->
+
+        <!-- Blog Pagination Section -->
+        <section id="blog-pagination" class="blog-pagination section">
+
+          <div class="container">
+            <div class="d-flex justify-content-center">
+              <ul>
+                <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#" class="active">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li>...</li>
+                <li><a href="#">10</a></li>
+                <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
+              </ul>
+            </div>
+          </div>
+
+        </section><!-- /Blog Pagination Section -->
+
+      </div>
+
+      <div class="col-lg-4 sidebar">
+
+        <div class="widgets-container">
+
+          <!-- Search Widget -->
+          <div class="search-widget widget-item">
+
+            <h3 class="widget-title">Search</h3>
+            <form action="">
+              <input type="text">
+              <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+
+          </div><!--/Search Widget -->
+
+          <!-- Categories Widget -->
+          <div class="categories-widget widget-item">
+
+            <h3 class="widget-title">Categories</h3>
+            <ul class="mt-3">
+              <li><a href="#">General <span>(25)</span></a></li>
+              <li><a href="#">Lifestyle <span>(12)</span></a></li>
+              <li><a href="#">Travel <span>(5)</span></a></li>
+              <li><a href="#">Design <span>(22)</span></a></li>
+              <li><a href="#">Creative <span>(8)</span></a></li>
+              <li><a href="#">Educaion <span>(14)</span></a></li>
+            </ul>
+
+          </div><!--/Categories Widget -->
+
+          <!-- Recent Posts Widget -->
+          <div class="recent-posts-widget widget-item">
+
+            <h3 class="widget-title">Recent Posts</h3>
+
+            <div class="post-item">
+              <img src="assets/img/blog/blog-recent-1.jpg" alt="" class="flex-shrink-0">
+              <div>
+                <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
+                <time datetime="2020-01-01">Jan 1, 2020</time>
+              </div>
+            </div><!-- End recent post item-->
+
+            <div class="post-item">
+              <img src="assets/img/blog/blog-recent-2.jpg" alt="" class="flex-shrink-0">
+              <div>
+                <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
+                <time datetime="2020-01-01">Jan 1, 2020</time>
+              </div>
+            </div><!-- End recent post item-->
+
+            <div class="post-item">
+              <img src="assets/img/blog/blog-recent-3.jpg" alt="" class="flex-shrink-0">
+              <div>
+                <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a></h4>
+                <time datetime="2020-01-01">Jan 1, 2020</time>
+              </div>
+            </div><!-- End recent post item-->
+
+            <div class="post-item">
+              <img src="assets/img/blog/blog-recent-4.jpg" alt="" class="flex-shrink-0">
+              <div>
+                <h4><a href="blog-details.html">Laborum corporis quo dara net para</a></h4>
+                <time datetime="2020-01-01">Jan 1, 2020</time>
+              </div>
+            </div><!-- End recent post item-->
+
+            <div class="post-item">
+              <img src="assets/img/blog/blog-recent-5.jpg" alt="" class="flex-shrink-0">
+              <div>
+                <h4><a href="blog-details.html">Et dolores corrupti quae illo quod dolor</a></h4>
+                <time datetime="2020-01-01">Jan 1, 2020</time>
+              </div>
+            </div><!-- End recent post item-->
+
+          </div><!--/Recent Posts Widget -->
+
+          <!-- Tags Widget -->
+          <div class="tags-widget widget-item">
+
+            <h3 class="widget-title">Tags</h3>
+            <ul>
+              <li><a href="#">App</a></li>
+              <li><a href="#">IT</a></li>
+              <li><a href="#">Business</a></li>
+              <li><a href="#">Mac</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">Office</a></li>
+              <li><a href="#">Creative</a></li>
+              <li><a href="#">Studio</a></li>
+              <li><a href="#">Smart</a></li>
+              <li><a href="#">Tips</a></li>
+              <li><a href="#">Marketing</a></li>
+            </ul>
+
+          </div><!--/Tags Widget -->
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  @endsection
