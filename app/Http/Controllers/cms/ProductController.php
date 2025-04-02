@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductCategory;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = Product::orderBy('created_at', 'desc')->get();
+        $data = Cache::remember('product_all', 60, function () {
+            return Product::orderBy('created_at', 'desc')->get();
+        });
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -36,10 +39,12 @@ class ProductController extends Controller
                     return $row->product_category->name;
                 })
                 ->editColumn('title', function ($row) {
-                    return Str::limit($row->title, 10, '...');
-                })
-                ->editColumn('description', function ($row) {
-                    return Str::limit($row->description, 20, '...');
+                    return '<a data-toggle="tooltip" 
+                            href="' . route('products.show', $row->id) . '" 
+                            class="btn btn-link btn-primary btn-lg" 
+                            data-original-title="Edit Record">
+                        ' . Str::limit($row->title, 10, '...') . '
+                    </a>';
                 })
                 ->addColumn('action', function ($row) {
                     $btn_edit = $btn_del = null;
@@ -64,7 +69,7 @@ class ProductController extends Controller
                     }
                     return $btn_edit . $btn_del;
                 })
-                ->rawColumns(['photo', 'category_id', 'title', 'description', 'action'])
+                ->rawColumns(['photo', 'category_id', 'title', 'action'])
                 ->make(true);
         }
 
@@ -105,7 +110,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product;
+        $product = Cache::remember('product_'.$product->id, 60, function () use ($product) {
+            return $product;
+        });
+        return view('cms.products.show', compact('product'));
     }
 
     /**

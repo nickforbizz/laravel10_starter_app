@@ -32,8 +32,8 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">List of Available Record(s)</h4>
-                        @can('create roles')
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary btn-round ml-auto" >
+                        @can('create users')
+                        <a href="{{ route('users.create') }}" class="btn btn-primary btn-round ml-auto" >
                             <i class="flaticon-add mr-2"></i>
                             Add Record
                         </a> 

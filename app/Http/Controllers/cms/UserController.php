@@ -16,6 +16,7 @@ use App\Models\Role;
 use App\Notifications\WelcomeEmailNotification;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -25,12 +26,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // return datatable of the makes available
-        $data = User::where('active', 1)->get();
+        $data = Cache::remember('user_all', 60, function () {
+            return User::where('active', 1)->get();
+        });
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($row) {
                     return date_format($row->created_at, 'Y/m/d H:i');
+                })
+                ->editColumn('profile', function ($row) {
+                    return '<img class="tb_img" src="' . url('storage/' . $row->avator) . '" alt="' . $row->name . '" data-toggle="popover" data-placement="top" data-content="<img src=' . url('storage/' . $row->avator) . ' style=\'max-height: 200px; max-width: 200px;\'>">';
                 })
                 ->addColumn('action', function ($row) {
                     $btn_edit = $btn_del = $btn_view = null;
@@ -63,7 +69,7 @@ class UserController extends Controller
                     }
                     return $btn_view. $btn_edit . $btn_del;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'profile'])
                 ->make(true);
         }
 
@@ -95,7 +101,8 @@ class UserController extends Controller
 
         $user = User::create($request->all());
 
-        event(new UserRegistered($user));
+
+        // event(new UserRegistered($user));
 
         if (!empty($request->roles)) {
             $user->assignRole($request->roles);

@@ -48,7 +48,9 @@ class WelcomeEmailNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+            'message' => "new user registered",
         ];
     }
 }

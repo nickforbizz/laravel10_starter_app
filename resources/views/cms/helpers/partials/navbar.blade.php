@@ -20,40 +20,7 @@
 				</a>
 			</li>
 			
-			<li class="nav-item dropdown hidden-caret">
-				<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-envelope"></i> 
-				</a>
-				<ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
-					<li>
-						<div class="dropdown-title d-flex justify-content-between align-items-center">
-							Messages 									
-							<a href="#" class="small">Mark all as read</a>
-						</div>
-					</li>
-					<li>
-						<div class="message-notif-scroll scrollbar-outer">
-							<div class="notif-center">
-								<a href="#">
-									<div class="notif-img"> 
-										<img src="{{ asset('assets/img/jm_denis.jpg') }}" alt="Img Profile">
-									</div>
-									<div class="notif-content">
-										<span class="subject">Jimmy Denis</span>
-										<span class="block">
-											How are you ?
-										</span>
-										<span class="time">5 minutes ago</span> 
-									</div>
-								</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a class="see-all" href="javascript:void(0);">See all messages<i class="fa fa-angle-right"></i> </a>
-					</li>
-				</ul>
-			</li>
+			
 			<li class="nav-item dropdown hidden-caret">
 				@php 
 				use Carbon\Carbon;
@@ -108,19 +75,19 @@
 								<a class="col-6 col-md-4 p-0" href="{{ route('reports.index') }}">
 									<div class="quick-actions-item">
 										<i class="flaticon-file-1"></i>
-										<span class="text">Generated Report</span>
+										<span class="text"> Reports </span>
 									</div>
 								</a>
 								<a class="col-6 col-md-4 p-0" href="{{ route('posts.create') }}">
 									<div class="quick-actions-item">
 										<i class="flaticon-pen"></i>
-										<span class="text">Create New Post</span>
+										<span class="text"> Products </span>
 									</div>
 								</a>
 								<a class="col-6 col-md-4 p-0" href="#">
 									<div class="quick-actions-item">
 										<i class="flaticon-interface-1"></i>
-										<span class="text">Create New Task</span>
+										<span class="text"> Users</span>
 									</div>
 								</a>
 								<a class="col-6 col-md-4 p-0" href="#">

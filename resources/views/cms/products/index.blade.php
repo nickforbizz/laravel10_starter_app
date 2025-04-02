@@ -32,7 +32,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">List of Available Record(s)</h4>
-                        @can('create products')
+                        @can('create product')
                         <a href="{{ route('products.create') }}" class="btn btn-primary btn-round ml-auto" >
                             <i class="flaticon-add mr-2"></i>
                             Add Record
@@ -51,7 +51,8 @@
                                     <th>Img</th>
                                     <th>Category</th>
                                     <th>Title</th>
-                                    <th>Content</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
                                     <th>Created At</th>
                                     <th style="width: 10%">Action</th>
                                 </tr>
@@ -91,7 +92,10 @@
                     data: 'title'
                 },
                 {
-                    data: 'description'
+                    data: 'price'
+                },	
+                {
+                    data: 'quantity'
                 },					
                 {
                     data: 'created_at',

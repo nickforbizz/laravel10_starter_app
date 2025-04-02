@@ -96,9 +96,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Profile</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
+                                    <th>Phone</th>
                                     <th>Created At</th>
                                     <th style="width: 10%">Action</th>
                                 </tr>
@@ -129,6 +131,9 @@
                     name: 'DT_RowIndex'
                 },
                 {
+                    data: 'profile'
+                },
+                {
                     data: 'fname'
                 },
                 {
@@ -136,7 +141,10 @@
                 },
                 {
                     data: 'email'
-                },					
+                },	
+                {
+                    data: 'phone'
+                },				
                 {
                     data: 'created_at',
                 },
