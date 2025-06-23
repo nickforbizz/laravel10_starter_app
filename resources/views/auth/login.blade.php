@@ -6,8 +6,8 @@
 
        
         <div class="col-6">
-            <div class="card" style="max-height:70vh">
-                <div class="card-header"> <h3 class="text-muted">{{ __('Login') }}</h3></div>
+            <div class="card mt-4 mb-4" style="max-height:70vh">
+                <div class="card-header bg-info p-4"> <h3 class="text-white">{{ __('Login Screen') }}</h3></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

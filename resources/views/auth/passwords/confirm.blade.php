@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
+
+        
+        <div class="col-6">
+            <div class="card mt-4 mb-4" style="max-height:70vh">
+                <div class="card-header bg-info p-4"> <h3 class="text-white">{{ __('Confirm Password') }} </h3></div>
 
                 <div class="card-body">
                     {{ __('Please confirm your password before continuing.') }}
@@ -17,7 +19,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password"  class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -43,6 +45,13 @@
                     </form>
                 </div>
             </div>
+        </div>
+
+        <div class="col-6" 
+            style="background-image: url('{{ asset('assets/frontend/img/illustrations/illustration-1-dark.png') }}');
+                background-size:contain;
+                background-repeat: no-repeat;">
+            
         </div>
     </div>
 </div>
