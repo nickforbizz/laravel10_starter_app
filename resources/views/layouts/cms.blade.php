@@ -25,7 +25,10 @@
 
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="{{ asset('assets/css/fonts.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+	<!-- Bootstrap 4.6.2 — latest Bootstrap 4 LTS, required by the Atlantis admin theme -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	      crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
 	<!-- select2 -->
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -113,9 +116,11 @@
 
 
 	<!--   Core JS Files   -->
-	<script  src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
-	<script defer src="{{ asset('assets/js/core/popper.min.js') }}"></script>
-	<script defer src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
+	<!-- Bootstrap 4.6.2 bundle — includes Popper 1.x; must match the CSS version above -->
+	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+	        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+	        crossorigin="anonymous"></script>
 
 	<!-- Tiny MCE -->
 	<!-- <script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API_KEY') }}/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
