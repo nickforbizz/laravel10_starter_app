@@ -33,8 +33,9 @@
 
 	<link rel="stylesheet" href="{{ asset('assets/css/cms.css') }}">
 
+	<!-- CMS Theme — edit this file to change dashboard colours -->
+	<link rel="stylesheet" href="{{ asset('assets/css/cms-theme.css') }}">
 
-	
 
 
 	@stack('styles')
@@ -46,7 +47,7 @@
 	<div class="wrapper">
 		<div class="main-header">
 			<!-- Logo Header -->
-			<div class="logo-header" data-background-color="blue">
+			<div class="logo-header">
 
 				<a href="{{ route('cms') }}" class="logo">
 					<!-- <img src="{{ asset('assets/img/logo.svg') }}" alt="navbar brand" class="navbar-brand"> -->
