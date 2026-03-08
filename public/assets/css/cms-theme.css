@@ -1,0 +1,233 @@
+/*
+ * ============================================================
+ * CMS Dashboard – Theme Configuration
+ * ============================================================
+ *
+ * This is the SINGLE place to customise the look and feel of
+ * the CMS/admin dashboard.  Change a value here and it will
+ * propagate throughout the entire dashboard automatically.
+ *
+ * Sections
+ * --------
+ *  1. Color Palette  – raw color tokens
+ *  2. Header & Logo  – top bar colours
+ *  3. Sidebar        – left navigation colours
+ *  4. Buttons        – primary / secondary button colours
+ *  5. Links          – hyperlink colours
+ *  6. Status Badges  – success / warning / danger / info
+ *  7. Page & Cards   – body and card background colours
+ *
+ * ============================================================
+ */
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 1. COLOR PALETTE                                            *
+ *    These are the raw tokens. Change them here and the rest  *
+ *    of the rules below pick them up automatically.           *
+ * ─────────────────────────────────────────────────────────── */
+:root {
+    /* Primary brand color (header bar, active nav items, primary buttons) */
+    --cms-primary:          #1572E8;
+    --cms-primary-dark:     #1269DB;
+
+    /* Secondary accent color */
+    --cms-secondary:        #6861CE;
+    --cms-secondary-dark:   #5C55BF;
+
+    /* Sidebar */
+    --cms-sidebar-bg:       #ffffff;
+    --cms-sidebar-text:     #575962;
+    --cms-sidebar-active-bg: #1572E8;   /* background of the active nav item  */
+    --cms-sidebar-active-text: #ffffff; /* text of the active nav item        */
+
+    /* Status colors */
+    --cms-success:          #31CE36;
+    --cms-success-dark:     #2BB930;
+    --cms-warning:          #FFAD46;
+    --cms-warning-dark:     #FF9E27;
+    --cms-danger:           #F25961;
+    --cms-danger-dark:      #EA4D56;
+    --cms-info:             #48ABF7;
+    --cms-info-dark:        #3697E1;
+
+    /* Page & content area */
+    --cms-body-bg:          #f9fbfd;
+    --cms-body-text:        #575962;
+    --cms-card-bg:          #ffffff;
+    --cms-border-color:     #ebecec;
+    --cms-heading-color:    #444444;
+}
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 2. HEADER & LOGO BAR                                        *
+ * ─────────────────────────────────────────────────────────── */
+.logo-header {
+    background: var(--cms-primary) !important;
+}
+
+.navbar-header {
+    background: var(--cms-primary) !important;
+}
+
+/* Ensure logo text / icons stay white against a colored header */
+.logo-header .logo,
+.logo-header .navbar-toggler .navbar-toggler-icon,
+.logo-header .more,
+.logo-header .btn-toggle {
+    color: #ffffff !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 3. SIDEBAR                                                  *
+ * ─────────────────────────────────────────────────────────── */
+.sidebar {
+    background: var(--cms-sidebar-bg) !important;
+}
+
+/* Nav link text color */
+.sidebar .nav .nav-item a,
+.sidebar .nav .nav-item a p,
+.sidebar .nav .nav-item a i,
+.sidebar .nav .nav-item a .caret {
+    color: var(--cms-sidebar-text) !important;
+}
+
+/* Active nav item */
+.sidebar .nav > .nav-item.active > a,
+.sidebar .nav > .nav-item.active > a:hover,
+.sidebar .nav > .nav-item.active > a:focus {
+    background: var(--cms-sidebar-active-bg) !important;
+    color: var(--cms-sidebar-active-text) !important;
+}
+
+.sidebar .nav > .nav-item.active > a p,
+.sidebar .nav > .nav-item.active > a i,
+.sidebar .nav > .nav-item.active > a .caret {
+    color: var(--cms-sidebar-active-text) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 4. BUTTONS                                                  *
+ * ─────────────────────────────────────────────────────────── */
+.btn-primary {
+    background-color: var(--cms-primary) !important;
+    border-color:     var(--cms-primary) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: var(--cms-primary-dark) !important;
+    border-color:     var(--cms-primary-dark) !important;
+}
+
+.btn-secondary {
+    background-color: var(--cms-secondary) !important;
+    border-color:     var(--cms-secondary) !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+    background-color: var(--cms-secondary-dark) !important;
+    border-color:     var(--cms-secondary-dark) !important;
+}
+
+.btn-success {
+    background-color: var(--cms-success) !important;
+    border-color:     var(--cms-success) !important;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+    background-color: var(--cms-success-dark) !important;
+    border-color:     var(--cms-success-dark) !important;
+}
+
+.btn-warning {
+    background-color: var(--cms-warning) !important;
+    border-color:     var(--cms-warning) !important;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+    background-color: var(--cms-warning-dark) !important;
+    border-color:     var(--cms-warning-dark) !important;
+}
+
+.btn-danger {
+    background-color: var(--cms-danger) !important;
+    border-color:     var(--cms-danger) !important;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background-color: var(--cms-danger-dark) !important;
+    border-color:     var(--cms-danger-dark) !important;
+}
+
+.btn-info {
+    background-color: var(--cms-info) !important;
+    border-color:     var(--cms-info) !important;
+}
+
+.btn-info:hover,
+.btn-info:focus {
+    background-color: var(--cms-info-dark) !important;
+    border-color:     var(--cms-info-dark) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 5. LINKS                                                    *
+ * ─────────────────────────────────────────────────────────── */
+.main-panel a:not(.btn):not(.nav-link):not(.dropdown-item) {
+    color: var(--cms-primary);
+}
+
+.main-panel a:not(.btn):not(.nav-link):not(.dropdown-item):hover {
+    color: var(--cms-primary-dark);
+}
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 6. STATUS BADGES & ALERTS                                   *
+ * ─────────────────────────────────────────────────────────── */
+.badge-primary  { background-color: var(--cms-primary)   !important; }
+.badge-secondary{ background-color: var(--cms-secondary) !important; }
+.badge-success  { background-color: var(--cms-success)   !important; }
+.badge-warning  { background-color: var(--cms-warning)   !important; }
+.badge-danger   { background-color: var(--cms-danger)    !important; }
+.badge-info     { background-color: var(--cms-info)      !important; }
+
+.alert-primary   { border-left-color: var(--cms-primary)   !important; }
+.alert-secondary { border-left-color: var(--cms-secondary) !important; }
+.alert-success   { border-left-color: var(--cms-success)   !important; }
+.alert-warning   { border-left-color: var(--cms-warning)   !important; }
+.alert-danger    { border-left-color: var(--cms-danger)    !important; }
+.alert-info      { border-left-color: var(--cms-info)      !important; }
+
+
+/* ─────────────────────────────────────────────────────────── *
+ * 7. PAGE & CARDS                                             *
+ * ─────────────────────────────────────────────────────────── */
+.page-inner {
+    background: var(--cms-body-bg);
+}
+
+.card {
+    background: var(--cms-card-bg);
+    border-color: var(--cms-border-color);
+}
+
+.card-header {
+    border-bottom-color: var(--cms-border-color);
+}
+
+body {
+    color: var(--cms-body-text);
+}
