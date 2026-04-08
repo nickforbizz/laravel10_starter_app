@@ -1,18 +1,12 @@
 <?php
 
-use App\Events\UserRegistered;
-use App\Http\Controllers\cms\AssignRoleController;
 use App\Http\Controllers\cms\NotificationController;
 use App\Http\Controllers\cms\PermissionController;
 use App\Http\Controllers\cms\UserController;
-use App\Http\Controllers\cms\PostCategoryController;
-use App\Http\Controllers\cms\PostController;
 use App\Http\Controllers\cms\ProductCategoryController;
-use App\Http\Controllers\cms\ProductController;
 use App\Http\Controllers\cms\ReportController;
 use App\Http\Controllers\cms\RoleController;
 use App\Http\Controllers\cms\SearchController;
-use App\Http\Controllers\frontend\ViewsController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -47,7 +41,6 @@ Route::get('/optimize', function () {
     Artisan::call('config:cache');
     Artisan::call('optimize');
     Artisan::call('storage:link');
-    Artisan::call('composer dump-autoload');
     return 'done';
 });
 
@@ -65,10 +58,7 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 
 // Frontend Views
-Route::get('/', [ViewsController::class, 'index'])->name('wellcome');
-Route::get('/about', [ViewsController::class, 'about'])->name('about');
-Route::get('/blog/{id}', [ViewsController::class, 'getPost'])->name('blog');
-Route::get('/blogs', [ViewsController::class, 'posts'])->name('blogs');
+Route::redirect('/', '/login')->name('wellcome');
 Route::prefix('web')->group(function () {
 
 });
@@ -89,22 +79,13 @@ Route::middleware('cms')->group(function () {
     // Resources Routes
     Route::resources([
         'users' => UserController::class,
-        'posts' => PostController::class,
-        'postCategories' => PostCategoryController::class,
-        'products' => ProductController::class,
         'productCategories' => ProductCategoryController::class,
         'roles' => RoleController::class,
         'permissions' => PermissionController::class,
-        'assignRoles' => AssignRoleController::class,
         'reports' => ReportController::class,
         'notifications' => NotificationController::class,
     ]);
 
-    // CART Routes
-    Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
-    Route::get('add-to-cart/{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
-    Route::patch('update-cart', [ProductsController::class, 'updateCart'])->name('updateCart');
-    Route::delete('remove-from-cart', [ProductsController::class, 'removeCartItem'])->name('removeCartItem');
 
     Route::post('/notifications//mark-as-read', [NotificationController::class, 'markNotification'])->name('notifications.markNotification');
 });

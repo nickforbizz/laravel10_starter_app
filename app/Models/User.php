@@ -8,6 +8,12 @@ namespace App\Models;
 
 use App\Traits\Cacheable;
 use Carbon\Carbon;
+
+use LdapRecord\Laravel\Auth\HasLdapUser;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
+
+
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +23,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 /**
  * Class User
  * 
@@ -43,9 +50,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-class User extends Authenticatable
+class User extends Authenticatable implements LdapAuthenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions;
+
+	use HasLdapUser, AuthenticatesWithLdap;
 
 	use SoftDeletes;
 
@@ -64,22 +73,36 @@ class User extends Authenticatable
 		'remember_token'
 	];
 
+	// protected $fillable = [
+	// 	'fname',
+	// 	'lname',
+	// 	'sname',
+	// 	'name',
+	// 	'email',
+	// 	'phone',
+	// 	'email_verified_at',
+	// 	'password',
+	// 	'two_factor_secret',
+	// 	'two_factor_recovery_codes',
+	// 	'two_factor_confirmed_at',
+	// 	'avator',
+	// 	'active',
+	// 	'remember_token'
+	// ];
 	protected $fillable = [
-		'fname',
-		'lname',
-		'sname',
-		'name',
+        'name',
+        'username',
+        'password',
+		'guid',
 		'email',
-		'phone',
-		'email_verified_at',
-		'password',
-		'two_factor_secret',
-		'two_factor_recovery_codes',
-		'two_factor_confirmed_at',
-		'avator',
+		'domain',
 		'active',
-		'remember_token'
-	];
+    ];
+
+	// override the default guard name for Spatie permissions
+	protected $guard_name = 'web';
+
+	
 
 	public function post_categories()
 	{
@@ -96,9 +119,9 @@ class User extends Authenticatable
 	/**
      * Hash the password before saving the user record.
      */
-    public function setPasswordAttribute($password)
-    {   
-        $this->attributes['password'] = bcrypt($password);
-    }
+    // public function setPasswordAttribute($password)
+    // {   
+    //     $this->attributes['password'] = bcrypt($password);
+    // }
 
 }

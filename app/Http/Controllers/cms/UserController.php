@@ -136,12 +136,12 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        if ($request->has('password')) {
-            $user->update($request->all());
+        // if ($request->has('password')) {
+        //     $user->update($request->all());
             
-            return redirect()
-            ->route('users.show', $user)->with('success', 'Password was updated successfully.');
-        }
+        //     return redirect()
+        //     ->route('users.show', $user)->with('success', 'Password was updated successfully.');
+        // }
 
         $request = $this->addFieldsStoreImg($request, $user);
         $user->update($request->all());

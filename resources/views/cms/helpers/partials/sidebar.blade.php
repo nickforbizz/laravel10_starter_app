@@ -64,12 +64,7 @@
 					</a>
 				</li>
 
-				<li class="nav-item @if(Route::is('products.*')) active @endif">
-					<a href="{{ route('products.index') }}">
-						<i class="far fa-edit"></i>
-						<p> Products</p>
-					</a>
-				</li>
+				
 
 				<li class="nav-item @if(Route::is('reports.*')) active @endif">
 					<a href="{{ route('reports.index') }}">

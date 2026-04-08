@@ -43,7 +43,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-class User extends Authenticatable
+class UserDB1 extends Authenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions;
 

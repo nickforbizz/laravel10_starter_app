@@ -8,9 +8,8 @@ class BaseModel extends Model
 {
     protected static function booted()
     {
-       
-    }
-
-   return strtolower(class_basename($modelClass)) . '_all';
+        static::creating(function ($model) {
+            $model->cacheKey = strtolower(class_basename($model)) . '_all';
+        });
     }
 }

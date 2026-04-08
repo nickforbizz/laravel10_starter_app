@@ -29,7 +29,7 @@ class AdminSeeder extends Seeder
 
 
 
-        // admin
+        // admin 
         $admin = User::create([
             'fname' => 'Just',
             'lname' => 'Admin',

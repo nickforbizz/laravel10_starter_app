@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Presento Bootstrap Template</title>
+  <title> {{ config('app.name', 'Laravel') }}</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -26,6 +26,7 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('assets/frontend/css/main.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/frontend/css/glassmorphism.css') }}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Presento
@@ -44,20 +45,14 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="{{ asset('assets/frontend/img/logo.png') }}" alt=""> -->
-        <h1 class="sitename">Supertech Nomads</h1>
+        <h1 class="sitename">{{ config('app.name', 'Laravel') }}</h1>
         <span>.</span>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home<br></a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="{{ url('blogs') }}">Blog</a></li>
-          
-          <li><a href="#contact">Contact</a></li>
+   
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -85,7 +80,7 @@
     <div class="row gy-4">
       <div class="col-lg-4 col-md-6 footer-about">
         <a href="index.html" class="logo d-flex align-items-center">
-          <span class="sitename">Presento</span>
+          <span class="sitename">{{ config('app.name', 'Laravel') }}</span>
         </a>
         <div class="footer-contact pt-3">
           <p>A108 Adam Street</p>
@@ -138,7 +133,7 @@
   </div>
 
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">Presento</strong> <span>All Rights Reserved</span></p>
+    <p>© <span>Copyright</span> <strong class="px-1 sitename">{{ config('app.name', 'Laravel') }}</strong> <span>All Rights Reserved</span></p>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you've purchased the pro version. -->
